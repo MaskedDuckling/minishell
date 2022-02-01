@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/19 16:16:08 by eydupray          #+#    #+#              #
-#    Updated: 2022/02/01 19:16:33 by user42           ###   ########.fr        #
+#    Updated: 2022/02/01 20:32:04 by maskedduck       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	=	main.c 				\
 			parsing.c 			\
 			split_command.c 	\
 			split_line.c		\
+			get_path.c			\
 			fct_tab.c			
 
 OBJS = ${addprefix Srcs/,${SRCS:.c=.o}}
