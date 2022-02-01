@@ -32,7 +32,6 @@ typedef struct s_envi
 
 typedef struct	s_word
 {
-	int				pos;
 	char			*cont;
 	struct s_word	*next;
 }				t_word;
@@ -49,7 +48,7 @@ char		**split_line(char *command);
 char		*for_access(char *cmd, char **environ);
 
 void		free_command(char **command);
-void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com));
+void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
 
 
 #endif
