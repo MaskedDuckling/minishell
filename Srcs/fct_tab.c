@@ -11,7 +11,7 @@ int	skip(char *str, int i, t_command *com)
 int	alpha_num(char *str, int i, t_command *com)
 {
 	printf("alpha_num\n");
-	while ((str[i] > 'a' && str[i] < 'z')
+	while (str[i] > 'a' && str[i] < 'z')
 		i++;
 	(void)com;
 	return(i++);

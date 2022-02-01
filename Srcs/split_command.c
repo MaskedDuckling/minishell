@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 20:36:10 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/01 18:40:14 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/02/01 19:20:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	split_command(char **tab)
 	t_command   *command;
 	int (*fct_tab[128])(char *str, int i, t_command *com);
 	
-	
+//printf("split_com\n");	
 	i = 0;
 	size_tab = len_tab(tab);
 	command = malloc(sizeof(t_command) * size_tab);
