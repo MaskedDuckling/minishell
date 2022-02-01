@@ -1,0 +1,19 @@
+$ < << > >> 
+cat << EOF
+
+commande << str | commande > file
+
+Structures qui contient info sur elements du term :
+type
+Position
+Contenu
+
+Split commande met dans une l_chaine
+
+chaine de char = " "
+des commandes = for_access renvoie le path
+des fichiers
+des dossier
+redirections = < << > >>
+des varianles d env = $
+
