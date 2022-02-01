@@ -17,3 +17,9 @@ des dossier
 redirections = < << > >>
 des varianles d env = $
 
+
+char    **argv;
+char    **environ;
+char    *path_to_command;
+char	*input;
+char	*output;

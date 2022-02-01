@@ -25,7 +25,6 @@ typedef struct	s_command
 
 typedef struct	s_word
 {
-	int				pos;
 	char			*cont;
 	struct s_word	*next;
 }				t_word;
@@ -41,7 +40,7 @@ t_command	*parsing(char *line, char **environ);
 char		**split_line(char *command);
 
 void		free_command(char **command);
-void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com));
+void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
 
 
 #endif
