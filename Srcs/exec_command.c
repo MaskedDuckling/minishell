@@ -6,7 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 16:48:16 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/02 17:29:08 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/02/02 18:34:45 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	child_process(t_command command, int *tube, int fd)
 {
 	close(tube[1]);
+	(void)fd;
 	if (fd != STDIN_FILENO)
 		dup2(fd, STDIN_FILENO);
 	if (tube[0] != STDOUT_FILENO)
@@ -35,7 +36,8 @@ void    exec_command(t_command *commands)
 	fd = STDIN_FILENO;
 	while (commands[i].argv)
 	{
-		pipe(tube);
+		if (commands[i + 1].argv)
+			pipe(tube);
 		pid = fork();
 		if (pid == 0)
 			child_process(commands[i], tube, fd);

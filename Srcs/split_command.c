@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 20:36:10 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/02 17:17:02 by user42           ###   ########.fr       */
+/*   Updated: 2022/02/02 17:34:59 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,6 @@ char **make_argv(t_word *first)
 	return (argv);
 }
 
-char *venv_quotes(char *str)
-{
-	char	**tab;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			dquotes(tab, str, i, j);
-		if (str[i] == ',')
-			squotes(tab, str, i, j);
-		if (str[i] == '$')
-			venv(tab, str, i, j);
-		i++;
-	}
-	
-}
-
 int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
 		t_command *com, t_word *first))
 {
@@ -82,7 +61,6 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 		return(-1);
 	first->cont = NULL;
 	first->next = NULL;
-	str = venv_quotes(str);
 	while (i < ft_strlen(str))
 		i = fct_tab[(int)str[i]](str, i, com, first);
 	com->argv = make_argv(first);
