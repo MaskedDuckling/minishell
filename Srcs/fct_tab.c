@@ -53,7 +53,7 @@ int	alpha_num(char *str, int i, t_command *com, t_word *first)
 	printf("alpha_num\n");
 	start = i;
 	end = i;
-	while (str[end] != ' ')
+	while (str[end] && str[end] != ' ')
 		end++;
 	place_word(first, cut_word(str, start, end));
 	(void)com;
@@ -63,31 +63,75 @@ int	alpha_num(char *str, int i, t_command *com, t_word *first)
 
 int	input(char *str, int i, t_command *com, t_word *first)
 {
+	int	end;
+	int	start;
+
 	printf("input\n");
+	start = ++i;
+	while (str[start] && str[start] == ' ')
+		start++;
+	end = start;
+	while (str[end] && str[end] != ' ')
+		end++;
+	com->input = cut_word(str, start, end);
 	(void)first;
-	(void)str;
-	(void)com;
-	i++;
-	return(i);
+	return(end);
 }
 
 int	output(char *str, int i, t_command *com, t_word *first)
 {
+	int	end;
+	int	start;
+
 	printf("output\n");
+	start = ++i;
+	while (str[start] && str[start] == ' ')
+		start++;
+	end = start;
+	while (str[end] && str[end] != ' ')
+		end++;
+	com->output = cut_word(str, start, end);
 	(void)first;
-	(void)str;
-	(void)com;
-	i++;
-	return(i);
+	return(end);
 }
 
-int	string(char *str, int i, t_command *com, t_word *first)
+int	dquotes(char *str, int i, t_command *com, t_word *first)
 {
-	printf("string\n");
+	int	end;
+	int	start;
+
+	printf("dquotes\n");
+	start = ++i;
+	end = i;
+	while (str[end] && str[end] != '\"')
+		end++;
+	place_word(first, cut_word(str, start, end));
+	(void)com;
+	return(++end);
+}
+
+int	squotes(char *str, int i, t_command *com, t_word *first)
+{
+	int	end;
+	int	start;
+
+	printf("squotes\n");
+	start = ++i;
+	end = i;
+	while (str[end] && str[end] != '\'')
+		end++;
+	place_word(first, cut_word(str, start, end));
+	(void)com;
+	return(++end);
+}
+
+int	venv(char *str, int i, t_command *com, t_word *first)
+{
+	printf("venv\n");
 	(void)first;
 	(void)str;
 	(void)com;
-	while (str[i] && str[i] != 0)
+	while (str[i] && str[i] != ' ')
 		i++;
 	return(i);
 }
@@ -110,5 +154,7 @@ void	init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *
 		fct_tab[i++] = alpha_num;
 	fct_tab['<'] = input;
 	fct_tab['>'] = output;
-	fct_tab['"'] = string;
+	fct_tab['\"'] = dquotes;
+	fct_tab['\''] = squotes;
+	fct_tab['$'] = venv;
 }

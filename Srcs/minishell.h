@@ -36,6 +36,15 @@ typedef struct	s_word
 	struct s_word	*next;
 }				t_word;
 
+typedef struct s_venv_quotes
+{
+	t_word	*first;
+	int		s;
+	int		e;
+}
+				t_venv_quotes;
+
+	
 char		**ft_split(char const *s, char c);
 void		split_command(char **tab);
 int			ft_strend_is(char *str, char *end);
@@ -49,6 +58,7 @@ char		*for_access(char *cmd, char **environ);
 
 void		free_command(char **command);
 void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
+char 		*join_words(t_word *first);
 
 
 #endif

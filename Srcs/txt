@@ -18,7 +18,7 @@ parcourir string,
 					si squotes -> mettre prochaim mots
 					si dquotes -> faire mot + mots par venv
 
-
+REMPLACER ' ' par les is_space
 
 
 des commandes = for_access renvoie le path
@@ -34,3 +34,7 @@ char    *path_to_command;
 char	*input;
 char	*output;
 
+letters"quotes"letters$VENV.letters 
+
+
+MOT mot "lapon" 'lapin' >ICI <OULA
