@@ -11,11 +11,21 @@ Contenu
 Split commande met dans une l_chaine
 
 chaine de char = " "
+des varianles d env = $
+
+parcourir string,
+					si venv -> couper 1er mots puis ajouter mot de la venv
+					si squotes -> mettre prochaim mots
+					si dquotes -> faire mot + mots par venv
+
+
+
+
 des commandes = for_access renvoie le path
 des fichiers
 des dossier
 redirections = < << > >>
-des varianles d env = $
+
 
 
 char    **argv;
@@ -23,3 +33,4 @@ char    **environ;
 char    *path_to_command;
 char	*input;
 char	*output;
+

@@ -53,9 +53,7 @@ int	alpha_num(char *str, int i, t_command *com, t_word *first)
 	printf("alpha_num\n");
 	start = i;
 	end = i;
-	while ((str[end] >= 'a' && str[end] <= 'z')
-			|| (str[end] >= 'A' && str[end] <= 'Z')
-			|| (str[end] >= '0' && str[end] <= '9'))
+	while (str[end] != ' ')
 		end++;
 	place_word(first, cut_word(str, start, end));
 	(void)com;
@@ -85,11 +83,12 @@ int	output(char *str, int i, t_command *com, t_word *first)
 
 int	string(char *str, int i, t_command *com, t_word *first)
 {
-	printf("output");
+	printf("string\n");
 	(void)first;
 	(void)str;
 	(void)com;
-	i++;
+	while (str[i] && str[i] != 0)
+		i++;
 	return(i);
 }
 

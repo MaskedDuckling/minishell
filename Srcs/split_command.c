@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 20:36:10 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/01 20:41:33 by user42           ###   ########.fr       */
+/*   Updated: 2022/02/02 17:17:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,54 @@ int  len_tab(char **tab)
 	return (i);
 }
 
+char **make_argv(t_word *first)
+{
+	int	i;
+	int	j;
+	t_word	*tmp;
+	char	**argv;
+
+	tmp = first;
+	i = 0;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	argv = malloc(sizeof(char *) * i);
+	if (!argv)
+		return (NULL);
+	j = 0;
+	while (j < i)
+	{
+		argv[j++] = first->cont;
+		first = first->next;
+	}
+	argv[j] = NULL;
+	return (argv);
+}
+
+char *venv_quotes(char *str)
+{
+	char	**tab;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			dquotes(tab, str, i, j);
+		if (str[i] == ',')
+			squotes(tab, str, i, j);
+		if (str[i] == '$')
+			venv(tab, str, i, j);
+		i++;
+	}
+	
+}
+
 int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
 		t_command *com, t_word *first))
 {
@@ -34,10 +82,13 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 		return(-1);
 	first->cont = NULL;
 	first->next = NULL;
+	str = venv_quotes(str);
 	while (i < ft_strlen(str))
-	{
 		i = fct_tab[(int)str[i]](str, i, com, first);
-	}
+	com->argv = make_argv(first);
+	i = 0;
+	while (com->argv[i])
+		printf("%s\n", com->argv[i++]);
 	return(1);
 }
 
