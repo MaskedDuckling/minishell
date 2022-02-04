@@ -6,7 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 19:50:11 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/02 19:24:24 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/02/04 16:55:40 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,66 @@ void	ft_unset(t_envi **envi, char *var_name)
 			free((*envi)->name);
 			free((*envi)->path);
 			free(*envi);
+			*envi = tmp;
 		}
-		*envi = tmp;
+		else
+			envi = &(*envi)->next;
 	}
+}
+
+void	ft_env(t_envi *envi)
+{
+	char **env;
+	int i;
+
+	i = 0;
+	env = join_envi(envi);
+	while (env[i])
+	{
+		printf("%s\n",env[i]);
+		i++;
+	}
+}
+
+int		echo_flag(char *flag)
+{
+	int i;
+
+	i = 0;
+	if (flag[i++] == '-')
+	{
+		while (flag[i])
+		{
+			if (flag[i] != 'n')
+				return (0);
+			i++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+void	ft_echo(char **argv)
+{
+	int i;
+
+	i = 2;
+	if (argv[1] && echo_flag(argv[1]) == 0)
+		i = 1;
+	while (argv[i])
+	{
+		printf("%s",argv[i]);
+		if (argv[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (argv[1] && echo_flag(argv[1]) == 0)
+		printf("\n");
+	
+}
+
+void	ft_cd(char *path)
+{
+	if (chdir(path) == -1)
+		printf("%s\n",strerror(errno));
 }

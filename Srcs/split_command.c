@@ -6,11 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 20:36:10 by maskedduck        #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/02 18:38:42 by user42           ###   ########.fr       */
-=======
-/*   Updated: 2022/02/02 17:34:59 by maskedduck       ###   ########.fr       */
->>>>>>> 8c53cd563a168838a74520ce07c92f7e28ca61d8
+/*   Updated: 2022/02/02 19:32:22 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +49,6 @@ char **make_argv(t_word *first)
 	return (argv);
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c53cd563a168838a74520ce07c92f7e28ca61d8
 int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
 		t_command *com, t_word *first))
 {

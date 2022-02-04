@@ -6,7 +6,7 @@
 #    By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/19 16:16:08 by eydupray          #+#    #+#              #
-#    Updated: 2022/02/02 19:22:41 by maskedduck       ###   ########.fr        #
+#    Updated: 2022/02/04 17:01:10 by maskedduck       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS	=	main.c 				\
 			get_path.c			\
 			exec_command.c		\
 			environnement.c		\
-			builtins.c		\
+			builtins.c			\
 			fct_tab.c			
 
 OBJS = ${addprefix Srcs/,${SRCS:.c=.o}}

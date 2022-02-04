@@ -6,7 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:46:08 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/02 19:23:49 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/02/04 16:04:45 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ char	*tochar(char *s1, char c)
 	return (NULL);
 }
 
+int		envi_len(t_envi *envi)
+{
+	int i;
+
+	i = 0;
+	while (envi)
+	{
+		envi = envi->next;
+		i++;
+	}
+	return (i);
+}
+
 char	**join_envi(t_envi *envi)
 {
 	char **ret;
@@ -36,19 +49,15 @@ char	**join_envi(t_envi *envi)
 	int j;
 
 	j = 0;
-	i = 0;
-	while (envi)
-	{
-		envi = envi->next;
-		i++;
-	}
+	i = envi_len(envi);
 	ret = malloc(sizeof(char *) * (i + 1));
 	if (!ret)
 		return (NULL);
 	while (j < i)
 	{
-		ret[j] = ft_strjoin(envi[j].name, "=");
-		ret[j] = ft_strjoin_free(ret[j], envi[j].path);
+		ret[j] = ft_strjoin(envi->name, "=");
+		ret[j] = ft_strjoin_free(ret[j], envi->path);
+		envi = envi->next;
 		j++;
 	}
 	ret[j] = NULL;
@@ -94,7 +103,7 @@ void	add_new(t_envi **envi, char *data)
 	tmp = *envi;
 	*envi = malloc(sizeof(t_envi));
 	(*envi)->path = ft_strdup(tochar(data, '='));
-	while (data)
+	while (data[i])
 		i++;
 	(*envi)->name = ft_strdup(data);
 	(*envi)->next = tmp;
@@ -108,6 +117,7 @@ t_envi	*environnement(char **environnement)
 	while (environnement[i])
 	{
 		add_new(&envi,environnement[i]);
+		i++;
 	}
 	return (envi);
 }
