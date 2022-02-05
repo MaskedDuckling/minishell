@@ -18,6 +18,8 @@ typedef struct	s_command
 {
 	char    **argv;
 	char    **environ;
+	char	*input;
+	char	*output;
 }               t_command;
 
 typedef struct s_envi

@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/19 16:16:08 by eydupray          #+#    #+#              #
-#    Updated: 2022/02/02 19:22:41 by maskedduck       ###   ########.fr        #
+#    Updated: 2022/02/02 19:36:36 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = clang
 INC = minishell.h
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
+-fsanitize=address
 
 SRCS	=	main.c 				\
 			ft_split.c 			\
