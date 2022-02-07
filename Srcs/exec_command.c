@@ -6,7 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 16:48:16 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/02 18:34:45 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/02/07 14:17:14 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,4 @@ void    exec_command(t_command *commands)
 	}
 	close(tube[0]);
 	close(tube[1]);
-}
-
-void	fake_main(int ac, char **av, char **environ)
-{
-	t_command *command = NULL;
-	int i = 1;
-
-	command = malloc(sizeof(t_command) * ac);
-	if (!command)
-		return ;
-	while (i < ac)
-	{
-		av[i] = replace_newline(av[i], ' ');
-		command[i - 1].argv = ft_split(av[i], '\n');
-		command[i - 1].environ = environ;
-		i++;
-	}
-	command[i - 1].argv = NULL;
-	command[i - 1].environ = NULL;
-	exec_command(command);
 }
