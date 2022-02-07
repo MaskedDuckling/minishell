@@ -6,14 +6,14 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/19 16:16:08 by eydupray          #+#    #+#              #
-#    Updated: 2022/02/05 01:22:19 by user42           ###   ########.fr        #
+#    Updated: 2022/02/07 14:42:00 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = clang
 INC = minishell.h
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 -fsanitize=address
 
 SRCS	=	main.c 				\

@@ -22,7 +22,7 @@ typedef struct	s_command
 	char    **environ;
 	char	*input;
 	char	*output;
-}               t_command;
+}				t_command;
 
 typedef struct s_envi
 {
@@ -37,7 +37,7 @@ typedef struct	s_word
 	struct s_word	*next;
 }				t_word;
 
-typedef struct s_venv_quotes
+typedef struct	s_venv_quotes
 {
 	t_word	*first;
 	int		s;
@@ -45,28 +45,32 @@ typedef struct s_venv_quotes
 }
 				t_venv_quotes;
 
-	
+/*Libft*/
 char		**ft_split(char const *s, char c);
-void		split_command(char **tab);
 int			ft_strend_is(char *str, char *end);
 int			ft_strlen(char *s);
 char		*ft_strjoin_free(char *s1, char *s2);
 char		*ft_strjoin(char *s1, char *s2);
 int			ft_strncmp(const char *s1, const char *s2, int n);
 int			ft_strcmp(const char *s1, const char *s2);
-t_command	*parsing(char *line, char **environ);
-char		**split_line(char *command);
-char		*for_access(char *cmd, char **environ);
-char		*replace_newline(char *command, char c);
-void		add_new(t_envi **envi, char *data);
-char		**join_envi(t_envi *envi);
+char		*ft_strdup(const char *s1);
 
-void		free_command(char **command);
+/*Parsing*/
 void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
 char 		*join_words(t_word *first);
+char		**split_line(char *command);
+char		*replace_newline(char *command, char c);
+t_command	*parsing(char *line, char **environ);
 
+/*Execution*/
+char		*for_access(char *cmd, char **environ);
+void		add_new(t_envi **envi, char *data);
+char		**join_envi(t_envi *envi);
 t_envi		*environnement(char **environnement);
-char		*ft_strdup(const char *s1);
+void		split_command(char **tab);
+void		free_command(char **command);
+void		exec_command(t_command *commands);
+
 /*builtins*/
 void		ft_env(t_envi *envi);
 void		ft_cd(char *path);
@@ -74,4 +78,5 @@ void		ft_unset(t_envi **envi, char *var_name);
 void		ft_export(t_envi **envi, char *new_env);
 int			ft_pwd(void);
 void		ft_echo(char **argv);
+
 #endif
