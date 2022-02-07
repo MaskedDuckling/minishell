@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 21:09:19 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/01 16:50:38 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/02/07 15:08:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,5 @@ t_command *parsing(char *line, char **environ)
 
 	environ = NULL;
 	com = split_line(line);
-	split_command(com);
-	return (NULL);
+	return (split_command(com));
 }

@@ -61,13 +61,13 @@ char 		*join_words(t_word *first);
 char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
 t_command	*parsing(char *line, char **environ);
+t_command	*split_command(char **tab);
 
 /*Execution*/
 char		*for_access(char *cmd, char **environ);
 void		add_new(t_envi **envi, char *data);
 char		**join_envi(t_envi *envi);
 t_envi		*environnement(char **environnement);
-void		split_command(char **tab);
 void		free_command(char **command);
 void		exec_command(t_command *commands);
 
