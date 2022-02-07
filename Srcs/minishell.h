@@ -66,7 +66,7 @@ void		add_new(t_envi **envi, char *data);
 char		**join_envi(t_envi *envi);
 t_envi		*environnement(char **environnement);
 void		free_command(char **command);
-void		exec_command(t_command *commands, t_envi *envi);
+void		exec_command(t_command *commands);
 
 /*builtins*/
 void		ft_env(t_envi *envi);

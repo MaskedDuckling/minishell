@@ -9,11 +9,11 @@ void	child_process(t_command command, int *tube, int fd)
 	if (tube[0] != STDOUT_FILENO)
 		dup2(tube[0], STDOUT_FILENO);
 	close(tube[0]);
-	command.argv[0] = for_access(command.argv[0], command.environ);
-	execve(command.argv[0], command.argv, command.envi);
+	command.argv[0] = for_access(command.argv[0], join_envi(command.envi));
+	execve(command.argv[0], command.argv, join_envi(command.envi));
 }
 
-void	exec_command(t_command *commands, t_envi *envi)
+void	exec_command(t_command *commands)
 {
 	int		tube[2];
 	pid_t	pid;
@@ -32,6 +32,7 @@ void	exec_command(t_command *commands, t_envi *envi)
 		fd = tube[1];
 		i++;
 	}
+	waitpid(pid, 0, 0);
 	close(tube[0]);
 	close(tube[1]);
 }
