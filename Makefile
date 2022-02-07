@@ -6,14 +6,14 @@
 #    By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/19 16:16:08 by eydupray          #+#    #+#              #
-#    Updated: 2022/02/07 14:24:26 by maskedduck       ###   ########.fr        #
+#    Updated: 2022/02/07 14:30:02 by maskedduck       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = clang
 INC = minishell.h
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 -fsanitize=address
 
 SRCS	=	main.c 				\
