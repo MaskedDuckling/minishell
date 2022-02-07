@@ -9,8 +9,8 @@ void	child_process(t_command command, int *tube, int fd)
 	if (tube[0] != STDOUT_FILENO)
 		dup2(tube[0], STDOUT_FILENO);
 	close(tube[0]);
-	command.argv[0] = for_access(command.argv[0], command.environ);
-	execve(command.argv[0], command.argv, command.environ);
+	command.argv[0] = for_access(command.argv[0], command.envi);
+	execve(command.argv[0], command.argv, command.envi);
 }
 
 void    exec_command(t_command *commands)
