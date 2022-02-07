@@ -24,7 +24,7 @@ typedef struct s_envi
 typedef struct	s_command
 {
 	char    **argv;
-	t_envi	*envi
+	t_envi	*envi;
 	char	*input;
 	char	*output;
 }				t_command;
@@ -59,7 +59,6 @@ char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
 t_command	*parsing(char *line, char **environ);
 t_command	*split_command(char **tab);
-
 
 /*Execution*/
 char		*for_access(char *cmd, char **environ);
