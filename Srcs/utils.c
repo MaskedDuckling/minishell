@@ -6,7 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:23:01 by eydupray          #+#    #+#             */
-/*   Updated: 2022/02/02 19:04:41 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/02/07 14:28:58 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,3 @@ int	ft_strend_is(char *str, char *end)
 	}
 	return (1);
 }
-
