@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fct_tab.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/07 14:24:16 by maskedduck        #+#    #+#             */
+/*   Updated: 2022/02/07 14:24:20 by maskedduck       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*cut_word(char *str, int start, int end)
@@ -53,13 +65,29 @@ int	alpha_num(char *str, int i, t_command *com, t_word *first)
 	printf("alpha_num\n");
 	start = i;
 	end = i;
-	while (str[end] && str[end] != ' ')
+	while (str[end] && str[end] != ' ' && str[end] != '\''
+		&& str[end] != '"' && str[end] != '$')
 		end++;
 	place_word(first, cut_word(str, start, end));
 	(void)com;
 	return(end);
 }
 
+int	alpha_num_quotes(char *str, int i, t_command *com, t_word *first)
+{
+	int	end;
+	int	start;
+
+	printf("alpha_num_quotes\n");
+	start = i;
+	end = i;
+	while (str[end] && str[end] != '\''
+		&& str[end] != '\"' && str[end] != '$')
+		end++;
+	place_word(first, cut_word(str, start, end));
+	(void)com;
+	return(end);
+}
 
 int	input(char *str, int i, t_command *com, t_word *first)
 {
@@ -95,20 +123,7 @@ int	output(char *str, int i, t_command *com, t_word *first)
 	return(end);
 }
 
-int	dquotes(char *str, int i, t_command *com, t_word *first)
-{
-	int	end;
-	int	start;
 
-	printf("dquotes\n");
-	start = ++i;
-	end = i;
-	while (str[end] && str[end] != '\"')
-		end++;
-	place_word(first, cut_word(str, start, end));
-	(void)com;
-	return(++end);
-}
 
 int	squotes(char *str, int i, t_command *com, t_word *first)
 {
@@ -136,25 +151,76 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	return(i);
 }
 
+
+
+char	*lch_to_str(t_word	*first)
+{
+	char *str;
+	t_word	*tmp;
+
+	tmp = first;
+	if (!tmp->cont)
+		return (NULL);
+	str = tmp->cont;
+	tmp = tmp->next;
+	while (tmp)
+	{
+		str = ft_strjoin(str, tmp->cont);
+		tmp = tmp->next;
+	}
+	return (str);
+}
+
+int	dquotes(char *str, int i, t_command *com, t_word *first)
+{
+	t_word	*new;
+	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int	n;
+
+	n = 0;
+	i++;
+	while (n < 128)
+		fct_tab[n++] = alpha_num_quotes;
+	fct_tab['\''] = squotes;
+	fct_tab['$'] = venv;
+	new = malloc(sizeof(t_word));
+	new->next = NULL;
+	new->cont = NULL;
+	while (str[i] && str[i] != '\"')
+		i = fct_tab[(int)str[i]](str, i, com, new);
+	place_word(first, lch_to_str(new));
+	return (++i);
+}
+
+int		word(char *str, int i, t_command *com, t_word *first)
+{
+	t_word	*new;
+	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int	n;
+
+	n = 0;
+	while (n < 128)
+		fct_tab[n++] = alpha_num;
+	fct_tab['\"'] = dquotes;
+	fct_tab['\''] = squotes;
+	fct_tab['$'] = venv;
+	new = malloc(sizeof(t_word));
+	new->next = NULL;
+	new->cont = NULL;
+	while (str[i] && str[i] != ' ')
+		i = fct_tab[(int)str[i]](str, i, com, new);
+	place_word(first, lch_to_str(new));
+	return (i);
+}
+
 void	init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first))
 {
 	int	i;
 
 	i = 0;
 	while (i < 128)
-		fct_tab[i++] = skip;
-	i = 'A';
-	while (i <= 'Z')
-		fct_tab[i++] = alpha_num;
-	i = 'a';
-	while (i <= 'z')
-		fct_tab[i++] = alpha_num;
-	 i = '0';
-	while (i <= '9')
-		fct_tab[i++] = alpha_num;
+		fct_tab[i++] = word;
+	fct_tab[' '] = skip;
 	fct_tab['<'] = input;
 	fct_tab['>'] = output;
-	fct_tab['\"'] = dquotes;
-	fct_tab['\''] = squotes;
-	fct_tab['$'] = venv;
 }
