@@ -38,7 +38,7 @@ char **make_argv(t_word *first)
 }
 
 int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
-		t_command *com, t_word *first))
+		t_command *com, t_word *first), t_envi *envi)
 {
 	int		i;
 	t_word	*first;
@@ -54,12 +54,13 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	com->argv = make_argv(first);
 	printf("input = |%s|\noutpout = |%s|\n", com->input, com->output);
 	i = 0;
+	com->envi = envi;
 	while (com->argv[i])
 		printf("|%s|\n", com->argv[i++]);
 	return(1);
 }
 
-t_command	*split_command(char **tab)
+t_command	*split_command(char **tab, t_envi *envi)
 {
 	int         i;
 	int         size_tab;
@@ -76,7 +77,7 @@ t_command	*split_command(char **tab)
 	{
 		command[i].output = NULL;
 		command[i].input = NULL;
-		parse_command(tab[i], &command[i], fct_tab);
+		parse_command(tab[i], &command[i], fct_tab, envi);
 		i++;
 	}
 	command[i].argv = NULL;
