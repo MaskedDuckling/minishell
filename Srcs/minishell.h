@@ -14,22 +14,20 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-
-
-typedef struct	s_command
-{
-	char    **argv;
-	char    **environ;
-	char	*input;
-	char	*output;
-}				t_command;
-
 typedef struct s_envi
 {
 	char	*path;
 	char	*name;
 	struct s_envi	*next;
 }				t_envi;
+
+typedef struct	s_command
+{
+	char    **argv;
+	t_envi	*envi;
+	char	*input;
+	char	*output;
+}				t_command;
 
 typedef struct	s_word
 {
@@ -42,8 +40,7 @@ typedef struct	s_venv_quotes
 	t_word	*first;
 	int		s;
 	int		e;
-}
-				t_venv_quotes;
+}				t_venv_quotes;
 
 /*Libft*/
 char		**ft_split(char const *s, char c);

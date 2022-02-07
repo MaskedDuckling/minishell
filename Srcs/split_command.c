@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 20:36:10 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/07 15:21:12 by user42           ###   ########.fr       */
+/*   Updated: 2022/02/07 15:29:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_command	*split_command(char **tab)
 	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
 		
 	size_tab = len_tab(tab);
-	command = malloc(sizeof(t_command) * size_tab);
+	command = malloc(sizeof(t_command) * (size_tab + 1));
 	if (!command)
 		return (NULL);
 	init_fct_tab(fct_tab);
@@ -91,5 +91,6 @@ t_command	*split_command(char **tab)
 		parse_command(tab[i], &command[i], fct_tab);
 		i++;
 	}
+	command[i].argv = NULL;
 	return (command);
 }
