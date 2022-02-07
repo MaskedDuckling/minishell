@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 20:36:10 by maskedduck        #+#    #+#             */
-/*   Updated: 2022/02/07 14:41:41 by user42           ###   ########.fr       */
+/*   Updated: 2022/02/07 15:11:32 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char **make_argv(t_word *first)
 		i++;
 		tmp = tmp->next;
 	}
-	argv = malloc(sizeof(char *) * i);
+	argv = malloc(sizeof(char *) * (i + 1));
 	if (!argv)
 		return (NULL);
 	j = 0;
@@ -71,7 +71,7 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	return(1);
 }
 
-void	split_command(char **tab)
+t_command	*split_command(char **tab)
 {
 	int         i;
 	int         size_tab;
@@ -79,9 +79,9 @@ void	split_command(char **tab)
 	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
 		
 	size_tab = len_tab(tab);
-	command = malloc(sizeof(t_command) * size_tab);
+	command = malloc(sizeof(t_command) * (size_tab + 1));
 	if (!command)
-		return ;
+		return (NULL);
 	init_fct_tab(fct_tab);
 	i = 0;
 	while (i >= 0 && i < size_tab)
@@ -91,4 +91,6 @@ void	split_command(char **tab)
 		parse_command(tab[i], &command[i], fct_tab);
 		i++;
 	}
+	command[i].argv = NULL;
+	return (command);
 }
