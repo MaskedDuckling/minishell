@@ -37,27 +37,40 @@ char **make_argv(t_word *first)
 	return (argv);
 }
 
+void	destroy_word(t_word	*first)
+{
+	t_word	*tmp;
+
+	while (first)
+	{
+		tmp = first->next;
+		free(first);
+		first = tmp;
+	}
+}
 int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
 		t_command *com, t_word *first), t_envi *envi)
 {
 	int		i;
 	t_word	*first;
-
+//gerer dquotes vides
  	i = 0;
 	first = malloc(sizeof(t_word));
 	if (!first)
 		return(-1);
 	first->cont = NULL;
 	first->next = NULL;
-	while (i < ft_strlen(str))
-		i = fct_tab[(int)str[i]](str, i, com, first);
-	com->argv = make_argv(first);
-	printf("input = |%s|\noutpout = |%s|\n", com->input, com->output);
-	i = 0;
 	com->envi = envi;
+	while (i >= 0 && i < ft_strlen(str))
+		i = fct_tab[(int)str[i]](str, i, com, first);
+	if (i >= 0)
+		com->argv = make_argv(first);
+	destroy_word(first);
+	printf("input = |%s|\noutpot = |%s|\n", com->input, com->output);
+	i = 0;
 	while (com->argv[i])
 		printf("|%s|\n", com->argv[i++]);
-	return(1);
+	return(i);
 }
 
 t_command	*split_command(char **tab, t_envi *envi)
@@ -66,6 +79,7 @@ t_command	*split_command(char **tab, t_envi *envi)
 	int         size_tab;
 	t_command   *command;
 	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int		check;
 		
 	size_tab = len_tab(tab);
 	command = malloc(sizeof(t_command) * (size_tab + 1));
@@ -73,12 +87,18 @@ t_command	*split_command(char **tab, t_envi *envi)
 		return (NULL);
 	init_fct_tab(fct_tab);
 	i = 0;
-	while (i >= 0 && i < size_tab)
+	check = 0;
+	while (check >= 0 && i < size_tab)
 	{
 		command[i].output = NULL;
 		command[i].input = NULL;
-		parse_command(tab[i], &command[i], fct_tab, envi);
+		check = parse_command(tab[i], &command[i], fct_tab, envi);
 		i++;
+	}
+	if (check < 0)
+	{
+		free(command);
+		return (NULL);
 	}
 	command[i].argv = NULL;
 	return (command);

@@ -100,3 +100,24 @@ int	ft_strend_is(char *str, char *end)
 	}
 	return (1);
 }
+
+char	*ft_substr(char *s, int start, int len)
+{
+	char	*new;
+	int		i;
+
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (!(new = malloc((len + 1) * sizeof(char))))
+		return (NULL);
+	i = 0;
+	while (i < len && s[start])
+		new[i++] = s[start++];
+	if (start > ft_strlen(s))
+		new[0] = 0;
+	new[i] = 0;
+	return (new);
+}
+

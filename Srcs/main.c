@@ -13,7 +13,7 @@ int main(int ac, char **av, char **environ)
 	while (line)
 	{
 		commands = parsing(line, envi);
-		if (!ft_strcmp(commands[0].argv[0], "exit"))
+		if (!commands || !ft_strcmp(commands[0].argv[0], "exit"))
 			break;
 		exec_command(commands);
 		line = readline("minishell : ");
