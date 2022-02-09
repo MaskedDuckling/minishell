@@ -12,6 +12,7 @@ int main(int ac, char **av, char **environ)
 	line = readline("minishell : ");
 	while (line)
 	{
+		add_history(line);
 		commands = parsing(line, envi);
 		if (!commands || !ft_strcmp(commands[0].argv[0], "exit"))
 			break;
