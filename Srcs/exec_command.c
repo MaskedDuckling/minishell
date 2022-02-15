@@ -1,8 +1,6 @@
 #include "minishell.h"
 
-// cat Makefile | cat | wc
-
-void	child_process(t_command command, int *tube, int fd)
+void	child_process(t_command command, int *tube, int fd, t_envi **envi)
 {
 	char	*path;
 
@@ -16,12 +14,14 @@ void	child_process(t_command command, int *tube, int fd)
 		dup2(tube[1], STDOUT_FILENO);
 		close(tube[1]);
 	}
+	if (ft_builtins(command, envi) == 1)
+		exit(1);
 	path = for_access(command.argv[0], join_envi(command.envi));
 	execve(path, command.argv, join_envi(command.envi));
 	exit(1);
 }
 
-void	exec_command(t_command *commands)
+void	exec_command(t_command *commands, t_envi **envi)
 {
 	int		tube[2];
 	pid_t	pid;
@@ -38,7 +38,7 @@ void	exec_command(t_command *commands)
 			tube[1] = STDOUT_FILENO;
 		pid = fork();
 		if (pid == 0)
-			child_process(commands[i], tube, fd);
+			child_process(commands[i], tube, fd, envi);
 		if (i > 0)
 			close(fd);
 		fd = tube[0];
