@@ -51,6 +51,7 @@ char		*ft_strjoin(char *s1, char *s2);
 int			ft_strncmp(const char *s1, const char *s2, int n);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup(const char *s1);
+char		*ft_substr(char *s, int start, int len);
 
 /*Parsing*/
 void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
@@ -68,6 +69,8 @@ t_envi		*environnement(char **environnement);
 void		free_command(char **command);
 void		exec_command(t_command *commands, t_envi **envi);
 int			ft_builtins(t_command command, t_envi **envi);
+char		*src_envi(t_envi *envi, char *var_name);
+
 
 /*builtins*/
 void		ft_env(t_envi *envi);

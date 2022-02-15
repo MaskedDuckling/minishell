@@ -5,5 +5,7 @@ t_command *parsing(char *line, t_envi *envi)
 	char	**com;
 
 	com = split_line(line);
-	return (split_command(com, envi));
+	if (com)
+		return (split_command(com, envi));
+	return (NULL);
 }

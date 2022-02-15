@@ -24,7 +24,6 @@ char    *replace_newline(char *command, char c)
 char    **split_line(char *command)
 {
 	char **ret = NULL;
-
 	command = replace_newline(command, '|');
 	ret = ft_split(command, '\n');
 	return (ret);
