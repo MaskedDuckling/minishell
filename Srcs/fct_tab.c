@@ -15,17 +15,13 @@ char	*cut_word(char *str, int start, int end)
 	return(ret);
 }
 
+//le premier elements est vide de contenu
 int	place_word(t_word *first, char *ret)
 {
 	t_word	*new;
 
-	while (first->next)
+	while (first && first->next)
 		first = first->next;
-	if (!first->cont)
-	{
-		first->cont = ret;
-		return (0);
-	}
 	new = malloc(sizeof(t_word));
 	if (!new)
 		return (-1);
@@ -130,8 +126,9 @@ int	squotes(char *str, int i, t_command *com, t_word *first)
 
 int	venv(char *str, int i, t_command *com, t_word *first)
 {
-	int	start;
-	char *name;
+	int		start;
+	char	*name;
+	char	*ret;
 
 	printf("venv\n");
 	(void)first;
@@ -144,7 +141,12 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 					|| (str[i] >= 'A' && str[i] <= 'Z')))
 					i++;
 	name = ft_substr(str, start, (i - start));
-	place_word(first, ft_strdup(src_envi(com->envi, name)));
+	if (!name)
+		return(-1);
+	ret = ft_strdup(src_envi(com->envi, name));
+	if (!ret)
+		ret = ft_strdup("");
+	place_word(first, ret);
 	free(name);
 	return(i);
 }
@@ -156,7 +158,7 @@ char	*lch_to_str(t_word	*first)
 	char *str;
 	t_word	*tmp;
 
-	tmp = first;
+	tmp = first->next;
 	if (!tmp->cont)
 		return (NULL);
 	str = tmp->cont;

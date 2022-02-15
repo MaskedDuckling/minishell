@@ -52,6 +52,7 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 		t_command *com, t_word *first), t_envi *envi)
 {
 	int		i;
+	//le premier elements est vide de contenu
 	t_word	*first;
 //gerer dquotes vides
  	i = 0;
@@ -64,7 +65,7 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	while (i >= 0 && i < ft_strlen(str))
 		i = fct_tab[(int)str[i]](str, i, com, first);
 	if (i >= 0)
-		com->argv = make_argv(first);
+		com->argv = make_argv(first->next);
 	destroy_word(first);
 	printf("input = |%s|\noutpot = |%s|\n", com->input, com->output);
 	i = 0;

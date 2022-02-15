@@ -121,3 +121,23 @@ char	*ft_substr(char *s, int start, int len)
 	return (new);
 }
 
+char    *ft_strdup(const char *s1)
+{
+	char    *new;
+	int        i;
+	int        len;
+
+	len = 0;
+	if (!s1)
+		return(NULL);
+	while (s1[len])
+		len++;
+	new = malloc((len + 1) * sizeof(char));
+	if (!new)
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		new[i] = s1[i];
+	new[i] = '\0';
+	return (new);
+}
