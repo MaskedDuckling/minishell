@@ -1,48 +1,5 @@
 #include "minishell.h"
 
-char	*cut_word(char *str, int start, int end)
-{
-	char	*ret;
-	int		i;
-
-	ret = malloc(sizeof(char) * (end - start + 1));
-	if ((end - start < 1) || !ret)
-		return(NULL);
-	i = 0;
-	while (start < end)
-		ret[i++] = str[start++];
-	ret[i] = 0;
-	return(ret);
-}
-
-int	place_word(t_word *first, char *ret)
-{
-	t_word	*new;
-
-	while (first->next)
-		first = first->next;
-	if (!first->cont)
-	{
-		first->cont = ret;
-		return (0);
-	}
-	new = malloc(sizeof(t_word));
-	if (!new)
-		return (-1);
-	new->cont = ret;
-	new->next = NULL;
-	first->next = new;
-	return(0);
-}
-
-int	skip(char *str, int i, t_command *com, t_word *first)
-{
-	(void)first;
-	(void)str;
-	(void)com;
-	i++;
-	return(i);
-}
 
 int	alpha_num(char *str, int i, t_command *com, t_word *first)
 {
@@ -66,8 +23,7 @@ int	alpha_num_quotes(char *str, int i, t_command *com, t_word *first)
 
 	start = i;
 	end = i;
-	while (str[end] && str[end] != '\''
-		&& str[end] != '\"' && str[end] != '$')
+	while (str[end] && str[end] != '\"' && str[end] != '$')
 		end++;
 	place_word(first, cut_word(str, start, end));
 	(void)com;
@@ -85,7 +41,7 @@ int	input(char *str, int i, t_command *com, t_word *first)
 	end = start;
 	while (str[end] && str[end] != ' ')
 		end++;
-	com->input = cut_word(str, start, end);
+	redi(com, cut_word(str, start, end), 2);
 	(void)first;
 	return(end);
 }
@@ -101,31 +57,16 @@ int	output(char *str, int i, t_command *com, t_word *first)
 	end = start;
 	while (str[end] && str[end] != ' ')
 		end++;
-	com->output = cut_word(str, start, end);
+	redi(com, cut_word(str, start, end), 1);
 	(void)first;
 	return(end);
 }
 
-
-
-int	squotes(char *str, int i, t_command *com, t_word *first)
-{
-	int	end;
-	int	start;
-
-	start = ++i;
-	end = i;
-	while (str[end] && str[end] != '\'')
-		end++;
-	place_word(first, cut_word(str, start, end));
-	(void)com;
-	return(++end);
-}
-
 int	venv(char *str, int i, t_command *com, t_word *first)
 {
-	int	start;
-	char *name;
+	int		start;
+	char	*name;
+	char	*ret;
 
 	(void)first;
 	(void)str;
@@ -137,29 +78,31 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 					|| (str[i] >= 'A' && str[i] <= 'Z')))
 					i++;
 	name = ft_substr(str, start, (i - start));
-	place_word(first, ft_strdup(src_envi(com->envi, name)));
+	if (!name)
+		return(-1);
+	ret = ft_strdup(src_envi(com->envi, name));
+	if (!ret)
+		ret = ft_strdup("");
+	place_word(first, ret);
 	free(name);
 	return(i);
 }
 
-
-
-char	*lch_to_str(t_word	*first)
+int	squotes(char *str, int i, t_command *com, t_word *first)
 {
-	char *str;
-	t_word	*tmp;
+	int	end;
+	int	start;
 
-	tmp = first;
-	if (!tmp->cont)
-		return (NULL);
-	str = tmp->cont;
-	tmp = tmp->next;
-	while (tmp)
-	{
-		str = ft_strjoin(str, tmp->cont);
-		tmp = tmp->next;
-	}
-	return (str);
+	start = ++i;
+	end = i;
+	while (str[end] && str[end] != '\'')
+		end++;
+	if (start == end)
+		place_word(first, ft_strdup(""));
+	else
+		place_word(first, cut_word(str, start, end));
+	(void)com;
+	return(++end);
 }
 
 int	dquotes(char *str, int i, t_command *com, t_word *first)
@@ -172,14 +115,18 @@ int	dquotes(char *str, int i, t_command *com, t_word *first)
 	i++;
 	while (n < 128)
 		fct_tab[n++] = alpha_num_quotes;
-	fct_tab['\''] = squotes;
+	//fct_tab['\''] = squotes;
 	fct_tab['$'] = venv;
 	new = malloc(sizeof(t_word));
 	new->next = NULL;
 	new->cont = NULL;
+	n = i;
 	while (str[i] && str[i] != '\"')
 		i = fct_tab[(int)str[i]](str, i, com, new);
-	place_word(first, lch_to_str(new));
+	if (n == i)
+		place_word(first, ft_strdup(""));
+	else
+		place_word(first, lch_to_str(new));
 	return (++i);
 }
 
@@ -202,16 +149,4 @@ int		word(char *str, int i, t_command *com, t_word *first)
 		i = fct_tab[(int)str[i]](str, i, com, new);
 	place_word(first, lch_to_str(new));
 	return (i);
-}
-
-void	init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first))
-{
-	int	i;
-
-	i = 0;
-	while (i < 128)
-		fct_tab[i++] = word;
-	fct_tab[' '] = skip;
-	fct_tab['<'] = input;
-	fct_tab['>'] = output;
 }

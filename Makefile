@@ -15,7 +15,9 @@ SRCS	=	main.c 				\
 			exec_command.c		\
 			environnement.c		\
 			builtins.c			\
-			fct_tab.c			
+			fct_tab.c			\
+			tab_utils.c
+			
 
 OBJS = ${addprefix Srcs/,${SRCS:.c=.o}}
 
