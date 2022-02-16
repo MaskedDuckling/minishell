@@ -46,7 +46,6 @@ void	exec_command(t_command *commands, t_envi **envi)
 			close(tube[1]);
 		i++;
 	}
-	printf("a\n");
 	while (i >= 0)
 	{
 		pid = waitpid(-1, 0, 0);

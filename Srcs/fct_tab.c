@@ -37,7 +37,6 @@ int	place_word(t_word *first, char *ret)
 
 int	skip(char *str, int i, t_command *com, t_word *first)
 {
-	printf("skip\n");
 	(void)first;
 	(void)str;
 	(void)com;
@@ -50,7 +49,6 @@ int	alpha_num(char *str, int i, t_command *com, t_word *first)
 	int	end;
 	int	start;
 
-	printf("alpha_num\n");
 	start = i;
 	end = i;
 	while (str[end] && str[end] != ' ' && str[end] != '\''
@@ -66,7 +64,6 @@ int	alpha_num_quotes(char *str, int i, t_command *com, t_word *first)
 	int	end;
 	int	start;
 
-	printf("alpha_num_quotes\n");
 	start = i;
 	end = i;
 	while (str[end] && str[end] != '\''
@@ -82,7 +79,6 @@ int	input(char *str, int i, t_command *com, t_word *first)
 	int	end;
 	int	start;
 
-	printf("input\n");
 	start = ++i;
 	while (str[start] && str[start] == ' ')
 		start++;
@@ -99,7 +95,6 @@ int	output(char *str, int i, t_command *com, t_word *first)
 	int	end;
 	int	start;
 
-	printf("output\n");
 	start = ++i;
 	while (str[start] && str[start] == ' ')
 		start++;
@@ -118,7 +113,6 @@ int	squotes(char *str, int i, t_command *com, t_word *first)
 	int	end;
 	int	start;
 
-	printf("squotes\n");
 	start = ++i;
 	end = i;
 	while (str[end] && str[end] != '\'')
@@ -133,7 +127,6 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	int	start;
 	char *name;
 
-	printf("venv\n");
 	(void)first;
 	(void)str;
 	(void)com;

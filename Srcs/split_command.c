@@ -53,7 +53,7 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 {
 	int		i;
 	t_word	*first;
-//gerer dquotes vides
+
  	i = 0;
 	first = malloc(sizeof(t_word));
 	if (!first)
@@ -66,10 +66,9 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	if (i >= 0)
 		com->argv = make_argv(first);
 	destroy_word(first);
-	printf("input = |%s|\noutpot = |%s|\n", com->input, com->output);
 	i = 0;
 	while (com->argv[i])
-		printf("|%s|\n", com->argv[i++]);
+		i++;
 	return(i);
 }
 
