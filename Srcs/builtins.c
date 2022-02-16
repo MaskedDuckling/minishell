@@ -92,9 +92,7 @@ void	ft_cd(char *path)
 
 int	ft_builtins(t_command command, t_envi **envi)
 {
-	if (ft_strcmp(command.argv[0], "cd") == 0)
-		ft_cd(command.argv[1]);
-	else if (ft_strcmp(command.argv[0], "echo") == 0)
+	if (ft_strcmp(command.argv[0], "echo") == 0)
 		ft_echo(command.argv);
 	else if (ft_strcmp(command.argv[0], "export") == 0)
 		ft_export(envi, command.argv[1]);

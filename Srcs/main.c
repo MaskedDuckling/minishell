@@ -16,6 +16,8 @@ int main(int ac, char **av, char **environ)
 		commands = parsing(line, envi);
 		if (!commands || !ft_strcmp(commands[0].argv[0], "exit"))
 			break;
+		if (ft_strcmp(commands[0].argv[0], "cd") == 0)
+			ft_cd(commands[0].argv[1]);
 		exec_command(commands, &envi);
 		line = readline("minishell : ");
 	}
