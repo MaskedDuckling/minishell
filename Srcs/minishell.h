@@ -21,12 +21,18 @@ typedef struct s_envi
 	struct s_envi	*next;
 }				t_envi;
 
+typedef struct s_redi
+{
+	char	*cont;
+	int		type;
+	struct s_redi	*next;
+}				t_redi;
+
 typedef struct	s_command
 {
 	char    **argv;
 	t_envi	*envi;
-	char	*input;
-	char	*output;
+	t_redi	*redi;
 }				t_command;
 
 typedef struct	s_word
@@ -60,6 +66,24 @@ char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
 t_command	*parsing(char *line, t_envi *envi);
 t_command	*split_command(char **tab, t_envi *envi);
+
+/*tab parsing*/
+int		word(char *str, int i, t_command *com, t_word *first);
+int		squotes(char *str, int i, t_command *com, t_word *first);
+int		dquotes(char *str, int i, t_command *com, t_word *first);
+int		alpha_num(char *str, int i, t_command *com, t_word *first);
+int		alpha_num_quotes(char *str, int i, t_command *com, t_word *first);
+int		input(char *str, int i, t_command *com, t_word *first);
+int		output(char *str, int i, t_command *com, t_word *first);
+int		venv(char *str, int i, t_command *com, t_word *first);
+
+/*tab parsing utils*/
+void	init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
+char	*lch_to_str(t_word	*first);
+int		skip(char *str, int i, t_command *com, t_word *first);
+int		place_word(t_word *first, char *ret);
+char	*cut_word(char *str, int start, int end);
+int		redi(t_command *com, char *cont, int type);
 
 /*Execution*/
 char		*for_access(char *cmd, char **environ);
