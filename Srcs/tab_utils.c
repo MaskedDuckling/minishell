@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:31:54 by user42            #+#    #+#             */
-/*   Updated: 2022/02/16 14:40:20 by user42           ###   ########.fr       */
+/*   Updated: 2022/02/16 14:51:23 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		redi(t_command *com, char *cont, int type)
 		return (-2);
 	tmp->cont = cont;
 	tmp->type = type;
+	tmp->next = NULL;
 	if (!com->redi)
 	{
 		com->redi = tmp;
