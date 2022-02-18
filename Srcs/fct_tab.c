@@ -34,14 +34,18 @@ int	input(char *str, int i, t_command *com, t_word *first)
 {
 	int	end;
 	int	start;
+	int	type;
 
+	type = 3;
+	if (str[i + 1] && str[i + 1] == '<' && ++i)
+		type++;
 	start = ++i;
 	while (str[start] && str[start] == ' ')
 		start++;
 	end = start;
 	while (str[end] && str[end] != ' ')
 		end++;
-	redi(com, cut_word(str, start, end), 2);
+	redi(com, cut_word(str, start, end), type);
 	(void)first;
 	return(end);
 }
@@ -50,14 +54,18 @@ int	output(char *str, int i, t_command *com, t_word *first)
 {
 	int	end;
 	int	start;
+	int	type;
 
+	type = 1;
+	if (str[i + 1] && str[i + 1] == '>' && ++i)
+		type++;
 	start = ++i;
 	while (str[start] && str[start] == ' ')
 		start++;
 	end = start;
 	while (str[end] && str[end] != ' ')
 		end++;
-	redi(com, cut_word(str, start, end), 1);
+	redi(com, cut_word(str, start, end), type);
 	(void)first;
 	return(end);
 }
@@ -68,7 +76,6 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	char	*name;
 	char	*ret;
 
-	(void)first;
 	(void)str;
 	(void)com;
 
@@ -77,10 +84,15 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 					|| (str[i] >= 'a' && str[i] <= 'z')
 					|| (str[i] >= 'A' && str[i] <= 'Z')))
 					i++;
+	
+
 	name = ft_substr(str, start, (i - start));
 	if (!name)
 		return(-1);
-	ret = ft_strdup(src_envi(com->envi, name));
+	if (start == i)
+		ret = ft_strdup("$");
+	else
+		ret = ft_strdup(src_envi(com->envi, name));
 	if (!ret)
 		ret = ft_strdup("");
 	place_word(first, ret);

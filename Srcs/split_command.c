@@ -53,22 +53,23 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 {
 	int		i;
 	t_word	*first;
-//gerer multi redir dans 1 ligne
+
  	i = 0;
 	first = malloc(sizeof(t_word));
 	if (!first)
 		return(-1);
 	first->cont = NULL;
 	first->next = NULL;
+	
 	com->envi = envi;
 	while (i >= 0 && i < ft_strlen(str))
 		i = fct_tab[(int)str[i]](str, i, com, first);
 	if (i >= 0)
 		com->argv = make_argv(first->next);
 	destroy_word(first);
-	
 	t_redi *tmp;
 	tmp = com->redi;
+	
 	while (tmp)
 	{
 		printf("redi type %i cont: |%s|\n", tmp->type, tmp->cont);
@@ -77,7 +78,6 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	i = 0;
 	while (com->argv[i])
 		printf("|%s|\n", com->argv[i++]);
-
 	return(i);
 }
 
@@ -98,15 +98,14 @@ t_command	*split_command(char **tab, t_envi *envi)
 	check = 0;
 	while (check >= 0 && i < size_tab)
 	{
-		command->redi = NULL;
+		command[i].redi = NULL;
 		check = parse_command(tab[i], &command[i], fct_tab, envi);
+		free(tab[i]);
 		i++;
 	}
+	free(tab);
 	if (check < 0)
-	{
-		free(command);
 		return (NULL);
-	}
 	command[i].argv = NULL;
 	return (command);
 }
