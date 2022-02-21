@@ -33,6 +33,7 @@ typedef struct	s_command
 	char    **argv;
 	t_envi	*envi;
 	t_redi	*redi;
+	int		check;
 }				t_command;
 
 typedef struct	s_word
@@ -64,8 +65,8 @@ void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word 
 char 		*join_words(t_word *first);
 char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
-t_command	*parsing(char *line, t_envi *envi);
-t_command	*split_command(char **tab, t_envi *envi);
+int			parsing(char *line, t_envi *envi, t_command **commands);
+int			split_command(char **tab, t_envi *envi, t_command **commands);
 
 /*tab parsing*/
 int		word(char *str, int i, t_command *com, t_word *first);

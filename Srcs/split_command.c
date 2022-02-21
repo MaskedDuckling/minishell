@@ -69,7 +69,8 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	destroy_word(first);
 	t_redi *tmp;
 	tmp = com->redi;
-	
+	return(i);
+	/*
 	while (tmp)
 	{
 		printf("redi type %i cont: |%s|\n", tmp->type, tmp->cont);
@@ -78,10 +79,13 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	i = 0;
 	while (com->argv[i])
 		printf("|%s|\n", com->argv[i++]);
+
+
 	return(i);
+	*/
 }
 
-t_command	*split_command(char **tab, t_envi *envi)
+int			split_command(char **tab, t_envi *envi, t_command **com)
 {
 	int         i;
 	int         size_tab;
@@ -92,7 +96,7 @@ t_command	*split_command(char **tab, t_envi *envi)
 	size_tab = len_tab(tab);
 	command = malloc(sizeof(t_command) * (size_tab + 1));
 	if (!command)
-		return (NULL);
+		return (-1);
 	init_fct_tab(fct_tab);
 	i = 0;
 	check = 0;
@@ -100,12 +104,9 @@ t_command	*split_command(char **tab, t_envi *envi)
 	{
 		command[i].redi = NULL;
 		check = parse_command(tab[i], &command[i], fct_tab, envi);
-		free(tab[i]);
 		i++;
 	}
-	free(tab);
-	if (check < 0)
-		return (NULL);
 	command[i].argv = NULL;
-	return (command);
+	*com = command;
+	return(check);
 }

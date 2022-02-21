@@ -127,7 +127,6 @@ int	dquotes(char *str, int i, t_command *com, t_word *first)
 	i++;
 	while (n < 128)
 		fct_tab[n++] = alpha_num_quotes;
-	//fct_tab['\''] = squotes;
 	fct_tab['$'] = venv;
 	new = malloc(sizeof(t_word));
 	new->next = NULL;

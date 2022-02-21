@@ -1,8 +1,7 @@
 NAME = minishell
 CC = clang
 INC = minishell.h
-CFLAGS = -Wall -Werror -Wextra
- -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 SRCS	=	main.c 				\
 			ft_split.c 			\

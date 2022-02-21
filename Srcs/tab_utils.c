@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:31:54 by user42            #+#    #+#             */
-/*   Updated: 2022/02/17 23:40:48 by user42           ###   ########.fr       */
+/*   Updated: 2022/02/21 15:06:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int	skip(char *str, int i, t_command *com, t_word *first)
 	(void)first;
 	(void)str;
 	(void)com;
-	i++;
-	return(i);
+	return(i + 1);
 }
 
 char	*lch_to_str(t_word	*first)
