@@ -90,6 +90,8 @@ void	ft_cd(char *path)
 		printf("%s\n",strerror(errno));
 }
 
+
+
 int	ft_builtins(t_command command, t_envi **envi)
 {
 	if (ft_strcmp(command.argv[0], "echo") == 0)

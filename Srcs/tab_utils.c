@@ -37,8 +37,7 @@ int	skip(char *str, int i, t_command *com, t_word *first)
 	(void)first;
 	(void)str;
 	(void)com;
-	i++;
-	return(i);
+	return(i + 1);
 }
 
 char	*lch_to_str(t_word	*first)
