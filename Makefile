@@ -2,7 +2,7 @@ NAME = minishell
 CC = clang
 INC = minishell.h
 CFLAGS = -Wall -Werror -Wextra
--fsanitize=address
+ -fsanitize=address
 
 SRCS	=	main.c 				\
 			ft_split.c 			\
@@ -16,6 +16,7 @@ SRCS	=	main.c 				\
 			environnement.c		\
 			builtins.c			\
 			fct_tab.c			\
+			redir.c			\
 			tab_utils.c
 			
 

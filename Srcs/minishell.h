@@ -85,6 +85,9 @@ int		place_word(t_word *first, char *ret);
 char	*cut_word(char *str, int start, int end);
 int		redi(t_command *com, char *cont, int type);
 
+/*Redirections*/
+void		ft_redi(t_command command);
+
 /*Execution*/
 char		*for_access(char *cmd, char **environ);
 void		add_new(t_envi **envi, char *data);
@@ -94,7 +97,7 @@ void		free_command(char **command);
 void		exec_command(t_command *commands, t_envi **envi);
 int			ft_builtins(t_command command, t_envi **envi);
 char		*src_envi(t_envi *envi, char *var_name);
-
+void		child_process(t_command command, int *tube, int fd, t_envi **envi);
 
 /*builtins*/
 void		ft_env(t_envi *envi);

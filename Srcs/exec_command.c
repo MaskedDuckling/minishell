@@ -23,17 +23,20 @@ void	child_process(t_command command, int *tube, int fd, t_envi **envi)
 
 void	exec_command(t_command *commands, t_envi **envi)
 {
-	int		tube[2];
+	//int		tube[2];
+	(void)envi;
 	pid_t	pid;
 	int		fd;
 	int i;
 
 	i = 0;
 	fd = STDIN_FILENO;
-	if (commands)
 	while (commands[i].argv)
 	{
-		if (commands[i + 1].argv)
+		pid = fork();
+		if (commands[i].redi && pid == 0)
+			ft_redi(commands[i]);
+		/*if (commands[i + 1].argv)
 			pipe(tube);
 		else
 			tube[1] = STDOUT_FILENO;
@@ -44,7 +47,7 @@ void	exec_command(t_command *commands, t_envi **envi)
 			close(fd);
 		fd = tube[0];
 		if (commands[i + 1].argv)
-			close(tube[1]);
+			close(tube[1]);*/
 		i++;
 	}
 	while (i >= 0)
