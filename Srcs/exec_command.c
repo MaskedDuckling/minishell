@@ -30,6 +30,7 @@ void	exec_command(t_command *commands, t_envi **envi)
 
 	i = 0;
 	fd = STDIN_FILENO;
+	if (commands)
 	while (commands[i].argv)
 	{
 		if (commands[i + 1].argv)

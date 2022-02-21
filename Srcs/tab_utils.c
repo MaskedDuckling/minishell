@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tab_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 13:31:54 by user42            #+#    #+#             */
-/*   Updated: 2022/02/16 14:51:23 by maskedduck       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 char	*cut_word(char *str, int start, int end)
@@ -17,8 +5,10 @@ char	*cut_word(char *str, int start, int end)
 	char	*ret;
 	int		i;
 
+	if (end - start <= 0)
+		return (NULL);
 	ret = malloc(sizeof(char) * (end - start + 1));
-	if ((end - start < 1) || !ret)
+	if (!ret)
 		return(NULL);
 	i = 0;
 	while (start < end)
@@ -56,15 +46,21 @@ char	*lch_to_str(t_word	*first)
 	char *str;
 	t_word	*tmp;
 
-	tmp = first->next;
-	if (!tmp->cont)
+	if (!first)
 		return (NULL);
-	str = tmp->cont;
-	tmp = tmp->next;
+	tmp = first;
+	first = first->next;
+	free(tmp);
+	str = first->cont;
+	tmp = first->next;
+	free(first);
 	while (tmp)
 	{
-		str = ft_strjoin(str, tmp->cont);
+		str = ft_strjoin_free(str, tmp->cont);
+		free(tmp->cont);
+		first = tmp;
 		tmp = tmp->next;
+		free(first);
 	}
 	return (str);
 }
