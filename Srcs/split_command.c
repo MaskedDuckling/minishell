@@ -69,8 +69,6 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	destroy_word(first);
 	t_redi *tmp;
 	tmp = com->redi;
-	return(i);
-	/*
 	while (tmp)
 	{
 		printf("redi type %i cont: |%s|\n", tmp->type, tmp->cont);
@@ -82,7 +80,6 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 
 
 	return(i);
-	*/
 }
 
 int			split_command(char **tab, t_envi *envi, t_command **com)

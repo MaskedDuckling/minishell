@@ -110,4 +110,6 @@ void		ft_export(t_envi **envi, char *new_env);
 int			ft_pwd(void);
 void		ft_echo(char **argv);
 
+void		free_process(t_command command);
+
 #endif

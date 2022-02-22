@@ -45,6 +45,7 @@ void	ft_env(t_envi *envi)
 		printf("%s\n",env[i]);
 		i++;
 	}
+	free(env);
 }
 
 int		echo_flag(char *flag)
@@ -106,5 +107,7 @@ int	ft_builtins(t_command command, t_envi **envi)
 		ft_env(*envi);
 	else
 		return (0);
+	free(command.argv[0]);
+	free_process(command);
 	return (1);
 }
