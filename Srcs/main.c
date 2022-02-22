@@ -12,9 +12,13 @@ void	destroy_com(t_command *com)
 		return ;
 	while (com[j].argv)
 	{
+		printf("ICI\n");
 		i = 0;
 		while (com[j].argv[i])
+		{
 			free(com[j].argv[i++]);
+			printf("ICI1\n");
+		}
 		free(com[j].argv);
 		while (com[j].redi)
 		{
@@ -79,13 +83,14 @@ int main(int ac, char **av, char **environ)
 			break;
 		if (check > 0 && ft_strcmp(commands[0].argv[0], "cd") == 0)
 			ft_cd(commands[0].argv[1]);
-		//if (check > 0)
-		//	exec_command(commands, &envi);
+		if (check > 0)
+			exec_command(commands, &envi);
 		free(line);
 		erroring(check);
 		line = readline("minishell : ");
 	}
 	free(line);
+	printf ("cehck = %i\n", check);
 	if (check > 0)
 		destroy_com(commands);
 	destroy_env(envi);
