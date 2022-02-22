@@ -3,7 +3,7 @@
 int	type_four(t_command command)
 {
 	char	*line;
-	int fd;
+	int		fd;
 
 	fd = open(command.redi->cont, O_CREAT | O_WRONLY, 0644);
 	line = readline("> ");

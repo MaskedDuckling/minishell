@@ -2,7 +2,7 @@
 
 char	*ft_wordmalloc(char const *s, char c, int i, char *ret)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (s[i] != c && s[i])
@@ -10,14 +10,15 @@ char	*ft_wordmalloc(char const *s, char c, int i, char *ret)
 		j++;
 		i++;
 	}
-	if (!(ret = malloc(sizeof(char) * (j + 1))))
+	ret = malloc(sizeof(char) * (j + 1));
+	if (!ret)
 		return (0);
 	return (ret);
 }
 
-int		ft_wordput(char const *s, char c, int i, char *ret)
+int	ft_wordput(char const *s, char c, int i, char *ret)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (s[i] != c && s[i])
@@ -30,16 +31,16 @@ int		ft_wordput(char const *s, char c, int i, char *ret)
 	return (j);
 }
 
-int		ft_skip(const char *s, char c, int i)
+int	ft_skip(const char *s, char c, int i)
 {
 	while (s[i] == c && s[i])
 		i++;
 	return (i);
 }
 
-int		ft_wordcount(char const *s, char c, int wc)
+int	ft_wordcount(char const *s, char c, int wc)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -66,7 +67,8 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	wc = ft_wordcount(s, c, wc);
-	if (!(ret = malloc(sizeof(char *) * (wc + 1))))
+	ret = malloc(sizeof(char *) * (wc + 1));
+	if (!ret)
 		return (NULL);
 	i = 0;
 	while (j < wc && s[i])
@@ -75,8 +77,7 @@ char	**ft_split(char const *s, char c)
 		if (!s[i])
 			break ;
 		ret[j] = ft_wordmalloc(s, c, i, ret[j]);
-		i += ft_wordput(s, c, i, ret[j]);
-		j++;
+		i += ft_wordput(s, c, i, ret[j++]);
 	}
 	ret[j] = 0;
 	return (ret);

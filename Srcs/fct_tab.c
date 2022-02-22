@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 int	alpha_num(char *str, int i, t_command *com, t_word *first)
 {
 	int	end;
@@ -13,7 +12,7 @@ int	alpha_num(char *str, int i, t_command *com, t_word *first)
 		end++;
 	place_word(first, cut_word(str, start, end));
 	(void)com;
-	return(end);
+	return (end);
 }
 
 int	alpha_num_quotes(char *str, int i, t_command *com, t_word *first)
@@ -27,7 +26,7 @@ int	alpha_num_quotes(char *str, int i, t_command *com, t_word *first)
 		end++;
 	place_word(first, cut_word(str, start, end));
 	(void)com;
-	return(end);
+	return (end);
 }
 
 int	input(char *str, int i, t_command *com, t_word *first)
@@ -47,7 +46,7 @@ int	input(char *str, int i, t_command *com, t_word *first)
 		end++;
 	redi(com, cut_word(str, start, end), type);
 	(void)first;
-	return(end);
+	return (end);
 }
 
 int	output(char *str, int i, t_command *com, t_word *first)
@@ -67,7 +66,7 @@ int	output(char *str, int i, t_command *com, t_word *first)
 		end++;
 	redi(com, cut_word(str, start, end), type);
 	(void)first;
-	return(end);
+	return (end);
 }
 
 int	venv(char *str, int i, t_command *com, t_word *first)
@@ -78,17 +77,14 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 
 	(void)str;
 	(void)com;
-
 	start = ++i;
 	while (str[i] && ((str[i] >= '0' && str[i] <= '9')
-					|| (str[i] >= 'a' && str[i] <= 'z')
-					|| (str[i] >= 'A' && str[i] <= 'Z')))
-					i++;
-	
-
+			|| (str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z')))
+		i++;
 	name = ft_substr(str, start, (i - start));
 	if (!name)
-		return(-1);
+		return (-1);
 	if (start == i)
 		ret = ft_strdup("$");
 	else
@@ -97,7 +93,7 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 		ret = ft_strdup("");
 	place_word(first, ret);
 	free(name);
-	return(i);
+	return (i);
 }
 
 int	squotes(char *str, int i, t_command *com, t_word *first)
@@ -114,14 +110,14 @@ int	squotes(char *str, int i, t_command *com, t_word *first)
 	else
 		place_word(first, cut_word(str, start, end));
 	(void)com;
-	return(++end);
+	return (++end);
 }
 
 int	dquotes(char *str, int i, t_command *com, t_word *first)
 {
 	t_word	*new;
-	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
-	int	n;
+	int		(*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int		n;
 
 	n = 0;
 	i++;
@@ -141,11 +137,11 @@ int	dquotes(char *str, int i, t_command *com, t_word *first)
 	return (++i);
 }
 
-int		word(char *str, int i, t_command *com, t_word *first)
+int	word(char *str, int i, t_command *com, t_word *first)
 {
 	t_word	*new;
-	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
-	int	n;
+	int		(*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int		n;
 
 	n = 0;
 	while (n < 128)

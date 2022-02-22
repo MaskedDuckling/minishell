@@ -12,14 +12,13 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-int		parsing(char *line, t_envi *envi, t_command **command)
+int	parsing(char *line, t_envi *envi, t_command **command)
 {
 	char	**com;
 	int		check;
 
 	com = NULL;
 	check = check_line(line);
-	//printf("checl_line returns %i\n", check);
 	if (check < 0)
 		return (check);
 	com = split_line(line);

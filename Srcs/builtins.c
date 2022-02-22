@@ -16,7 +16,7 @@ void	ft_export(t_envi **envi, char *new_env)
 
 void	ft_unset(t_envi **envi, char *var_name)
 {
-	t_envi *tmp;
+	t_envi	*tmp;
 
 	while (*envi)
 	{
@@ -35,22 +35,22 @@ void	ft_unset(t_envi **envi, char *var_name)
 
 void	ft_env(t_envi *envi)
 {
-	char **env;
-	int i;
+	char	**env;
+	int		i;
 
 	i = 0;
 	env = join_envi(envi);
 	while (env[i])
 	{
-		printf("%s\n",env[i]);
+		printf("%s\n", env[i]);
 		i++;
 	}
 	free(env);
 }
 
-int		echo_flag(char *flag)
+int	echo_flag(char *flag)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (flag[i++] == '-')
@@ -68,30 +68,27 @@ int		echo_flag(char *flag)
 
 void	ft_echo(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 2;
 	if (argv[1] && echo_flag(argv[1]) == 0)
 		i = 1;
 	while (argv[i])
 	{
-		printf("%s",argv[i]);
+		printf("%s", argv[i]);
 		if (argv[i + 1])
 			printf(" ");
 		i++;
 	}
 	if (argv[1] && echo_flag(argv[1]) == 0)
 		printf("\n");
-	
 }
 
 void	ft_cd(char *path)
 {
 	if (chdir(path) == -1)
-		printf("%s\n",strerror(errno));
+		printf("%s\n", strerror(errno));
 }
-
-
 
 int	ft_builtins(t_command command, t_envi **envi)
 {

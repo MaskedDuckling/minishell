@@ -2,7 +2,7 @@
 
 char	*tochar(char *s1, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i])
@@ -17,9 +17,9 @@ char	*tochar(char *s1, char c)
 	return (NULL);
 }
 
-int		envi_len(t_envi *envi)
+int	envi_len(t_envi *envi)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envi)
@@ -32,9 +32,9 @@ int		envi_len(t_envi *envi)
 
 char	**join_envi(t_envi *envi)
 {
-	char **ret;
-	int i;
-	int j;
+	char	**ret;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = envi_len(envi);
@@ -66,7 +66,7 @@ char	*src_envi(t_envi *envi, char *var_name)
 void	add_new(t_envi **envi, char *data)
 {
 	int		i;
-	t_envi *tmp;
+	t_envi	*tmp;
 
 	i = 0;
 	tmp = *envi;
@@ -80,12 +80,14 @@ void	add_new(t_envi **envi, char *data)
 
 t_envi	*environnement(char **environnement)
 {
-	t_envi *envi = NULL;
-	int i = 0;
+	t_envi	*envi;
+	int		i;
 
+	envi = NULL;
+	i = 0;
 	while (environnement[i])
 	{
-		add_new(&envi,environnement[i]);
+		add_new(&envi, environnement[i]);
 		i++;
 	}
 	return (envi);

@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-int		skip_c(char *str, int i)
+int	skip_c(char *str, int i)
 {
 	(void)str;
-	return(i + 1);
+	return (i + 1);
 }
 
-int		open_close(char *str, int i)
+int	open_close(char *str, int i)
 {
 	char	c;
 
@@ -19,7 +19,7 @@ int		open_close(char *str, int i)
 	return (-2);
 }
 
-int		simple(char *str, int i)
+int	simple(char *str, int i)
 {
 	if (str[i + 1])
 	{
@@ -41,10 +41,10 @@ void	init_tab(int (*tab[128])(char *str, int i))
 	tab['|'] = simple;
 }
 
-int		check_line(char *line)
+int	check_line(char *line)
 {
 	int	i;
-	int (*tab[128])(char *line, int i);
+	int	(*tab[128])(char *line, int i);
 
 	init_tab(tab);
 	if (!line)
