@@ -1,21 +1,5 @@
 #include "minishell.h"
 
-int		check_line(char *line)
-{
-	int	i;
-	int	check;
-
-	if (!line)
-		return (-3);
-	check = 0;
-	i = 0;
-	while (line[i])
-	{
-		break ;
-	}
-	return (check);
-}
-
 void	ft_free_tab(char **tab)
 {
 	int	i;
@@ -27,15 +11,17 @@ void	ft_free_tab(char **tab)
 		free(tab[i++]);
 	free(tab);
 }
+
 int		parsing(char *line, t_envi *envi, t_command **command)
 {
 	char	**com;
 	int		check;
 
+	com = NULL;
 	check = check_line(line);
+	//printf("checl_line returns %i\n", check);
 	if (check < 0)
 		return (check);
-	com = NULL;
 	com = split_line(line);
 	if (com && com[0])
 		check = split_command(com, envi, command);

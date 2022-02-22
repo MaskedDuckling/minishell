@@ -45,7 +45,7 @@ void	erroring(int check)
 {
 	if (check >= 0)
 		return ;
-	printf("Minishell : ");
+	printf("minishell error: ");
 	if (check == -1)
 		printf("a malloc failed\n");
 	else if (check == -2)
@@ -73,19 +73,19 @@ int main(int ac, char **av, char **environ)
 	{
 		add_history(line);
 		check = parsing(line, envi, &commands);
-		if ( check < 0 || (check > 0 && !commands)  
+		if ((check > 0 && !commands)  
 			|| (check > 0 && !ft_strcmp(commands[0].argv[0], "exit")))
 			break;
-		if (check && ft_strcmp(commands[0].argv[0], "cd") == 0)
+		if (check > 0 && ft_strcmp(commands[0].argv[0], "cd") == 0)
 			ft_cd(commands[0].argv[1]);
-		if (check)
+		if (check > 0)
 			exec_command(commands, &envi);
 		free(line);
 		line = readline("minishell : ");
 	}
 	free(line);
-	destroy_com(commands);
+	if (check > 0)
+		destroy_com(commands);
 	destroy_env(envi);
-	erroring(check);
 	write(1,"\n",1);
 }
