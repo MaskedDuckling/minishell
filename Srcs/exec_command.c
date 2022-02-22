@@ -7,11 +7,14 @@ void	free_process(t_command command)
 	i = 1;
 	while (command.argv[i])
 		free(command.argv[i++]);
+	free(command.argv);
+	printf("caca\n");
 }
 
 void	child_process(t_command command, int *tube, int fd, t_envi **envi)
 {
 	char	*path;
+	char	**environ;
 
 	if (fd != STDIN_FILENO)
 	{
@@ -25,10 +28,13 @@ void	child_process(t_command command, int *tube, int fd, t_envi **envi)
 	}
 	if (ft_builtins(command, envi) == 1)
 		exit(1);
-	path = for_access(command.argv[0], join_envi(command.envi));
-	execve(path, command.argv, join_envi(command.envi));
+	environ = join_envi(command.envi);
+	path = for_access(command.argv[0], environ);
+	execve(path, command.argv, environ);
+	free_command(environ);
 	free(path);
 	free_process(command);
+	exit(1);
 }
 
 void	exec_command(t_command *commands, t_envi **envi)
@@ -64,4 +70,5 @@ void	exec_command(t_command *commands, t_envi **envi)
 		pid = waitpid(-1, 0, 0);
 		i--;
 	}
+	free(commands);
 }

@@ -24,6 +24,7 @@ void	destroy_com(t_command *com)
 		}
 		j++;
 	}
+	free(com[j].argv);
 	free(com);
 }
 
@@ -78,9 +79,10 @@ int main(int ac, char **av, char **environ)
 			break;
 		if (check > 0 && ft_strcmp(commands[0].argv[0], "cd") == 0)
 			ft_cd(commands[0].argv[1]);
-		if (check > 0)
-			exec_command(commands, &envi);
+		//if (check > 0)
+		//	exec_command(commands, &envi);
 		free(line);
+		erroring(check);
 		line = readline("minishell : ");
 	}
 	free(line);

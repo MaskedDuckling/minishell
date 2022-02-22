@@ -1,6 +1,0 @@
-
-echo $?
-
-ligne vide
-
-si erreur de parssing, envoyer une command error, et effectuer les commandes precedentes
