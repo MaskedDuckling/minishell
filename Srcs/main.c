@@ -82,8 +82,6 @@ int main(int ac, char **av, char **environ)
 			exec_command(commands, &envi);
 		free(line);
 		line = readline("minishell : ");
-		if (check)
-			destroy_com(commands);
 	}
 	free(line);
 	destroy_com(commands);
