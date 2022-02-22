@@ -29,6 +29,20 @@ int	simple(char *str, int i)
 	return (i + 1);
 }
 
+int	simp_doub(char *str, int i)
+{
+	if ((str[i + 1] && str[i + 2])
+		&& (str[i] == str[i + 1] && str[i] == str[i + 2]))
+			return (-2);
+	if (str[i + 1] && str[i] == str[i + 1])
+	{
+		if (str[i + 2] && str[i] == str[i + 2])
+			return (i + 3);
+		return (i + 2);
+	}
+	return (i + 1);
+}
+
 void	init_tab(int (*tab[128])(char *str, int i))
 {
 	int	i;
@@ -39,6 +53,8 @@ void	init_tab(int (*tab[128])(char *str, int i))
 	tab['"'] = open_close;
 	tab['\''] = open_close;
 	tab['|'] = simple;
+	tab['<'] = simp_doub;
+	tab['>'] = simp_doub;
 }
 
 int	check_line(char *line)

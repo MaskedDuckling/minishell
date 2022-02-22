@@ -9,16 +9,17 @@ void	destroy_com(t_command *com)
 	j = 0;
 	if (!com)
 		return ;
-	while (com[j].argv)
+	while (com[j].argv || com[j].redi)
 	{
-		printf("ICI\n");
 		i = 0;
-		while (com[j].argv[i])
+		if (com[j].argv)
 		{
-			free(com[j].argv[i++]);
-			printf("ICI1\n");
+			while (com[j].argv[i])
+			{
+				free(com[j].argv[i++]);
+			}
+			free(com[j].argv);
 		}
-		free(com[j].argv);
 		while (com[j].redi)
 		{
 			tmp_r = com[j].redi;
@@ -77,9 +78,11 @@ int	main(int ac, char **av, char **environ)
 		add_history(line);
 		check = parsing(line, envi, &commands);
 		if ((check > 0 && !commands)
-			|| (check > 0 && !ft_strcmp(commands[0].argv[0], "exit")))
+			|| (check > 0 && (commands[0].argv[0]
+			&& !ft_strcmp(commands[0].argv[0], "exit"))))
 			break ;
-		if (check > 0 && ft_strcmp(commands[0].argv[0], "cd") == 0)
+		if (check > 0 && ( commands[0].argv[0]
+			&& ft_strcmp(commands[0].argv[0], "cd") == 0))
 			ft_cd(commands[0].argv[1]);
 		if (check > 0)
 			exec_command(commands, &envi);
@@ -88,7 +91,6 @@ int	main(int ac, char **av, char **environ)
 		line = readline("minishell : ");
 	}
 	free(line);
-	printf ("cehck = %i\n", check);
 	if (check > 0)
 		destroy_com(commands);
 	destroy_env(envi);
