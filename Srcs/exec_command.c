@@ -2,13 +2,12 @@
 
 void	free_process(t_command command)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (command.argv[i])
 		free(command.argv[i++]);
 	free(command.argv);
-	printf("caca\n");
 }
 
 void	child_process(t_command command, int *tube, int fd, t_envi **envi)
@@ -40,10 +39,9 @@ void	child_process(t_command command, int *tube, int fd, t_envi **envi)
 void	exec_command(t_command *commands, t_envi **envi)
 {
 	int		tube[2];
-	(void)envi;
 	pid_t	pid;
 	int		fd;
-	int i;
+	int		i;
 
 	i = 0;
 	fd = STDIN_FILENO;
@@ -70,5 +68,5 @@ void	exec_command(t_command *commands, t_envi **envi)
 		pid = waitpid(-1, 0, 0);
 		i--;
 	}
-	free(commands);
+	destroy_com(commands);
 }

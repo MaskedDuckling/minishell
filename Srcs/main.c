@@ -2,11 +2,10 @@
 
 void	destroy_com(t_command *com)
 {
-	int	i;
-	int j;
-	t_redi *tmp_r;
+	int		i;
+	int		j;
+	t_redi	*tmp_r;
 
-	
 	j = 0;
 	if (!com)
 		return ;
@@ -55,18 +54,17 @@ void	erroring(int check)
 		printf("error line=NULL\n");
 	else
 		printf("unspecified error\n");
-
 }
 
-int main(int ac, char **av, char **environ)
+int	main(int ac, char **av, char **environ)
 {
-	(void)ac;
-	(void)av;
-	char *line;
+	char		*line;
 	t_command	*commands;
 	t_envi		*envi;
 	int			check;
 
+	(void)ac;
+	(void)av;
 	envi = environnement(environ);
 	line = readline("minishell : ");
 	check = 0;
@@ -74,13 +72,13 @@ int main(int ac, char **av, char **environ)
 	{
 		add_history(line);
 		check = parsing(line, envi, &commands);
-		if ((check > 0 && !commands)  
+		if ((check > 0 && !commands)
 			|| (check > 0 && !ft_strcmp(commands[0].argv[0], "exit")))
-			break;
+			break ;
 		if (check > 0 && ft_strcmp(commands[0].argv[0], "cd") == 0)
 			ft_cd(commands[0].argv[1]);
-		//if (check > 0)
-		//	exec_command(commands, &envi);
+		if (check > 0)
+			exec_command(commands, &envi);
 		free(line);
 		erroring(check);
 		line = readline("minishell : ");
@@ -89,5 +87,4 @@ int main(int ac, char **av, char **environ)
 	if (check > 0)
 		destroy_com(commands);
 	destroy_env(envi);
-	write(1,"\n",1);
 }
