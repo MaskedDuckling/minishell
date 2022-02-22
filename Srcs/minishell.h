@@ -67,6 +67,8 @@ char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
 int			parsing(char *line, t_envi *envi, t_command **commands);
 int			split_command(char **tab, t_envi *envi, t_command **commands);
+int			check_line(char *line);
+
 
 /*tab parsing*/
 int		word(char *str, int i, t_command *com, t_word *first);

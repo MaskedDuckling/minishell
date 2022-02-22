@@ -15,8 +15,9 @@ SRCS	=	main.c 				\
 			environnement.c		\
 			builtins.c			\
 			fct_tab.c			\
-			redir.c			\
-			tab_utils.c
+			redir.c				\
+			tab_utils.c			\
+			check_line.c
 			
 
 OBJS = ${addprefix Srcs/,${SRCS:.c=.o}}
