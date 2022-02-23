@@ -106,16 +106,17 @@ void		environnement(char **environnement);
 void		free_command(char **command);
 void		exec_command(t_command *commands);
 int			ft_builtins(t_command command);
+int			ft_builtins_fork(t_command command, int *tube);
 char		*src_envi(char *var_name);
 void		child_process(t_command command, int *tube, int fd);
 
 /*builtins*/
-void		ft_env(void);
+void		ft_env(int *tube);
 void		ft_cd(char *path);
 void		ft_unset(char *var_name);
 void		ft_export(char *new_env);
-int			ft_pwd(void);
-void		ft_echo(char **argv);
+int			ft_pwd(int *tube);
+void		ft_echo(char **argv, int *tube);
 
 /*error and free*/
 void		destroy_env(t_envi *envi);

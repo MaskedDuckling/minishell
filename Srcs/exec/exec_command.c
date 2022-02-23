@@ -25,6 +25,8 @@ void	child_process(t_command command, int *tube, int fd)
 		dup2(tube[1], STDOUT_FILENO);
 		close(tube[1]);
 	}
+	if (ft_builtins_fork(command, tube))
+		exit(1);
 	environ = join_envi();
 	path = for_access(command.argv[0], environ);
 	execve(path, command.argv, environ);
