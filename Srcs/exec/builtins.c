@@ -124,6 +124,18 @@ int	ft_builtins(t_command command)
 	return (1);
 }
 
+int	test_builtin(t_command command)
+{
+	if (ft_strcmp(command.argv[0], "export") == 0)
+		return(1);
+	if (ft_strcmp(command.argv[0], "unset") == 0)
+		return(1);
+	if (ft_strcmp(command.argv[0], "cd") == 0)
+		return(1);
+	return (0);
+
+}
+
 int	ft_builtins_fork(t_command command, int *tube)
 {
 	if (ft_strcmp(command.argv[0], "echo") == 0)

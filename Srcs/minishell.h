@@ -117,6 +117,7 @@ void		ft_unset(char *var_name);
 void		ft_export(char *new_env);
 int			ft_pwd(int *tube);
 void		ft_echo(char **argv, int *tube);
+int			test_builtin(t_command command);
 
 /*error and free*/
 void		destroy_env(t_envi *envi);
