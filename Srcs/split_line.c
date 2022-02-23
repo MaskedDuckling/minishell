@@ -1,10 +1,12 @@
 #include "minishell.h"
 
-char    *replace_newline(char *command, char c)
+char	*replace_newline(char *command, char c)
 {
-	int i = 0;
-	int j = 1;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 1;
 	while (command[i])
 	{
 		if (command[i] == c && j == 1)
@@ -21,9 +23,11 @@ char    *replace_newline(char *command, char c)
 	return (command);
 }
 
-char    **split_line(char *command)
+char	**split_line(char *command)
 {
-	char **ret = NULL;
+	char	**ret;
+
+	ret = NULL;
 	command = replace_newline(command, '|');
 	ret = ft_split(command, '\n');
 	return (ret);

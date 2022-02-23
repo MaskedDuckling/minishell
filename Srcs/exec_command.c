@@ -10,7 +10,7 @@ void	free_process(t_command command)
 	free(command.argv);
 }
 
-void	child_process(t_command command, int *tube, int fd, t_envi **envi)
+void	child_process(t_command command, int *tube, int fd)
 {
 	char	*path;
 	char	**environ;
@@ -25,9 +25,9 @@ void	child_process(t_command command, int *tube, int fd, t_envi **envi)
 		dup2(tube[1], STDOUT_FILENO);
 		close(tube[1]);
 	}
-	if (ft_builtins(command, envi) == 1)
+	if (ft_builtins(command) == 1)
 		exit(1);
-	environ = join_envi(command.envi);
+	environ = join_envi();
 	path = for_access(command.argv[0], environ);
 	execve(path, command.argv, environ);
 	free_command(environ);
@@ -36,7 +36,7 @@ void	child_process(t_command command, int *tube, int fd, t_envi **envi)
 	exit(1);
 }
 
-void	exec_command(t_command *commands, t_envi **envi)
+void	exec_command(t_command *commands)
 {
 	int		tube[2];
 	pid_t	pid;
@@ -55,7 +55,7 @@ void	exec_command(t_command *commands, t_envi **envi)
 		if (commands[i].redi && pid == 0)
 			ft_redi(commands[i]);
 		else if (pid == 0)
-			child_process(commands[i], tube, fd, envi);
+			child_process(commands[i], tube, fd);
 		if (i > 0)
 			close(fd);
 		fd = tube[0];

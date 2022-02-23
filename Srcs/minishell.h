@@ -13,6 +13,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+
+
 typedef struct s_envi
 {
 	char			*path;
@@ -27,10 +29,16 @@ typedef struct s_redi
 	struct s_redi	*next;
 }				t_redi;
 
+typedef struct s_glob
+{
+	t_envi	*envi;
+}				t_glob;
+
+t_glob glob;
+
 typedef struct s_command
 {
 	char	**argv;
-	t_envi	*envi;
 	t_redi	*redi;
 	int		check;
 }				t_command;
@@ -64,8 +72,8 @@ void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word 
 char		*join_words(t_word *first);
 char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
-int			parsing(char *line, t_envi *envi, t_command **commands);
-int			split_command(char **tab, t_envi *envi, t_command **commands);
+int			parsing(char *line, t_command **commands);
+int			split_command(char **tab, t_command **commands);
 int			check_line(char *line);
 
 /*tab parsing*/
@@ -91,20 +99,20 @@ void		ft_redi(t_command command);
 
 /*Execution*/
 char		*for_access(char *cmd, char **environ);
-void		add_new(t_envi **envi, char *data);
-char		**join_envi(t_envi *envi);
-t_envi		*environnement(char **environnement);
+void		add_new(char *data);
+char		**join_envi(void);
+void		environnement(char **environnement);
 void		free_command(char **command);
-void		exec_command(t_command *commands, t_envi **envi);
-int			ft_builtins(t_command command, t_envi **envi);
-char		*src_envi(t_envi *envi, char *var_name);
-void		child_process(t_command command, int *tube, int fd, t_envi **envi);
+void		exec_command(t_command *commands);
+int			ft_builtins(t_command command);
+char		*src_envi(char *var_name);
+void		child_process(t_command command, int *tube, int fd);
 
 /*builtins*/
-void		ft_env(t_envi *envi);
+void		ft_env(void);
 void		ft_cd(char *path);
-void		ft_unset(t_envi **envi, char *var_name);
-void		ft_export(t_envi **envi, char *new_env);
+void		ft_unset(char *var_name);
+void		ft_export(char *new_env);
 int			ft_pwd(void);
 void		ft_echo(char **argv);
 

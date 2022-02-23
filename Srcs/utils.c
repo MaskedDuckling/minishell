@@ -110,7 +110,8 @@ char	*ft_substr(char *s, int start, int len)
 		return (NULL);
 	if (start > ft_strlen(s))
 		return (ft_strdup(""));
-	if (!(new = malloc((len + 1) * sizeof(char))))
+	new = malloc((len + 1) * sizeof(char));
+	if (!new)
 		return (NULL);
 	i = 0;
 	while (i < len && s[start])
@@ -121,15 +122,16 @@ char	*ft_substr(char *s, int start, int len)
 	return (new);
 }
 
-char    *ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
-	char    *new;
-	int        i;
-	int        len;
+	char	*new;
+	int		i;
+	int		len;
 
 	len = 0;
+	new = NULL;
 	if (!s1)
-		return(NULL);
+		return (NULL);
 	while (s1[len])
 		len++;
 	new = malloc((len + 1) * sizeof(char));
