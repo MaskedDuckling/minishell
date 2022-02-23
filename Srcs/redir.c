@@ -5,7 +5,7 @@ int	type_four(t_command command)
 	char	*line;
 	int		fd;
 
-	fd = open(command.redi->cont, O_CREAT | O_WRONLY, 0644);
+	fd = open(command.redi->cont, O_CREAT | O_WRONLY | O_RDONLY, 0644);
 	line = readline("> ");
 	while (ft_strcmp(line, command.redi->cont))
 	{
@@ -44,5 +44,7 @@ void	ft_redi(t_command command)
 	dup2(stin, STDIN_FILENO);
 	dup2(stout, STDOUT_FILENO);
 	execve(path, command.argv, join_envi(command.envi));
+	free(path);
+	free_process(command);
 	exit(1);
 }

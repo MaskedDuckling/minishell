@@ -54,7 +54,7 @@ void	exec_command(t_command *commands, t_envi **envi)
 		pid = fork();
 		if (commands[i].redi && pid == 0)
 			ft_redi(commands[i]);
-		else if (pid == 0)
+		 if (pid == 0)
 			child_process(commands[i], tube, fd, envi);
 		if (i > 0)
 			close(fd);

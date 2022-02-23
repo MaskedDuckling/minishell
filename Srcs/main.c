@@ -9,7 +9,7 @@ void	destroy_com(t_command *com)
 	j = 0;
 	if (!com)
 		return ;
-	while (com[j].argv || com[j].redi)
+	while (com[j].argv)
 	{
 		i = 0;
 		if (com[j].argv)
@@ -23,7 +23,8 @@ void	destroy_com(t_command *com)
 		while (com[j].redi)
 		{
 			tmp_r = com[j].redi;
-			com->redi = com[j].redi->next;
+			com[j].redi = com[j].redi->next;
+			free(tmp_r->cont);
 			free(tmp_r);
 		}
 		j++;
@@ -32,7 +33,8 @@ void	destroy_com(t_command *com)
 	free(com);
 }
 
-void	destroy_env(t_envi *envi)
+void	destroy_env(t_envi *envi)	
+
 {
 	t_envi	*tmp;
 
@@ -81,6 +83,7 @@ int	main(int ac, char **av, char **environ)
 			|| (check > 0 && (commands[0].argv[0]
 			&& !ft_strcmp(commands[0].argv[0], "exit"))))
 			break ;
+		//printf("check = %i\n", check);
 		if (check > 0 && ( commands[0].argv[0]
 			&& ft_strcmp(commands[0].argv[0], "cd") == 0))
 			ft_cd(commands[0].argv[1]);

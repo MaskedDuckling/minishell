@@ -1,4 +1,3 @@
-NAME = minishell
 CC = clang
 INC = minishell.h
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address

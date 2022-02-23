@@ -20,6 +20,13 @@ parcourir string,
 
 REMPLACER ' ' par les is_space
 
+erreur:
+
+cat Makefile | wc > pop
+les multis redi
+
+
+
 
 des commandes = for_access renvoie le path
 des fichiers
