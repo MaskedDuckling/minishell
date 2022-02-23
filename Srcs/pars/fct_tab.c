@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "pars.h"
 
 int	alpha_num(char *str, int i, t_command *com, t_word *first)
 {

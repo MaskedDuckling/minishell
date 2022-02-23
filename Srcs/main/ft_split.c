@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*ft_wordmalloc(char const *s, char c, int i, char *ret)
 {

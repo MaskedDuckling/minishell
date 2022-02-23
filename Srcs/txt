@@ -1,8 +1,14 @@
+checker si supr tout environ
+
+$?
+
+
+
 $ < << > >> 
 cat << EOF
 
 
-cehcekr si supr tout environ
+
 
 commande << str | commande > file
 

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "exec.h"
 
 int	ft_pwd(void)
 {
@@ -34,7 +34,6 @@ void	ft_unset(char *var_name)
 		prev = par;
 		par = par->next;
 		next = par->next;
-		printf("%s\n",par->name);
 		if (ft_strcmp(par->name, var_name) == 0)
 		{
 			free(par->name);

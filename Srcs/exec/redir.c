@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "exec.h"
 
 int	type_four(t_command command)
 {

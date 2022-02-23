@@ -12,7 +12,9 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-
+# include "pars/pars.h"
+# include "exec/exec.h"
+# include "envi/envi.h"
 
 typedef struct s_envi
 {
@@ -115,6 +117,9 @@ void		ft_export(char *new_env);
 int			ft_pwd(void);
 void		ft_echo(char **argv);
 
+/*error and free*/
+void		destroy_env(t_envi *envi);
+void		erroring(int check);
 void		free_process(t_command command);
 void		destroy_com(t_command *com);
 

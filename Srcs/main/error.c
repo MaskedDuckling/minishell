@@ -1,4 +1,18 @@
-#include "minishell.h"
+#include "../minishell.h"
+
+void	free_command(char **command)
+{
+	int	i;
+
+	i = 1;
+	free(command[0]);
+	while (command[i] != 0)
+	{
+		free(command[i]);
+		i++;
+	}
+	free(command);
+}
 
 void	destroy_com(t_command *com)
 {
@@ -33,7 +47,7 @@ void	destroy_com(t_command *com)
 	free(com);
 }
 
-void	destroy_env(t_envi *envi)	
+void	destroy_env(t_envi *envi)
 
 {
 	t_envi	*tmp;
@@ -61,35 +75,4 @@ void	erroring(int check)
 		printf("error line=NULL\n");
 	else
 		printf("unspecified error\n");
-}
-
-int	main(int ac, char **av, char **environ)
-{
-	char		*line;
-	t_command	*commands;
-	int			check;
-
-	(void)ac;
-	(void)av;
-	environnement(environ);
-	line = readline("minishell : ");
-	check = 0;
-	while (line)
-	{
-		add_history(line);
-		check = parsing(line, &commands);
-		if ((check > 0 && !commands)
-			|| (check > 0 && (commands[0].argv[0]
-			&& !ft_strcmp(commands[0].argv[0], "exit"))))
-			break ;
-		if (check > 0 && !ft_builtins(commands[0]))
-			exec_command(commands);
-		free(line);
-		erroring(check);
-		line = readline("minishell : ");
-	}
-	free(line);
-	if (check > 0)
-		destroy_com(commands);
-	destroy_env(glob.envi);
 }

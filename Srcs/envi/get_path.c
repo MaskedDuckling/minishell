@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "envi.h"
 
 char	*for_for_access(char **path, char *join, int i, char *cmd)
 {

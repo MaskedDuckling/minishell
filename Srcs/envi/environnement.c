@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "envi.h"
 
 char	*tochar(char *s1, char c)
 {

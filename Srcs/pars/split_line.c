@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "pars.h"
 
 char	*replace_newline(char *command, char c)
 {

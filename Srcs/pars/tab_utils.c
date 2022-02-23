@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "pars.h"
 
 char	*cut_word(char *str, int start, int end)
 {
