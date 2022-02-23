@@ -25,7 +25,7 @@ int	parsing(char *line, t_command **command, t_envi *envi)
 	if (com && com[0])
 		check = split_command(com, command, envi);
 	else if (!com || !com[0])
-		check = 0;
+		check = -12;
 	ft_free_tab(com);
 	return (check);
 }

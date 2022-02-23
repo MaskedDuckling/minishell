@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"cstdio": "c",
-		"pars.h": "c"
+		"pars.h": "c",
+		"cstdlib": "c"
 	}
 }

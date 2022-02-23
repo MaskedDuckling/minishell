@@ -21,11 +21,13 @@ int	place_word(t_word *first, char *ret)
 {
 	t_word	*new;
 
+	if (!ret)
+		return(-41);
 	while (first && first->next)
 		first = first->next;
 	new = malloc(sizeof(t_word));
 	if (!new)
-		return (-1);
+		return (-12);
 	new->cont = ret;
 	new->next = NULL;
 	first->next = new;
@@ -53,7 +55,7 @@ char	*lch_to_str(t_word	*first)
 	str = first->cont;
 	tmp = first->next;
 	free(first);
-	while (tmp)
+	while (tmp && str)
 	{
 		str = ft_strjoin_free(str, tmp->cont);
 		free(tmp->cont);
@@ -85,7 +87,7 @@ int	redi(t_command *com, char *cont, int type)
 		return (-1);
 	tmp = malloc(sizeof(t_redi));
 	if (!tmp)
-		return (-2);
+		return (-12);
 	tmp->cont = cont;
 	tmp->type = type;
 	tmp->next = NULL;

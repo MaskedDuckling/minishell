@@ -66,12 +66,13 @@ void	erroring(int check)
 {
 	if (check >= 0)
 		return ;
-	printf("minishell error: ");
-	if (check == -1)
+	
+	printf("minishell ERROR : ");
+	if (check == -12)
 		printf("a malloc failed\n");
 	else if (check == -2)
 		printf("parse error\n");
-	else if (check == -3)
+	else if (check == -8)
 		printf("error line=NULL\n");
 	else
 		printf("unspecified error\n");

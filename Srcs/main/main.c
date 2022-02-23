@@ -14,7 +14,7 @@ int	main(int ac, char **av, char **environ)
 	envi = environnement(environ);
 	line = readline("minishell : ");
 	check = 0;
-	while (check >= 0)
+	while (check >= -10)
 	{
 		//printf("line= %s\n", line);
 		add_history(line);

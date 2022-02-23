@@ -59,7 +59,7 @@ int	parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int 
 	i = 0;
 	first = malloc(sizeof(t_word));
 	if (!first)
-		return (-1);
+		return (-12);
 	first->cont = NULL;
 	first->next = NULL;
 	while (i >= 0 && i < ft_strlen(str))
@@ -95,7 +95,7 @@ int	split_command(char **tab, t_command **com, t_envi *envi)
 	size_tab = len_tab(tab);
 	command = malloc(sizeof(t_command) * (size_tab + 1));
 	if (!command)
-		return (-1);
+		return (-12);
 	init_fct_tab(fct_tab);
 	i = 0;
 	check = 0;

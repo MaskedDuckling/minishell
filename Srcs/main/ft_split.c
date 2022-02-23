@@ -12,7 +12,7 @@ char	*ft_wordmalloc(char const *s, char c, int i, char *ret)
 	}
 	ret = malloc(sizeof(char) * (j + 1));
 	if (!ret)
-		return (0);
+		return (NULL);
 	return (ret);
 }
 

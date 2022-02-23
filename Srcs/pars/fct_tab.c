@@ -125,13 +125,18 @@ int	dquotes(char *str, int i, t_command *com, t_word *first)
 		fct_tab[n++] = alpha_num_quotes;
 	fct_tab['$'] = venv;
 	new = malloc(sizeof(t_word));
+	if (!new)
+		return (-12);
 	new->next = NULL;
 	new->cont = NULL;
 	n = i;
 	while (str[i] && str[i] != '\"')
 		i = fct_tab[(int)str[i]](str, i, com, new);
 	if (n == i)
+	{
+		free(new);
 		place_word(first, ft_strdup(""));
+	}
 	else
 		place_word(first, lch_to_str(new));
 	return (++i);
@@ -150,6 +155,8 @@ int	word(char *str, int i, t_command *com, t_word *first)
 	fct_tab['\''] = squotes;
 	fct_tab['$'] = venv;
 	new = malloc(sizeof(t_word));
+	if (!new)
+		return (-12);
 	new->next = NULL;
 	new->cont = NULL;
 	while (str[i] && str[i] != ' ')

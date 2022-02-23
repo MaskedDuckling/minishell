@@ -64,7 +64,7 @@ int	check_line(char *line)
 
 	init_tab(tab);
 	if (!line)
-		return (-3);
+		return (-8);
 	i = 0;
 	while (i >= 0 && line[i])
 		i = tab[(int)line[i]](line, i);

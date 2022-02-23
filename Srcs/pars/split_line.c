@@ -28,6 +28,13 @@ char	**split_line(char *command)
 	char	**ret;
 
 	ret = NULL;
+	if (ft_strlen(command) == 0)
+	{
+		ret = malloc(sizeof(char *) * 2);
+		ret[0] = ft_strdup("");
+		ret[1] = NULL;
+		return(ret);
+	}
 	command = replace_newline(command, '|');
 	ret = ft_split(command, '\n');
 	return (ret);
