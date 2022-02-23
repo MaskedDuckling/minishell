@@ -16,20 +16,34 @@ void	ft_export(char *new_env)
 
 void	ft_unset(char *var_name)
 {
-	t_envi	*tmp;
+	t_envi	*prev;
+	t_envi	*next;
+	t_envi	*par;
 
-	while (glob.envi)
+	par = glob.envi;
+	if (ft_strcmp(par->name, var_name) == 0)
 	{
-		tmp = glob.envi->next;
-		if (ft_strcmp(glob.envi->name, var_name) == 0)
+		glob.envi = par->next;
+		free(par->name);
+		free(par->path);
+		free(par);
+		return ;
+	}
+	while (par->next)
+	{
+		prev = par;
+		par = par->next;
+		next = par->next;
+		if (ft_strcmp(par->name, var_name) == 0)
 		{
-			free(glob.envi->name);
-			free(glob.envi->path);
-			free(glob.envi);
-			glob.envi = tmp;
+			free(par->name);
+			free(par->path);
+			free(par);
+			prev->next = next;
+			return ;
 		}
 		else
-			glob.envi = glob.envi->next;
+			par = par->next;
 	}
 }
 
@@ -102,6 +116,8 @@ int	ft_builtins(t_command command)
 		ft_pwd();
 	else if (ft_strcmp(command.argv[0], "env") == 0)
 		ft_env();
+	else if (ft_strcmp(command.argv[0], "cd") == 0)
+		ft_cd(command.argv[1]);
 	else
 		return (0);
 	free(command.argv[0]);

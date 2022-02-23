@@ -74,9 +74,7 @@ int	main(int ac, char **av, char **environ)
 		if ((check > 0 && !commands)
 			|| (check > 0 && !ft_strcmp(commands[0].argv[0], "exit")))
 			break ;
-		if (check > 0 && ft_strcmp(commands[0].argv[0], "cd") == 0)
-			ft_cd(commands[0].argv[1]);
-		if (check > 0)
+		if (check > 0 && !ft_builtins(commands[0]))
 			exec_command(commands);
 		free(line);
 		erroring(check);
