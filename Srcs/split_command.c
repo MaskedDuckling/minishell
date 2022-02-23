@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-int  len_tab(char **tab)
+int	len_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -10,10 +10,10 @@ int  len_tab(char **tab)
 	return (i);
 }
 
-char **make_argv(t_word *first)
+char	**make_argv(t_word *first)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_word	*tmp;
 	char	**argv;
 
@@ -48,26 +48,25 @@ void	destroy_word(t_word	*first)
 		first = tmp;
 	}
 }
-int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
-		t_command *com, t_word *first), t_envi *envi)
+
+int	parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
+					t_command *com, t_word *first))
 {
 	int		i;
 	t_word	*first;
+	t_redi	*tmp;
 
- 	i = 0;
+	i = 0;
 	first = malloc(sizeof(t_word));
 	if (!first)
-		return(-1);
+		return (-1);
 	first->cont = NULL;
 	first->next = NULL;
-	
-	com->envi = envi;
 	while (i >= 0 && i < ft_strlen(str))
 		i = fct_tab[(int)str[i]](str, i, com, first);
 	if (i >= 0)
 		com->argv = make_argv(first->next);
 	destroy_word(first);
-	t_redi *tmp;
 	tmp = com->redi;
 	return(i);
 	
@@ -85,14 +84,14 @@ int		parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int
 	
 }
 
-int			split_command(char **tab, t_envi *envi, t_command **com)
+int	split_command(char **tab, t_command **com)
 {
-	int         i;
-	int         size_tab;
-	t_command   *command;
-	int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
-	int		check;
-		
+	int			i;
+	int			size_tab;
+	t_command	*command;
+	int			(*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int			check;
+
 	size_tab = len_tab(tab);
 	command = malloc(sizeof(t_command) * (size_tab + 1));
 	if (!command)
@@ -103,12 +102,10 @@ int			split_command(char **tab, t_envi *envi, t_command **com)
 	while (check >= 0 && i < size_tab)
 	{
 		command[i].redi = NULL;
-		command[i].argv = NULL;
-		check = parse_command(tab[i], &command[i], fct_tab, envi);
+		check = parse_command(tab[i], &command[i], fct_tab);
 		i++;
 	}
 	command[i].argv = NULL;
 	*com = command;
-	i = 0;
-	return(check);
+	return (check);
 }

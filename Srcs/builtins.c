@@ -9,37 +9,37 @@ int	ft_pwd(void)
 	return (1);
 }
 
-void	ft_export(t_envi **envi, char *new_env)
+void	ft_export(char *new_env)
 {
-	add_new(envi, new_env);
+	add_new(new_env);
 }
 
-void	ft_unset(t_envi **envi, char *var_name)
+void	ft_unset(char *var_name)
 {
 	t_envi	*tmp;
 
-	while (*envi)
+	while (glob.envi)
 	{
-		tmp = (*envi)->next;
-		if (ft_strcmp((*envi)->name, var_name) == 0)
+		tmp = glob.envi->next;
+		if (ft_strcmp(glob.envi->name, var_name) == 0)
 		{
-			free((*envi)->name);
-			free((*envi)->path);
-			free(*envi);
-			*envi = tmp;
+			free(glob.envi->name);
+			free(glob.envi->path);
+			free(glob.envi);
+			glob.envi = tmp;
 		}
 		else
-			envi = &(*envi)->next;
+			glob.envi = glob.envi->next;
 	}
 }
 
-void	ft_env(t_envi *envi)
+void	ft_env(void)
 {
 	char	**env;
 	int		i;
 
 	i = 0;
-	env = join_envi(envi);
+	env = join_envi();
 	while (env[i])
 	{
 		printf("%s\n", env[i]);
@@ -90,18 +90,18 @@ void	ft_cd(char *path)
 		printf("%s\n", strerror(errno));
 }
 
-int	ft_builtins(t_command command, t_envi **envi)
+int	ft_builtins(t_command command)
 {
 	if (ft_strcmp(command.argv[0], "echo") == 0)
 		ft_echo(command.argv);
 	else if (ft_strcmp(command.argv[0], "export") == 0)
-		ft_export(envi, command.argv[1]);
+		ft_export(command.argv[1]);
 	else if (ft_strcmp(command.argv[0], "unset") == 0)
-		ft_unset(envi, command.argv[1]);
+		ft_unset(command.argv[1]);
 	else if (ft_strcmp(command.argv[0], "pwd") == 0)
 		ft_pwd();
 	else if (ft_strcmp(command.argv[0], "env") == 0)
-		ft_env(*envi);
+		ft_env();
 	else
 		return (0);
 	free(command.argv[0]);

@@ -9,12 +9,12 @@ char	*cut_word(char *str, int start, int end)
 		return (NULL);
 	ret = malloc(sizeof(char) * (end - start + 1));
 	if (!ret)
-		return(NULL);
+		return (NULL);
 	i = 0;
 	while (start < end)
 		ret[i++] = str[start++];
 	ret[i] = 0;
-	return(ret);
+	return (ret);
 }
 
 int	place_word(t_word *first, char *ret)
@@ -29,7 +29,7 @@ int	place_word(t_word *first, char *ret)
 	new->cont = ret;
 	new->next = NULL;
 	first->next = new;
-	return(0);
+	return (0);
 }
 
 int	skip(char *str, int i, t_command *com, t_word *first)
@@ -37,12 +37,12 @@ int	skip(char *str, int i, t_command *com, t_word *first)
 	(void)first;
 	(void)str;
 	(void)com;
-	return(i + 1);
+	return (i + 1);
 }
 
 char	*lch_to_str(t_word	*first)
 {
-	char *str;
+	char	*str;
 	t_word	*tmp;
 
 	if (!first)
@@ -76,7 +76,7 @@ void	init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *
 	fct_tab['>'] = output;
 }
 
-int		redi(t_command *com, char *cont, int type)
+int	redi(t_command *com, char *cont, int type)
 {
 	t_redi	*tmp;
 	t_redi	*mv;
@@ -95,7 +95,7 @@ int		redi(t_command *com, char *cont, int type)
 		return (0);
 	}
 	mv = com->redi;
-	while(mv->next)
+	while (mv->next)
 		mv = mv->next;
 	mv->next = tmp;
 	return (0);

@@ -30,65 +30,79 @@ int	envi_len(t_envi *envi)
 	return (i);
 }
 
-char	**join_envi(t_envi *envi)
+char	**join_envi(void)
 {
 	char	**ret;
 	int		i;
 	int		j;
+	t_envi *tmp;
 
 	j = 0;
-	i = envi_len(envi);
+	tmp = glob.envi;
+	i = envi_len(tmp);
 	ret = malloc(sizeof(char *) * (i + 1));
 	if (!ret)
 		return (NULL);
 	while (j < i)
 	{
-		ret[j] = ft_strjoin(envi->name, "=");
-		ret[j] = ft_strjoin_free(ret[j], envi->path);
-		envi = envi->next;
+		ret[j] = ft_strjoin(tmp->name, "=");
+		ret[j] = ft_strjoin_free(ret[j], tmp->path);
+		tmp = tmp->next;
 		j++;
 	}
 	ret[j] = NULL;
 	return (ret);
 }
 
-char	*src_envi(t_envi *envi, char *var_name)
+char	*src_envi(char *var_name)
 {
-	while (envi)
+	t_envi *tmp;
+
+	tmp = glob.envi;
+	while (tmp)
 	{
-		if (ft_strcmp(envi->name, var_name) == 0)
-			return (envi->path);
-		envi = envi->next;
+		if (ft_strcmp(tmp->name, var_name) == 0)
+			return (tmp->path);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
-void	add_new(t_envi **envi, char *data)
+void	add_new(char *data)
 {
-	int		i;
 	t_envi	*tmp;
+	t_envi	*new;
 
-	i = 0;
-	tmp = *envi;
-	*envi = malloc(sizeof(t_envi));
-	(*envi)->path = ft_strdup(tochar(data, '='));
-	while (data[i])
-		i++;
-	(*envi)->name = ft_strdup(data);
-	(*envi)->next = tmp;
+	tmp = glob.envi;
+	while (tmp->next)
+		tmp = tmp->next;
+	new = malloc(sizeof(t_envi));
+	new->path = ft_strdup(tochar(data, '='));
+	new->name = ft_strdup(data);
+	new->next = NULL;
+	tmp->next = new;
+	/*
+	tmp = glob.envi;
+	glob.envi = malloc(sizeof(t_envi));
+	glob.envi->path = ft_strdup(tochar(data, '='));
+	glob.envi->name = ft_strdup(data);
+	glob.envi->next = tmp;
+	printf("%s\n",glob.envi->name);
+	*/
 }
 
-t_envi	*environnement(char **environnement)
+void	environnement(char **environnement)
 {
-	t_envi	*envi;
 	int		i;
 
-	envi = NULL;
-	i = 0;
+	i = 1;
+	glob.envi = malloc(sizeof(t_envi));
+	glob.envi->path = ft_strdup(tochar(environnement[0], '='));
+	glob.envi->name = ft_strdup(environnement[0]);
+	glob.envi->next = NULL;
 	while (environnement[i])
 	{
-		add_new(&envi, environnement[i]);
+		add_new(environnement[i]);
 		i++;
 	}
-	return (envi);
 }
