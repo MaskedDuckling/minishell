@@ -14,7 +14,6 @@
 # include <sys/wait.h>
 
 
-
 typedef struct s_envi
 {
 	char			*path;
@@ -33,8 +32,6 @@ typedef struct s_glob
 {
 	t_envi	*envi;
 }				t_glob;
-
-t_glob glob;
 
 typedef struct s_command
 {
@@ -55,6 +52,8 @@ typedef struct s_venv_quotes
 	int		s;
 	int		e;
 }				t_venv_quotes;
+
+t_glob glob;
 
 /*Libft*/
 char		**ft_split(char const *s, char c);

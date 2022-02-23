@@ -1,6 +1,9 @@
 $ < << > >> 
 cat << EOF
 
+
+cehcekr si supr tout environ
+
 commande << str | commande > file
 
 Structures qui contient info sur elements du term :
