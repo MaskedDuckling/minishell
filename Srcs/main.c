@@ -82,15 +82,7 @@ int	main(int ac, char **av, char **environ)
 			|| (check > 0 && (commands[0].argv[0]
 			&& !ft_strcmp(commands[0].argv[0], "exit"))))
 			break ;
-<<<<<<< HEAD
-		//printf("check = %i\n", check);
-		if (check > 0 && ( commands[0].argv[0]
-			&& ft_strcmp(commands[0].argv[0], "cd") == 0))
-			ft_cd(commands[0].argv[1]);
-		if (check > 0)
-=======
 		if (check > 0 && !ft_builtins(commands[0]))
->>>>>>> afb1661ff014b6e79a8ef8742b6ead188ef61cf3
 			exec_command(commands);
 		free(line);
 		erroring(check);

@@ -81,14 +81,6 @@ void	add_new(char *data)
 	new->name = ft_strdup(data);
 	new->next = NULL;
 	tmp->next = new;
-	/*
-	tmp = glob.envi;
-	glob.envi = malloc(sizeof(t_envi));
-	glob.envi->path = ft_strdup(tochar(data, '='));
-	glob.envi->name = ft_strdup(data);
-	glob.envi->next = tmp;
-	printf("%s\n",glob.envi->name);
-	*/
 }
 
 void	environnement(char **environnement)
