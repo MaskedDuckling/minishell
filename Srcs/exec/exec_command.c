@@ -27,10 +27,11 @@ void	child_process(t_command command, int *tube, int fd)
 	}
 	if (ft_builtins_fork(command, tube))
 		exit(1);
-	environ = join_envi();
+	environ = join_envi(command.envi);
 	path = for_access(command.argv[0], environ);
 	execve(path, command.argv, environ);
 	free_command(environ);
+	destroy_env(command.envi);
 	free(path);
 	free_process(command);
 	exit(1);
@@ -46,12 +47,8 @@ void	exec_command(t_command *commands)
 	i = 0;
 	fd = STDIN_FILENO;
 	if (!commands[1].argv)
-	{
 		if (ft_builtins(commands[0]))
 			return ;
-	}
-	//else
-	//	i = test_builtin(commands[0]);
 	while (commands[i].argv)
 	{
 		if (commands[i + 1].argv)

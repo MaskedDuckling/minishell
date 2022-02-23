@@ -7,17 +7,18 @@ int	main(int ac, char **av, char **environ)
 	char		*line;
 	t_command	*commands;
 	int			check;
+	t_envi		*envi;
 
 	(void)ac;
 	(void)av;
-	environnement(environ);
+	envi = environnement(environ);
 	line = readline("minishell : ");
 	check = 0;
 	while (check >= 0)
 	{
 		//printf("line= %s\n", line);
 		add_history(line);
-		check = parsing(line, &commands);
+		check = parsing(line, &commands, envi);
 		if ((check > 0 && !commands)
 			|| (check > 0 && (commands[0].argv[0]
 			&& !ft_strcmp(commands[0].argv[0], "exit"))))
@@ -32,5 +33,5 @@ int	main(int ac, char **av, char **environ)
 	free(line);
 	if (check > 0)
 		destroy_com(commands);
-	destroy_env(glob.envi);
+	destroy_env(envi);
 }

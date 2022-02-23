@@ -30,15 +30,11 @@ typedef struct s_redi
 	struct s_redi	*next;
 }				t_redi;
 
-typedef struct s_glob
-{
-	t_envi	*envi;
-}				t_glob;
-
 typedef struct s_command
 {
 	char	**argv;
 	t_redi	*redi;
+	t_envi	*envi;
 	int		check;
 }				t_command;
 
@@ -55,7 +51,6 @@ typedef struct s_venv_quotes
 	int		e;
 }				t_venv_quotes;
 
-t_glob glob;
 
 /*Libft*/
 char		**ft_split(char const *s, char c);
@@ -73,8 +68,8 @@ void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word 
 char		*join_words(t_word *first);
 char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
-int			parsing(char *line, t_command **commands);
-int			split_command(char **tab, t_command **commands);
+int			parsing(char *line, t_command **commands, t_envi *envi);
+int			split_command(char **tab, t_command **commands, t_envi *envi);
 int			check_line(char *line);
 
 /*tab parsing*/
@@ -98,23 +93,25 @@ int			redi(t_command *com, char *cont, int type);
 /*Redirections*/
 void		ft_redi(t_command command);
 
-/*Execution*/
+/*Environ*/
 char		*for_access(char *cmd, char **environ);
-void		add_new(char *data);
-char		**join_envi(void);
-void		environnement(char **environnement);
+void		add_new(char *data, t_envi *envi);
+char		**join_envi(t_envi *envi);
+t_envi		*environnement(char **environnement);
+
+/*Execution*/
 void		free_command(char **command);
 void		exec_command(t_command *commands);
 int			ft_builtins(t_command command);
 int			ft_builtins_fork(t_command command, int *tube);
-char		*src_envi(char *var_name);
+char		*src_envi(char *var_name,t_envi *envi);
 void		child_process(t_command command, int *tube, int fd);
 
 /*builtins*/
-void		ft_env(int *tube);
+void		ft_env(int *tube, t_envi *envi);
 void		ft_cd(char *path);
-void		ft_unset(char *var_name);
-void		ft_export(char *new_env);
+void		ft_unset(char *var_name, t_envi *envi);
+void		ft_export(char *new_env, t_envi *envi);
 int			ft_pwd(int *tube);
 void		ft_echo(char **argv, int *tube);
 int			test_builtin(t_command command);

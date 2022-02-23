@@ -30,7 +30,7 @@ int	envi_len(t_envi *envi)
 	return (i);
 }
 
-char	**join_envi(void)
+char	**join_envi(t_envi *envi)
 {
 	char	**ret;
 	int		i;
@@ -38,7 +38,7 @@ char	**join_envi(void)
 	t_envi *tmp;
 
 	j = 0;
-	tmp = glob.envi;
+	tmp = envi;
 	i = envi_len(tmp);
 	ret = malloc(sizeof(char *) * (i + 1));
 	if (!ret)
@@ -54,11 +54,11 @@ char	**join_envi(void)
 	return (ret);
 }
 
-char	*src_envi(char *var_name)
+char	*src_envi(char *var_name, t_envi *envi)
 {
 	t_envi *tmp;
 
-	tmp = glob.envi;
+	tmp = envi;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, var_name) == 0)
@@ -68,12 +68,12 @@ char	*src_envi(char *var_name)
 	return (NULL);
 }
 
-void	add_new(char *data)
+void	add_new(char *data, t_envi *envi)
 {
 	t_envi	*tmp;
 	t_envi	*new;
 
-	tmp = glob.envi;
+	tmp = envi;
 	while (tmp->next)
 		tmp = tmp->next;
 	new = malloc(sizeof(t_envi));
@@ -83,18 +83,20 @@ void	add_new(char *data)
 	tmp->next = new;
 }
 
-void	environnement(char **environnement)
+t_envi	*environnement(char **environnement)
 {
 	int		i;
+	t_envi	*envi;
 
 	i = 1;
-	glob.envi = malloc(sizeof(t_envi));
-	glob.envi->path = ft_strdup(tochar(environnement[0], '='));
-	glob.envi->name = ft_strdup(environnement[0]);
-	glob.envi->next = NULL;
+	envi = malloc(sizeof(t_envi));
+	envi->path = ft_strdup(tochar(environnement[0], '='));
+	envi->name = ft_strdup(environnement[0]);
+	envi->next = NULL;
 	while (environnement[i])
 	{
-		add_new(environnement[i]);
+		add_new(environnement[i], envi);
 		i++;
 	}
+	return (envi);
 }

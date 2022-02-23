@@ -11,21 +11,21 @@ int	ft_pwd(int *tube)
 	return (1);
 }
 
-void	ft_export(char *new_env)
+void	ft_export(char *new_env, t_envi *envi)
 {
-	add_new(new_env);
+	add_new(new_env, envi);
 }
 
-void	ft_unset(char *var_name)
+void	ft_unset(char *var_name, t_envi *envi)
 {
 	t_envi	*prev;
 	t_envi	*next;
 	t_envi	*par;
 
-	par = glob.envi;
+	par = envi;
 	if (ft_strcmp(par->name, var_name) == 0)
 	{
-		glob.envi = par->next;
+		envi = par->next;
 		free(par->name);
 		free(par->path);
 		free(par);
@@ -47,13 +47,13 @@ void	ft_unset(char *var_name)
 	}
 }
 
-void	ft_env(int *tube)
+void	ft_env(int *tube, t_envi *envi)
 {
 	char	**env;
 	int		i;
 
 	i = 0;
-	env = join_envi();
+	env = join_envi(envi);
 	close(tube[0]);
 	dup2(tube[1], STDOUT_FILENO);
 	while (env[i])
@@ -112,9 +112,9 @@ void	ft_cd(char *path)
 int	ft_builtins(t_command command)
 {
 	if (ft_strcmp(command.argv[0], "export") == 0)
-		ft_export(command.argv[1]);
+		ft_export(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "unset") == 0)
-		ft_unset(command.argv[1]);
+		ft_unset(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "cd") == 0)
 		ft_cd(command.argv[1]);
 	else
@@ -143,7 +143,7 @@ int	ft_builtins_fork(t_command command, int *tube)
 	else if (ft_strcmp(command.argv[0], "pwd") == 0)
 		ft_pwd(tube);
 	else if (ft_strcmp(command.argv[0], "env") == 0)
-		ft_env(tube);
+		ft_env(tube, command.envi);
 	else
 		return (0);
 	free(command.argv[0]);

@@ -40,9 +40,9 @@ void	ft_redi(t_command command)
 			break ;
 		command.redi = command.redi->next;
 	}
-	path = for_access(command.argv[0], join_envi());
+	path = for_access(command.argv[0], join_envi(command.envi));
 	dup2(stin, STDIN_FILENO);
 	dup2(stout, STDOUT_FILENO);
-	execve(path, command.argv, join_envi());
+	execve(path, command.argv, join_envi(command.envi));
 	exit(1);
 }

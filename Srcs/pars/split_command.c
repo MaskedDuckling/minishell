@@ -84,7 +84,7 @@ int	parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int 
 	
 }
 
-int	split_command(char **tab, t_command **com)
+int	split_command(char **tab, t_command **com, t_envi *envi)
 {
 	int			i;
 	int			size_tab;
@@ -101,6 +101,7 @@ int	split_command(char **tab, t_command **com)
 	check = 0;
 	while (check >= 0 && i < size_tab)
 	{
+		command[i].envi = envi;
 		command[i].redi = NULL;
 		check = parse_command(tab[i], &command[i], fct_tab);
 		i++;

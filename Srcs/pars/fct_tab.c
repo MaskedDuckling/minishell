@@ -88,7 +88,7 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	if (start == i)
 		ret = ft_strdup("$");
 	else
-		ret = ft_strdup(src_envi(name));
+		ret = ft_strdup(src_envi(name, com->envi));
 	if (!ret)
 		ret = ft_strdup("");
 	place_word(first, ret);
