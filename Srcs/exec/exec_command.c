@@ -72,8 +72,12 @@ int		exec_command(t_command *commands)
 	i = 0;
 	fd = STDIN_FILENO;
 	if (!commands[1].argv)
+	{
 		if (ft_builtins(commands[0]))
+		{
+			free(commands);
 			return (0);
+		}
 	while (commands[i].argv)
 	{
 		if (commands[i + 1].argv)
