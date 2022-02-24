@@ -85,13 +85,10 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	name = ft_substr(str, start, (i - start));
 	if (!name)
 		return (-1);
-	if (start == i)
-		ret = ft_strdup("$");
-	else if (start + 1 == i && str[i - 1] == '?')
-	{
-		printf("OK\n");
+	if (start == i && str[start] == '?' && ++i)
 		ret = ft_itoa(com->exit_status);
-	}
+	else if (start == i)
+		ret = ft_strdup("$");
 	else
 		ret = ft_strdup(src_envi(name, com->envi));
 	if (!ret)
