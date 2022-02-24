@@ -12,7 +12,7 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-int	parsing(char *line, t_command **command, t_envi *envi)
+int	parsing(char *line, t_command **command, t_envi *envi, int exit_status)
 {
 	char	**com;
 	int		check;
@@ -23,7 +23,7 @@ int	parsing(char *line, t_command **command, t_envi *envi)
 		return (check);
 	com = split_line(line);
 	if (com && com[0])
-		check = split_command(com, command, envi);
+		check = split_command(com, command, envi, exit_status);
 	else if (!com || !com[0])
 		check = -12;
 	ft_free_tab(com);

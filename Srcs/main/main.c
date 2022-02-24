@@ -18,7 +18,7 @@ int	main(int ac, char **av, char **environ)
 	{
 		//printf("line= %s\n", line);
 		add_history(line);
-		check = parsing(line, &commands, envi);
+		check = parsing(line, &commands, envi, check);
 		if ((check > 0 && !commands)
 			|| (check > 0 && (commands[0].argv[0]
 			&& !ft_strcmp(commands[0].argv[0], "exit"))))
