@@ -47,12 +47,17 @@ void	ft_unset(char *var_name, t_envi *envi)
 	}
 }
 
-void	ft_env(int *tube, t_envi *envi)
+void	ft_env(int *tube, t_envi *envi, char *argv1)
 {
 	char	**env;
 	int		i;
 
 	i = 0;
+	if (argv1)
+	{
+		printf("%s\n",strerror(2));
+		return ;
+	}
 	env = join_envi(envi);
 	close(tube[0]);
 	dup2(tube[1], STDOUT_FILENO);
@@ -143,7 +148,7 @@ int	ft_builtins_fork(t_command command, int *tube)
 	else if (ft_strcmp(command.argv[0], "pwd") == 0)
 		ft_pwd(tube);
 	else if (ft_strcmp(command.argv[0], "env") == 0)
-		ft_env(tube, command.envi);
+		ft_env(tube, command.envi, command.argv[1]);
 	else
 		return (0);
 	free(command.argv[0]);
