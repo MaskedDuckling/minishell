@@ -84,7 +84,7 @@ int	parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int 
 	
 }
 
-int	split_command(char **tab, t_command **com, t_envi *envi)
+int	split_command(char **tab, t_command **com, t_envi *envi, int exit_status)
 {
 	int			i;
 	int			size_tab;
@@ -103,7 +103,7 @@ int	split_command(char **tab, t_command **com, t_envi *envi)
 	{
 		command[i].envi = envi;
 		command[i].redi = NULL;
-		command[i].exit_status = 0;
+		command[i].exit_status = exit_status;
 		check = parse_command(tab[i], &command[i], fct_tab);
 		i++;
 	}

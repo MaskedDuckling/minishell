@@ -71,8 +71,8 @@ void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word 
 char		*join_words(t_word *first);
 char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
-int			parsing(char *line, t_command **commands, t_envi *envi);
-int			split_command(char **tab, t_command **commands, t_envi *envi);
+int			parsing(char *line, t_command **commands, t_envi *envi, int exit_status);
+int			split_command(char **tab, t_command **commands, t_envi *envi, int exit_status);
 int			check_line(char *line);
 
 /*tab parsing*/
@@ -86,6 +86,7 @@ int			output(char *str, int i, t_command *com, t_word *first);
 int			venv(char *str, int i, t_command *com, t_word *first);
 
 /*tab parsing utils*/
+char		*ft_itoa(int n);
 void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
 char		*lch_to_str(t_word	*first);
 int			skip(char *str, int i, t_command *com, t_word *first);
