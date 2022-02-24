@@ -112,7 +112,7 @@ char		*src_envi(char *var_name,t_envi *envi);
 void		child_process(t_command command, int *tube, int fd);
 
 /*builtins*/
-void		ft_env(int *tube, t_envi *envi);
+void		ft_env(int *tube, t_envi *envi, char *argv1);
 void		ft_cd(char *path);
 void		ft_unset(char *var_name, t_envi *envi);
 void		ft_export(char *new_env, t_envi *envi);
