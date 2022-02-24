@@ -74,6 +74,7 @@ void	add_new(char *data, t_envi *envi)
 	t_envi	*new;
 
 	tmp = envi;
+
 	while (tmp->next)
 		tmp = tmp->next;
 	new = malloc(sizeof(t_envi));

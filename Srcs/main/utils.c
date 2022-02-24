@@ -143,3 +143,19 @@ char	*ft_strdup(const char *s1)
 	new[i] = '\0';
 	return (new);
 }
+
+int	ft_is_in(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}

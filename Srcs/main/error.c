@@ -6,7 +6,7 @@ void	free_command(char **command)
 
 	i = 1;
 	free(command[0]);
-	while (command[i] != 0)
+	while (command[i])
 	{
 		free(command[i]);
 		i++;

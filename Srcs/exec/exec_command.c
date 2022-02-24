@@ -47,8 +47,13 @@ void	exec_command(t_command *commands)
 	i = 0;
 	fd = STDIN_FILENO;
 	if (!commands[1].argv)
+	{
 		if (ft_builtins(commands[0]))
+		{
+			free(commands);
 			return ;
+		}
+	}
 	while (commands[i].argv)
 	{
 		if (commands[i + 1].argv)
@@ -67,6 +72,9 @@ void	exec_command(t_command *commands)
 			close(tube[1]);
 		i++;
 	}
+
+	
+
 	while (i >= 0)
 	{
 		pid = waitpid(-1, 0, 0);
