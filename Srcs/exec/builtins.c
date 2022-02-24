@@ -132,7 +132,7 @@ int	ft_builtins(t_command command)
 {
 	if (ft_strcmp(command.argv[0], "export") == 0)
 		ft_export(command.argv[1], command.envi);
-	else if (ft_strcmp(command.argv[0], "unset") == 0)/*si pas de deuxieme ne rien faire*/
+	else if (ft_strcmp(command.argv[0], "unset") == 0)
 		ft_unset(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "cd") == 0)
 		ft_cd(command.argv[1]);
