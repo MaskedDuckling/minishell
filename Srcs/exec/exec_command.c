@@ -78,6 +78,7 @@ int		exec_command(t_command *commands)
 			free(commands);
 			return (0);
 		}
+	}
 	while (commands[i].argv)
 	{
 		if (commands[i + 1].argv)
