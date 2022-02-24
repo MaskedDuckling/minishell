@@ -103,6 +103,7 @@ int	split_command(char **tab, t_command **com, t_envi *envi)
 	{
 		command[i].envi = envi;
 		command[i].redi = NULL;
+		command[i].exit_status = 0;
 		check = parse_command(tab[i], &command[i], fct_tab);
 		i++;
 	}

@@ -3,7 +3,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdio.h>
+# include <stdint.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -36,6 +36,8 @@ typedef struct s_command
 	t_redi	*redi;
 	t_envi	*envi;
 	int		check;
+	int		exit_status;
+	pid_t	pid;
 }				t_command;
 
 typedef struct s_word
@@ -101,7 +103,7 @@ t_envi		*environnement(char **environnement);
 
 /*Execution*/
 void		free_command(char **command);
-void		exec_command(t_command *commands);
+int			exec_command(t_command *commands);
 int			ft_builtins(t_command command);
 int			ft_builtins_fork(t_command command, int *tube);
 char		*src_envi(char *var_name,t_envi *envi);
@@ -118,7 +120,7 @@ int			test_builtin(t_command command);
 
 /*error and free*/
 void		destroy_env(t_envi *envi);
-void		erroring(int check);
+int			erroring(int check);
 void		free_process(t_command command);
 void		destroy_com(t_command *com);
 

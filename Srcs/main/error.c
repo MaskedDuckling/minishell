@@ -62,11 +62,10 @@ void	destroy_env(t_envi *envi)
 	}
 }
 
-void	erroring(int check)
+int	erroring(int check)
 {
 	if (check >= 0)
-		return ;
-	
+		return (check);
 	printf("minishell ERROR : ");
 	if (check == -12)
 		printf("a malloc failed\n");
@@ -76,4 +75,7 @@ void	erroring(int check)
 		printf("error line=NULL\n");
 	else
 		printf("unspecified error\n");
+	if (check >= -10)
+		return (0);
+	return (check);
 }
