@@ -87,7 +87,7 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 		return (-1);
 	if (start == i)
 		ret = ft_strdup("$");
-	else if (start + 2 == i && str[i] == '?')
+	else if (start + 1 == i && str[i - 1] == '?')
 	{
 		printf("OK\n");
 		ret = ft_itoa(com->exit_status);
