@@ -10,10 +10,46 @@ int	ft_pwd(int *tube)
 	printf("%s\n", buffer);
 	return (1);
 }
+char	*var_name(char *def)
+{
+	char	*name;
+	int		i;
+	int		y;
+
+	i = 0;
+	y = 0;
+	while (def[i] && def[i] != '=')
+		i++;
+	name = malloc(sizeof(char) * (i + 1));
+	if (!name)
+		return (NULL);
+	while (y < i)
+	{
+		name[y] = def[y];
+		y++;
+	}
+	name[i] = 0;
+	return (name);
+}
+
+void	export_no_arg(void)
+{
+	return ;
+}
 
 void	ft_export(char *new_env, t_envi *envi)
 {
+	char	*name;
+
+	if (!new_env)
+	{
+		export_no_arg();
+		return ;
+	}
+	name = var_name(new_env);
+	ft_unset(name, envi);
 	add_new(new_env, envi);
+	free(name);
 }
 
 void	ft_unset(char *var_name, t_envi *envi)
@@ -23,6 +59,11 @@ void	ft_unset(char *var_name, t_envi *envi)
 	t_envi	*par;
 
 	par = envi;
+	if (var_name)
+	{
+		printf("unset: not enough arguments\n");
+		
+	}
 	if (ft_strcmp(par->name, var_name) == 0)
 	{
 		envi = par->next;
@@ -74,6 +115,8 @@ int	echo_flag(char *flag)
 {
 	int	i;
 
+	if (!flag)
+		return (0);
 	i = 0;
 	if (flag[i++] == '-')
 	{
@@ -92,11 +135,11 @@ void	ft_echo(char **argv, int *tube)
 {
 	int	i;
 
-	i = 2;
-	if (argv[1] && echo_flag(argv[1]) == 0)
-		i = 1;
 	close(tube[0]);
 	dup2(tube[1], STDOUT_FILENO);
+	i = 1;
+	if (echo_flag(argv[1]))
+		i++;
 	while (argv[i])
 	{
 		printf("%s", argv[i]);
@@ -104,7 +147,7 @@ void	ft_echo(char **argv, int *tube)
 			printf(" ");
 		i++;
 	}
-	if (argv[1] && echo_flag(argv[1]) == 0)
+	if (echo_flag(argv[1]) == 0)
 		printf("\n");
 }
 
