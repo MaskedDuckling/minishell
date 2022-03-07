@@ -16,7 +16,6 @@ int	main(int ac, char **av, char **environ)
 	check = 0;
 	while (check >= 0)
 	{
-		//printf("line= %s\n", line);
 		add_history(line);
 		check = parsing(line, &commands, envi, check);
 		if ((check > 0 && !commands)
@@ -28,10 +27,8 @@ int	main(int ac, char **av, char **environ)
 			check = exec_command(commands);
 		else
 			destroy_com(commands);
-		printf("cehck = %i\n", check);
 		free(line);
 		line = readline("minishell : ");
-
 	}
 	free(line);
 	if (check > 0)
