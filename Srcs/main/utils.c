@@ -144,6 +144,28 @@ char	*ft_strdup(const char *s1)
 	return (new);
 }
 
+char	*ft_strndup(const char *s1, int n)
+{
+	char	*new;
+	int		i;
+	int		len;
+
+	len = 0;
+	new = NULL;
+	if (!s1)
+		return (NULL);
+	while (s1[len] && len < n)
+		len++;
+	new = malloc((len + 1) * sizeof(char));
+	if (!new)
+		return (NULL);
+	i = -1;
+	while (s1[++i] && i < n)
+		new[i] = s1[i];
+	new[i] = '\0';
+	return (new);
+}
+
 int	ft_is_in(char *str, char c)
 {
 	int	i;

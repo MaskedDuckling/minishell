@@ -80,7 +80,8 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	start = ++i;
 	while (str[i] && ((str[i] >= '0' && str[i] <= '9')
 			|| (str[i] >= 'a' && str[i] <= 'z')
-			|| (str[i] >= 'A' && str[i] <= 'Z')))
+			|| (str[i] >= 'A' && str[i] <= 'Z')
+			|| (str[i] == '_')))
 		i++;
 	name = ft_substr(str, start, (i - start));
 	if (!name)

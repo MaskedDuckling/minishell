@@ -19,8 +19,8 @@
 
 typedef struct s_envi
 {
-	char			*path;
 	char			*name;
+	char			*path;
 	struct s_envi	*next;
 }				t_envi;
 
@@ -66,6 +66,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup(const char *s1);
 char		*ft_substr(char *s, int start, int len);
 int			ft_is_in(char *str, char c);
+char		*ft_strndup(const char *s1, int n);
 
 /*Parsing*/
 void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
