@@ -51,9 +51,13 @@ int	wait_process(t_command *command)
 			if (waitpid(command[i].pid, &status, 0) == -1)
 				write(STDERR_FILENO, "ERROR\n", 6);
 			if(WIFEXITED(status))
+			{
 				command[i].exit_status = WEXITSTATUS(status);
+				printf("");
+			}
 			else if (WIFSIGNALED(status))
 				command[i].exit_status = WTERMSIG(status) + 128;
+			printf("exit_stat = %i\n", command[i].exit_status);
 		}
 		i++;
 	}
