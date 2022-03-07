@@ -3,16 +3,19 @@
 int	type_four(t_command command)
 {
 	char	*line;
-	int		fd;
+	int		tube[2];
 
-	fd = open(command.redi->cont, O_CREAT | O_WRONLY | O_RDONLY, 0644);
+	pipe(tube);
 	line = readline("> ");
 	while (ft_strcmp(line, command.redi->cont))
 	{
-		write(fd, line, ft_strlen(line));
+		/*ICI*/
+		write(tube[1], line, ft_strlen(line));
+		write(tube[1],"\n",1);
 		line = readline("> ");
 	}
-	return (fd);
+	close(tube[1]);
+	return (tube[0]);
 }
 
 void	ft_redi(t_command command)
