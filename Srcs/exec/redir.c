@@ -1,16 +1,48 @@
 #include "exec.h"
 
+int	get_len(char *line, int j)
+{
+	int	i;
+
+	i = j;
+	while (line[i] && ((line[i] >= '0' && line[i] <= '9')
+				|| (line[i] >= 'a' && line[i] <= 'z')
+				|| (line[i] >= 'A' && line[i] <= 'Z')
+				|| (line[i] == '_')))
+		i++;
+	return (i - j);
+}
+
 int	type_four(t_command command)
 {
 	char	*line;
 	int		tube[2];
+	int		i;
+	char	*name;
+	char	*path;
 
+	i = 0;
+	path = NULL;
+	name = NULL;
 	pipe(tube);
 	line = readline("> ");
 	while (ft_strcmp(line, command.redi->cont))
 	{
-		/*ICI*/
-		write(tube[1], line, ft_strlen(line));
+		i = 0;
+		while (line[i])
+		{
+			if (line[i] == '$')
+			{
+				name = ft_strndup(line + i + 1, get_len(line, i + 1));
+				path = src_envi(name, command.envi);
+				write(tube[1], path, ft_strlen(path));
+				i += ft_strlen(name);
+				free(name);
+			}
+			else
+				write(tube[1], &line[i], 1);
+			i++;
+		}
 		write(tube[1],"\n",1);
 		line = readline("> ");
 	}
