@@ -9,11 +9,10 @@ contenant le délimiteur. Cependant, l’historique n’a pas à être mis à jo
 ◦ ctrl-\ ne fait rien.
 
 BUG REPORT
-- echo sans ARG
 - export sans ARG
 - unset sans ARG
 - exit status si une commande n existe pas est toujours = 1
-
+- si export variable deja existente -> remplacer la valeur
 
 • Afficher un prompt en l’attente d’une nouvelle commande.
 • Posséder un historique fonctionnel.
@@ -36,7 +35,6 @@ est connectée à l’entrée de la commande suivante grâce à un pipe.
 qui doivent être substituées par leur contenu.
 • Gérer $? qui doit être substitué par le statut de sortie de la dernière pipeline
 exécutée au premier plan.
-• En mode interactif :
 • Votre shell doit implémenter les builtins suivantes :
 ◦ echo et l’option -n
 ◦ cd uniquement avec un chemin relatif ou absolu
