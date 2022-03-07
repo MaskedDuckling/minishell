@@ -32,10 +32,20 @@ char	*var_name(char *def)
 	return (name);
 }
 
+void	export_no_arg(void)
+{
+	return ;
+}
+
 void	ft_export(char *new_env, t_envi *envi)
 {
 	char	*name;
 
+	if (!new_env)
+	{
+		export_no_arg();
+		return ;
+	}
 	name = var_name(new_env);
 	ft_unset(name, envi);
 	add_new(new_env, envi);
@@ -49,6 +59,11 @@ void	ft_unset(char *var_name, t_envi *envi)
 	t_envi	*par;
 
 	par = envi;
+	if (var_name)
+	{
+		printf("unset: not enough arguments\n");
+		
+	}
 	if (ft_strcmp(par->name, var_name) == 0)
 	{
 		envi = par->next;
