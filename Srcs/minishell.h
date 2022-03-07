@@ -15,6 +15,7 @@
 # include "pars/pars.h"
 # include "exec/exec.h"
 # include "envi/envi.h"
+# include <string.h>
 
 typedef struct s_envi
 {
