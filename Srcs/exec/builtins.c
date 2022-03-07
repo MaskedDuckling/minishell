@@ -60,10 +60,10 @@ int	ft_unset(char *var_name, t_envi *envi)
 	t_envi	*par;
 
 	par = envi;
-	if (var_name)
+	if (!var_name)
 	{
 		printf("unset: not enough arguments\n");
-		
+		return (1);
 	}
 	if (ft_strcmp(par->name, var_name) == 0)
 	{

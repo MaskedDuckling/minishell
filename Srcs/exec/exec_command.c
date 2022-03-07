@@ -34,7 +34,7 @@ void	child_process(t_command command, int *tube, int fd)
 	destroy_env(command.envi);
 	free(path);
 	free_process(command);
-	exit(1);
+	exit(127);
 }
 
 int	wait_process(t_command *command)
@@ -57,7 +57,6 @@ int	wait_process(t_command *command)
 			}
 			else if (WIFSIGNALED(status))
 				command[i].exit_status = WTERMSIG(status) + 128;
-			printf("exit_stat = %i\n", command[i].exit_status);
 		}
 		i++;
 	}
