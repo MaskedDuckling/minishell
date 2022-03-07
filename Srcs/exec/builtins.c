@@ -8,7 +8,7 @@ int	ft_pwd(int *tube)
 	dup2(tube[1], STDOUT_FILENO);
 	getcwd(buffer, 4096);
 	printf("%s\n", buffer);
-	return (1);
+	return (0);
 }
 char	*var_name(char *def)
 {
@@ -37,22 +37,23 @@ void	export_no_arg(void)
 	return ;
 }
 
-void	ft_export(char *new_env, t_envi *envi)
+int	ft_export(char *new_env, t_envi *envi)
 {
 	char	*name;
 
 	if (!new_env)
 	{
 		export_no_arg();
-		return ;
+		return (0);
 	}
 	name = var_name(new_env);
 	ft_unset(name, envi);
 	add_new(new_env, envi);
 	free(name);
+	return (0);
 }
 
-void	ft_unset(char *var_name, t_envi *envi)
+int	ft_unset(char *var_name, t_envi *envi)
 {
 	t_envi	*prev;
 	t_envi	*next;
@@ -70,7 +71,7 @@ void	ft_unset(char *var_name, t_envi *envi)
 		free(par->name);
 		free(par->path);
 		free(par);
-		return ;
+		return (0);
 	}
 	while (par->next)
 	{
@@ -83,12 +84,13 @@ void	ft_unset(char *var_name, t_envi *envi)
 			free(par->path);
 			free(par);
 			prev->next = next;
-			return ;
+			return (0);
 		}
 	}
+	return (0);
 }
 
-void	ft_env(int *tube, t_envi *envi, char *argv1)
+int		ft_env(int *tube, t_envi *envi, char *argv1)
 {
 	char	**env;
 	int		i;
@@ -97,7 +99,7 @@ void	ft_env(int *tube, t_envi *envi, char *argv1)
 	if (argv1)
 	{
 		printf("%s\n",strerror(2));
-		return ;
+		return (127);
 	}
 	env = join_envi(envi);
 	close(tube[0]);
@@ -109,6 +111,7 @@ void	ft_env(int *tube, t_envi *envi, char *argv1)
 		i++;
 	}
 	free(env);
+	return (0);
 }
 
 int	echo_flag(char *flag)
@@ -131,7 +134,7 @@ int	echo_flag(char *flag)
 	return (0);
 }
 
-void	ft_echo(char **argv, int *tube)
+int		ft_echo(char **argv, int *tube)
 {
 	int	i;
 
@@ -149,52 +152,63 @@ void	ft_echo(char **argv, int *tube)
 	}
 	if (echo_flag(argv[1]) == 0)
 		printf("\n");
+	return (0);
 }
 
-void	ft_cd(char *path)
+int	ft_cd(char *path)
 {
 	if (chdir(path) == -1)
 		printf("%s\n", strerror(errno));
+	return (0);
 }
 
 int	ft_builtins(t_command command)
 {
+	int	ret;
 	if (ft_strcmp(command.argv[0], "export") == 0)
-		ft_export(command.argv[1], command.envi);
+		ret = ft_export(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "unset") == 0)
-		ft_unset(command.argv[1], command.envi);
+		ret = ft_unset(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "cd") == 0)
-		ft_cd(command.argv[1]);
+		ret = ft_cd(command.argv[1]);
 	else
 		return (0);
 	free(command.argv[0]);
 	free_process(command);
-	return (1);
+	return (ret);
 }
 
-int	test_builtin(t_command command)
+int	is_builtin(t_command command)
 {
-	if (ft_strcmp(command.argv[0], "export") == 0)
-		return(1);
-	if (ft_strcmp(command.argv[0], "unset") == 0)
-		return(1);
-	if (ft_strcmp(command.argv[0], "cd") == 0)
+	if ((ft_strcmp(command.argv[0], "export") == 0)
+	|| (ft_strcmp(command.argv[0], "cd") == 0)
+	|| (ft_strcmp(command.argv[0], "unset") == 0))
 		return(1);
 	return (0);
 
 }
+int	is_builtin_fork(t_command command)
+{
+	if ((ft_strcmp(command.argv[0], "echo") == 0)
+	|| (ft_strcmp(command.argv[0], "pwd") == 0)
+	|| (ft_strcmp(command.argv[0], "env") == 0))
+		return (1);
+	return(0);
+}
 
 int	ft_builtins_fork(t_command command, int *tube)
 {
+	int	ret;
+
 	if (ft_strcmp(command.argv[0], "echo") == 0)
-		ft_echo(command.argv, tube);
+		ret = ft_echo(command.argv, tube);
 	else if (ft_strcmp(command.argv[0], "pwd") == 0)
-		ft_pwd(tube);
+		ret = ft_pwd(tube);
 	else if (ft_strcmp(command.argv[0], "env") == 0)
-		ft_env(tube, command.envi, command.argv[1]);
+		ret = ft_env(tube, command.envi, command.argv[1]);
 	else
 		return (0);
 	free(command.argv[0]);
 	free_process(command);
-	return (1);
+	return (ret);
 }

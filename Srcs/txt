@@ -13,7 +13,8 @@ BUG REPORT
 - unset sans ARG
 - exit status si une commande n existe pas est toujours = 1
 - si export variable deja existente -> remplacer la valeur
-- recuperer valeur de retour des builtin
+- recuperer valeur de retour des builtin (en cours)
+- echo -n
 
 
 

@@ -25,8 +25,8 @@ void	child_process(t_command command, int *tube, int fd)
 		dup2(tube[1], STDOUT_FILENO);
 		close(tube[1]);
 	}
-	if (ft_builtins_fork(command, tube))
-		exit(1);
+	if (is_builtin_fork(command))
+		exit(ft_builtins_fork(command, tube));
 	environ = join_envi(command.envi);
 	path = for_access(command.argv[0], environ);
 	execve(path, command.argv, environ);
@@ -46,7 +46,7 @@ int	wait_process(t_command *command)
 	i = 0;
 	while(command[i].argv)
 	{
-		if (!test_builtin(command[i]))
+		if (!is_builtin(command[i]))
 		{
 			if (waitpid(command[i].pid, &status, 0) == -1)
 				write(STDERR_FILENO, "ERROR\n", 6);
@@ -77,10 +77,11 @@ int		exec_command(t_command *commands)
 	fd = STDIN_FILENO;
 	if (!commands[1].argv)
 	{
-		if (ft_builtins(commands[0]))
+		if (is_builtin(commands[0]))
 		{
+			i = ft_builtins(commands[0]);
 			free(commands);
-			return (0);
+			return (i);
 		}
 	}
 	while (commands[i].argv)
