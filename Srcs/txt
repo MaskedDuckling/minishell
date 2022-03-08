@@ -1,19 +1,25 @@
 Votre shell doit encore faire:
-• Ne pas utiliser plus d’une variable globale. Réfléchissez-y car vous devrez justifier son utilisation.
-◦ << doit recevoir un délimiteur et lire l’input donné jusqu’à rencontrer une ligne
-contenant le délimiteur. Cependant, l’historique n’a pas à être mis à jour !
-◦ >> doit rediriger la sortie en mode append.
-• Gérer ctrl-C, ctrl-D et ctrl-\ qui doivent fonctionner comme dans bash.
-◦ ctrl-C affiche un nouveau prompt sur une nouvelle ligne.
-◦ ctrl-D quitte le shell.
-◦ ctrl-\ ne fait rien.
+
+
 
 BUG REPORT
 - export sans ARG
-- echo -n
+- ctrl+C puis exit ->leaks
+-STATUS en global a faire
+
+BUG a test:
+- Le parsing les bons char en sepparateurs de mots, nom de var, etc
 
 
 
+Fait:
+◦ << doit recevoir un délimiteur et lire l’input donné jusqu’à rencontrer une ligne
+contenant le délimiteur. Cependant, l’historique n’a pas à être mis à jour !
+◦ >> doit rediriger la sortie en mode append.
+◦ ctrl-C affiche un nouveau prompt sur une nouvelle ligne.
+◦ ctrl-D quitte le shell.
+◦ ctrl-\ ne fait rien.
+• Gérer ctrl-C, ctrl-D et ctrl-\ qui doivent fonctionner comme dans bash.
 • Afficher un prompt en l’attente d’une nouvelle commande.
 • Posséder un historique fonctionnel.
 • Chercher et lancer le bon exécutable (en se basant sur la variable d’environnement

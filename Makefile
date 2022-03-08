@@ -6,6 +6,7 @@ NAME = minishell
 SRCS_MAIN	=		main.c 				\
 					ft_split.c 			\
 					utils.c				\
+					signal.c				\
 					error.c 			
 
 SRCS_ENVI	=		environnement.c		\

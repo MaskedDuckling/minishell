@@ -16,6 +16,9 @@
 # include "exec/exec.h"
 # include "envi/envi.h"
 # include <string.h>
+# include <signal.h>
+
+int is_running; 
 
 typedef struct s_envi
 {
@@ -128,5 +131,7 @@ void		destroy_env(t_envi *envi);
 int			erroring(int check);
 void		free_process(t_command command);
 void		destroy_com(t_command *com);
+
+int			sig_init();
 
 #endif
