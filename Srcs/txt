@@ -1,7 +1,10 @@
 Votre shell doit encore faire:
 
 BUG REPORT
+echo $"var
 
+
+"
 BUG a test:
 - trouver des bugs
 - Le parsing les bons char en sepparateurs de mots, nom de var, etc

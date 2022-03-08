@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:58:59 by user42            #+#    #+#             */
-/*   Updated: 2022/03/08 17:41:44 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:58:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	signal_handler(int signo)
 			rl_redisplay();
 	}
 	else if (signo == SIGQUIT)
-	{
 		write(1,"\b\b  \b\b",6);
-	}
 }
 
 int	sig_init()

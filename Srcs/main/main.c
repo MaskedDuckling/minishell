@@ -34,6 +34,8 @@ int	main(int ac, char **av, char **environ)
 		is_running = 0;
 		line = readline("minishell : ");
 	}
+	if (!line)
+		printf("exit\n");
 	free(line);
 	destroy_env(envi);
 }
