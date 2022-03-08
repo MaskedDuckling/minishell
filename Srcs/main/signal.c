@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:58:59 by user42            #+#    #+#             */
-/*   Updated: 2022/03/08 16:49:55 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:41:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	signal_handler(int signo)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		if (is_running)
+		if (!is_running)
 			rl_redisplay();
 	}
 	else if (signo == SIGQUIT)
