@@ -1,4 +1,4 @@
-#include "pars.h"
+#include "../minishell.h"
 
 int	skip_c(char *str, int i)
 {

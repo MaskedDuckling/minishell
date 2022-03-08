@@ -1,4 +1,4 @@
-#include "exec.h"
+#include "../minishell.h"
 
 int	ft_pwd(int *tube)
 {
@@ -118,6 +118,16 @@ int		ft_env(int *tube, t_envi *envi, char *argv1)
 		i++;
 	}
 	free(env);
+	return (0);
+}
+
+int	ft_exit(t_command *commands)
+{
+	if (!ft_strcmp(commands[0].argv[0], "exit"))
+	{
+		destroy_com(commands);
+		return (1);
+	}
 	return (0);
 }
 

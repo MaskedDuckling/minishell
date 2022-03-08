@@ -1,4 +1,4 @@
-#include "pars.h"
+#include "../minishell.h"
 
 int	len_tab(char **tab)
 {

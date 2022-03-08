@@ -1,15 +1,5 @@
 #include "../minishell.h"
 
-int	ft_exit(t_command *commands)
-{
-	if (!ft_strcmp(commands[0].argv[0], "exit"))
-	{
-		destroy_com(commands);
-		return (1);
-	}
-	return (0);
-}
-
 int	main(int ac, char **av, char **environ)
 {
 	char		*line;
@@ -22,10 +12,12 @@ int	main(int ac, char **av, char **environ)
 	envi = environnement(environ);
 	if (sig_init())
 		return (1);
+	is_running = 0;
 	line = readline("minishell : ");
 	check = 0;
 	while (check >= 0 && line)
 	{
+		is_running = 1;
 		add_history(line);
 		check = parsing(line, &commands, envi, check);
 		if ((check > 0 && !commands)
@@ -38,7 +30,8 @@ int	main(int ac, char **av, char **environ)
 		else
 			destroy_com(commands);
 		free(line);
-		printf("status = %i\n", check);
+		//printf("status = %i\n", check);
+		is_running = 0;
 		line = readline("minishell : ");
 	}
 	free(line);

@@ -1,4 +1,4 @@
-#include "exec.h"
+#include "../minishell.h"
 
 int	get_len(char *line, int j)
 {

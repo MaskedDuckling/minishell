@@ -4,8 +4,7 @@ Votre shell doit encore faire:
 
 BUG REPORT
 - export sans ARG
-- ctrl+C puis exit ->leaks
--STATUS en global a faire
+- STATUS en global a faire
 
 BUG a test:
 - Le parsing les bons char en sepparateurs de mots, nom de var, etc

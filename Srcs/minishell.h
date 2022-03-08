@@ -12,9 +12,6 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include "pars/pars.h"
-# include "exec/exec.h"
-# include "envi/envi.h"
 # include <string.h>
 # include <signal.h>
 
@@ -125,6 +122,7 @@ int			ft_pwd(int *tube);
 int			ft_echo(char **argv, int *tube);
 int			is_builtin(t_command command);
 int			is_builtin_fork(t_command command);
+int			ft_exit(t_command *commands);
 
 /*error and free*/
 void		destroy_env(t_envi *envi);

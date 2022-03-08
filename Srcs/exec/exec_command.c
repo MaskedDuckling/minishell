@@ -1,4 +1,4 @@
-#include "exec.h"
+#include "../minishell.h"
 
 void	free_process(t_command command)
 {
