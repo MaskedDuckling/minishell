@@ -32,9 +32,16 @@ char	*var_name(char *def)
 	return (name);
 }
 
-void	export_no_arg(void)
+void	export_no_arg(t_envi *envi)
 {
-	return ;
+	t_envi *tmp;
+
+	tmp = envi;
+	while (tmp->next)
+	{
+		printf("declare -x %s\n",tmp->name);
+		tmp = tmp->next;
+	}
 }
 
 int	ft_export(char *new_env, t_envi *envi)
@@ -43,7 +50,7 @@ int	ft_export(char *new_env, t_envi *envi)
 
 	if (!new_env)
 	{
-		export_no_arg();
+		export_no_arg(envi);
 		return (0);
 	}
 	name = var_name(new_env);
