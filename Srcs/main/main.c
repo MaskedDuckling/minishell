@@ -38,7 +38,6 @@ int	main(int ac, char **av, char **environ)
 		else
 			destroy_com(commands);
 		free(line);
-		printf("status = %i\n", check);
 		line = readline("minishell : ");
 	}
 	free(line);

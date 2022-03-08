@@ -39,7 +39,7 @@ void	export_no_arg(t_envi *envi)
 	tmp = envi;
 	while (tmp->next)
 	{
-		printf("declare -x %s\n",tmp->name);
+		printf("declare -x %s=%s\n",tmp->name,tmp->path);
 		tmp = tmp->next;
 	}
 }
@@ -53,6 +53,8 @@ int	ft_export(char *new_env, t_envi *envi)
 		export_no_arg(envi);
 		return (0);
 	}
+	if (!ft_is_in(new_env, '='))
+		return (0);
 	name = var_name(new_env);
 	ft_unset(name, envi);
 	add_new(new_env, envi);
@@ -164,7 +166,9 @@ int		ft_echo(char **argv, int *tube)
 
 int	ft_cd(char *path)
 {
-	if (chdir(path) == -1)
+	if (!path)
+		chdir("/home");
+	else if (chdir(path) == -1)
 		printf("%s\n", strerror(errno));
 	return (0);
 }
