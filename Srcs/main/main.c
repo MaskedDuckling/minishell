@@ -38,6 +38,7 @@ int	main(int ac, char **av, char **environ)
 		is_running = 1;
 		add_history(line);
 		check = parsing(line, &commands, envi, check);
+		printf("check = %i\n", check);
 		if (((check > 0 && !commands))
 			|| (check > 0 && (commands[0].argv[0]
 			&& ft_exit(commands, &check))))

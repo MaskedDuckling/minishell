@@ -71,7 +71,8 @@ int	erroring(int check)
 {
 	if (check >= 0)
 		return (check);
-	printf("minishell ERROR : ");
+	else if (check != -7)
+		printf("minishell ERROR : ");
 	if (check == -12)
 		printf("a malloc failed\n");
 	else if (check == -2)
@@ -80,7 +81,7 @@ int	erroring(int check)
 		printf("error line=NULL\n");
 	else if (check == -9)
 		printf("no envi\n");
-	else
+	else if (check != -7)
 		printf("unspecified error\n");
 	if (check >= -10)
 		return (0);

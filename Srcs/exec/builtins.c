@@ -141,9 +141,9 @@ int	is_num(char *str)
 	return (1);
 }
 
-int	ft_atoi_long(char *str)
+long int	ft_atoi_long(char *str)
 {
-	long int nbr;
+	long long int nbr;
 	int i;
 	int sign;
 
@@ -165,7 +165,8 @@ int	ft_atoi_long(char *str)
 			nbr = nbr * 10 + (str[i] - 48);
 		i++;
 	}
-	return (nbr);
+	
+	return ((long int)nbr);
 }
 
 int	ft_exit(t_command *commands, int *check)
@@ -173,15 +174,27 @@ int	ft_exit(t_command *commands, int *check)
 	(void)check;
 	if (!ft_strcmp(commands[0].argv[0], "exit"))
 	{
-		if (commands[0].argv[2])
+		if (commands[0].argv[1] && commands[0].argv[2])
 		{
-			*check = 2;
-			destroy_com(commands);
+			if (is_num(commands[0].argv[1]))
+			{
+				*check = -7;
+				printf("minishell: exit: trop d'arguments\n");
+			}
+			else
+			{
+				*check = 2;
+				printf("minishell: exit: %s : argument numérique nécessaire\n", commands[0].argv[1]);
+				destroy_com(commands);
+				return (1);
+			}
 			return (0);
 		}
 		if (commands[0].argv[1]
 			&& is_num(commands[0].argv[1]))
-				*check = (ft_atoi_long(commands[0].argv[1]) % 255);
+					*check = (ft_atoi_long(commands[0].argv[1]) % 255);
+		else if (commands[0].argv[1])
+			*check = 2;
 		destroy_com(commands);
 		return (1);
 	}

@@ -1,5 +1,10 @@
 Votre shell doit encore faire:
 
+exit -> 0
+echo num -> (long int)num % 255
+exit mot -> 2
+
+
 BUG REPORT
 
 
