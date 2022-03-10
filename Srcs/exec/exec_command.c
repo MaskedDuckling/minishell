@@ -34,6 +34,7 @@ void	child_process(t_command command, int *tube, int fd)
 	destroy_env(command.envi);
 	free(path);
 	free_process(command);
+	printf("erreur : commande introuvable\n");
 	exit(127);
 }
 

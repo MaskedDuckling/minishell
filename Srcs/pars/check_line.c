@@ -57,6 +57,8 @@ void	init_tab(int (*tab[128])(char *str, int i))
 	tab['>'] = simp_doub;
 }
 
+
+
 int	check_line(char *line)
 {
 	int	i;

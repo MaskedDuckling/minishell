@@ -115,14 +115,14 @@ void		child_process(t_command command, int *tube, int fd);
 
 /*builtins*/
 int			ft_env(int *tube, t_envi *envi, char *argv1);
-int			ft_cd(char *path);
-int		ft_unset(char *var_name, t_envi *envi);
-int		ft_export(char *new_env, t_envi *envi);
+int			ft_cd(char *path, t_command command);
+int			ft_unset(char *var_name, t_envi *envi);
+int			ft_export(char *new_env, t_envi *envi);
 int			ft_pwd(int *tube);
 int			ft_echo(char **argv, int *tube);
 int			is_builtin(t_command command);
 int			is_builtin_fork(t_command command);
-int			ft_exit(t_command *commands);
+int			ft_exit(t_command *commands, int *check);
 
 /*error and free*/
 void		destroy_env(t_envi *envi);

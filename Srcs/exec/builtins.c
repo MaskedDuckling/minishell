@@ -123,10 +123,65 @@ int		ft_env(int *tube, t_envi *envi, char *argv1)
 	return (0);
 }
 
-int	ft_exit(t_command *commands)
+int	is_num(char *str)
 {
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	while (str[i] == ' ')
+		i++;
+	if (str[i])
+		return (0);
+	return (1);
+}
+
+int	ft_atoi_long(char *str)
+{
+	long int nbr;
+	int i;
+	int sign;
+
+	i = 0;
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' ||
+		str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+		i++;
+	sign = 1;
+	if (str[i] == '-')
+		sign = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	nbr = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (sign == -1)
+			nbr = nbr * 10 - (str[i] - 48);
+		if (sign == 1)
+			nbr = nbr * 10 + (str[i] - 48);
+		i++;
+	}
+	return (nbr);
+}
+
+int	ft_exit(t_command *commands, int *check)
+{
+	(void)check;
 	if (!ft_strcmp(commands[0].argv[0], "exit"))
 	{
+		if (commands[0].argv[2])
+		{
+			*check = 2;
+			destroy_com(commands);
+			return (0);
+		}
+		if (commands[0].argv[1]
+			&& is_num(commands[0].argv[1]))
+				*check = (ft_atoi_long(commands[0].argv[1]) % 255);
 		destroy_com(commands);
 		return (1);
 	}
@@ -174,11 +229,11 @@ int		ft_echo(char **argv, int *tube)
 	return (0);
 }
 
-int	ft_cd(char *path)
+int	ft_cd(char *path, t_command command)
 {
 	if (!path)
-		chdir("/home");
-	else if (chdir(path) == -1)
+		path = src_envi("HOME", command.envi);
+	if (chdir(path) == -1)
 		printf("%s\n", strerror(errno));
 	return (0);
 }
@@ -191,7 +246,7 @@ int	ft_builtins(t_command command)
 	else if (ft_strcmp(command.argv[0], "unset") == 0)
 		ret = ft_unset(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "cd") == 0)
-		ret = ft_cd(command.argv[1]);
+		ret = ft_cd(command.argv[1], command);
 	else
 		return (0);
 	free(command.argv[0]);

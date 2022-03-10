@@ -1,10 +1,23 @@
 #include "../minishell.h"
 
+int	is_empty(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i++] != ' ')
+			return (0);
+	}
+	return (1);
+}
+
 int	main(int ac, char **av, char **environ)
 {
 	char		*line;
 	t_command	*commands;
-	int			check;
+	int	check;
 	t_envi		*envi;
 
 	(void)ac;
@@ -17,12 +30,17 @@ int	main(int ac, char **av, char **environ)
 	check = 0;
 	while (check >= 0 && line)
 	{
+		if (is_empty(line))
+		{
+			free(line);
+			line = ft_strdup("");
+		}
 		is_running = 1;
 		add_history(line);
 		check = parsing(line, &commands, envi, check);
-		if ((check > 0 && !commands)
+		if (((check > 0 && !commands))
 			|| (check > 0 && (commands[0].argv[0]
-			&& ft_exit(commands))))
+			&& ft_exit(commands, &check))))
 			break ;
 		check = erroring(check);
 		if (check > 0)
@@ -38,4 +56,5 @@ int	main(int ac, char **av, char **environ)
 		printf("exit\n");
 	free(line);
 	destroy_env(envi);
+	return (check);
 }
