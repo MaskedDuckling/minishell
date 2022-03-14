@@ -56,6 +56,7 @@ void	ft_redi(t_command command)
 	int		type;
 	int		stin;
 	int		stout;
+	char	**envi;
 
 	type = 0;
 	path = NULL;
@@ -75,9 +76,18 @@ void	ft_redi(t_command command)
 			break ;
 		command.redi = command.redi->next;
 	}
-	path = for_access(command.argv[0], join_envi(command.envi));
-	dup2(stin, STDIN_FILENO);
-	dup2(stout, STDOUT_FILENO);
-	execve(path, command.argv, join_envi(command.envi));
-	exit(1);
+	envi = join_envi(command.envi);
+	if (command.argv[0])
+	{
+		path = for_access(command.argv[0], envi);
+		dup2(stin, STDIN_FILENO);
+		dup2(stout, STDOUT_FILENO);
+		execve(path, command.argv, envi);
+		free_process(command);
+		write(2, "minishell erreur : commande introuvable\n", 40);
+	}
+	destroy_env(command.envi);
+	free_command(envi);
+	free(path);
+	exit(127);
 }

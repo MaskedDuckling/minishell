@@ -7,8 +7,11 @@ exit mot -> 2
 
 BUG REPORT
 - erreur de parsing "cat Makefile < > lol"
--si il n y a que une redirection et pas de fonctionnel
+- si il n y a que une redirection et pas de fonction
 - si il ny a que des redirection
+
+
+minishell : > echo lol = leak
 
 
 

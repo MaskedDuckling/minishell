@@ -25,6 +25,7 @@ int	main(int ac, char **av, char **environ)
 	(void)ac;
 	(void)av;
 	is_running = 0;
+	commands = NULL;
 	envi = environnement(environ);
 	if (sig_init())
 		return (1);

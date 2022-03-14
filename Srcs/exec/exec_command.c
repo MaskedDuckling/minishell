@@ -34,7 +34,7 @@ void	child_process(t_command command, int *tube, int fd)
 	destroy_env(command.envi);
 	free(path);
 	free_process(command);
-	printf("erreur : commande introuvable\n");
+	write(2, "minishell erreur : commande introuvable\n", 40);
 	exit(127);
 }
 
@@ -47,7 +47,7 @@ int	wait_process(t_command *command)
 	i = 0;
 	while(command[i].argv)
 	{
-		if (!is_builtin(command[i]))
+		if (command[i].argv[0] && !is_builtin(command[i]))
 		{
 			if (waitpid(command[i].pid, &status, 0) == -1)
 				write(STDERR_FILENO, "ERROR\n", 6);
@@ -75,7 +75,8 @@ int		exec_command(t_command *commands)
 
 	i = 0;
 	fd = STDIN_FILENO;
-	if (!commands[1].argv)
+	printf("argv = |%s|\n", commands[0].argv[0]);
+	if (commands[0].argv[0] && !commands[1].argv)
 	{
 		if (is_builtin(commands[0]))
 		{
