@@ -4,9 +4,8 @@ CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 NAME = minishell
 
 SRCS_MAIN	=		main.c 				\
-					ft_split.c 			\
 					utils.c				\
-					signal.c				\
+					signal.c			\
 					error.c 			
 
 SRCS_ENVI	=		environnement.c		\
@@ -20,6 +19,7 @@ SRCS_PARS	=		fct_tab.c			\
 					tab_utils.c			\
 					split_line.c		\
 					parsing.c 			\
+					ft_split.c 			\
 					split_command.c 	\
 					check_line.c
 

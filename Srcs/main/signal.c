@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eestela <eestela@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:58:59 by user42            #+#    #+#             */
-/*   Updated: 2022/03/08 17:58:44 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/14 17:20:04 by eestela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int is_running;
 
 void	signal_handler(int signo)
 {

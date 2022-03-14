@@ -15,7 +15,6 @@
 # include <string.h>
 # include <signal.h>
 
-int is_running; 
 
 typedef struct s_envi
 {

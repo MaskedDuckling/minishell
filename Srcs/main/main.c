@@ -1,5 +1,7 @@
 #include "../minishell.h"
 
+int is_running;
+
 int	is_empty(char *line)
 {
 	int	i;
@@ -22,10 +24,10 @@ int	main(int ac, char **av, char **environ)
 
 	(void)ac;
 	(void)av;
+	is_running = 0;
 	envi = environnement(environ);
 	if (sig_init())
 		return (1);
-	is_running = 0;
 	line = readline("minishell : ");
 	check = 0;
 	while (check >= 0 && line)
