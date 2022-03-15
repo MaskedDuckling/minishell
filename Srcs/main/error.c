@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:01 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:40:02 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:57:15 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,9 @@ void	destroy_com(t_command *com)
 	while (com[j].argv)
 	{
 		i = 0;
-		if (com[j].argv)
-		{
-			while (com[j].argv[i])
-			{
-				free(com[j].argv[i++]);
-			}
-			free(com[j].argv);
-		}
+		while (com[j].argv[i])
+			free(com[j].argv[i++]);
+		free(com[j].argv);
 		while (com[j].redi)
 		{
 			tmp_r = com[j].redi;

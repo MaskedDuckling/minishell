@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:58 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:39:59 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:14:19 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ int	wait_process(t_command *command)
 			if (waitpid(command[i].pid, &status, 0) == -1)
 				write(STDERR_FILENO, "ERROR\n", 6);
 			if (WIFEXITED(status))
-			{
 				command[i].exit_status = WEXITSTATUS(status);
-				printf("");
-			}
 			else if (WIFSIGNALED(status))
 				command[i].exit_status = WTERMSIG(status) + 128;
 		}

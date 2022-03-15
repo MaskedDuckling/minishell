@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:59 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 18:10:11 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:21:22 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	get_len(char *line, int j)
 
 int	quotes_delimiter(char *str, int i, t_command *com, t_word *first)
 {
-	int	end;
-	int	start;
+	int		end;
+	int		start;
 	char	quotes;
 
 	quotes = str[i];
@@ -81,23 +81,24 @@ int	word_delimiter(char *str, int i, t_command *com, t_word *first)
 	return (i);
 }
 
-void	init_fct_tab_delimiter(int		(*fct_tab[128])(char *str, int i, t_command *com, t_word *first))
+void	init_fct_tab_delimiter(int		(*fct_tab[128])(char *str, int i,
+							t_command *com, t_word *first))
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < 128)
 		fct_tab[i++] = word;
 }
 
-
 int	delimiter(t_command *command)
 {
-	int	i;
+	int		i;
 	t_word	*first;
 
 	i = 0;
-	while (command->redi->cont[i] && command->redi->cont[i] != '"' && command->redi->cont[i] != '\'')
+	while (command->redi->cont[i] && command->redi->cont[i] != '"'
+		&& command->redi->cont[i] != '\'')
 		i++;
 	if (!command->redi->cont[i])
 		return (1);
@@ -140,7 +141,7 @@ int	type_four(t_command command, int exp)
 
 	pipe(tube);
 	line = readline("> ");
-	while (ft_strcmp(line, command.redi->cont))
+	while (line && ft_strcmp(line, command.redi->cont))
 	{
 		i = 0;
 		while (line[i])
@@ -152,6 +153,7 @@ int	type_four(t_command command, int exp)
 			i++;
 		}
 		write(tube[1], "\n", 1);
+		free(line);
 		line = readline("> ");
 	}
 	close(tube[1]);

@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:56 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 18:49:55 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:07:46 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_builtins(t_command command)
 		ret = ft_export(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "unset") == 0)
         while (command.argv[i])
-		    ret = ft_unset(command.argv[i++], command.envi);
+	        ret = ft_unset(command.argv[i++], command.envi);
 	else if (ft_strcmp(command.argv[0], "cd") == 0)
 		ret = ft_cd(command.argv[1], command);
 	else
