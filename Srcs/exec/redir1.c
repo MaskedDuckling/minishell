@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:59 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:48:23 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:49:46 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,6 @@ int	word_delimiter(char *str, int i, t_command *com, t_word *first)
 	return (i);
 }
 
-<<<<<<< HEAD:Srcs/exec/redir.c
-void	init_fct_tab_delimiter(int (*fct_tab[128])(char *str, int i,
-							t_command *com, t_word *first))
-{
-	int	i;
-
-	i = 0;
-	while (i < 128)
-		fct_tab[i++] = word;
-}
-
-=======
->>>>>>> 3a393d1aa7436c69040fb993bf0d4e885d427fa5:Srcs/exec/redir1.c
 int	delimiter(t_command *command)
 {
 	int		i;

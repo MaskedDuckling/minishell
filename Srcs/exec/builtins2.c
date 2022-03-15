@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_2.c                                       :+:      :+:    :+:   */
+/*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:53 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:39:54 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:52:45 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,14 @@ int	ft_echo(char **argv, int *tube)
 	}
 	if (echo_flag(argv[1]) == 0)
 		printf("\n");
+	return (0);
+}
+
+int	ft_cd(char *path, t_command command)
+{
+	if (!path)
+		path = src_envi("HOME", command.envi);
+	if (chdir(path) == -1)
+		printf("%s\n", strerror(errno));
 	return (0);
 }

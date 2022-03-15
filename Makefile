@@ -4,16 +4,16 @@ CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 NAME = minishell
 
 SRCS_MAIN	=		main.c 				\
-					utils.c				\
-					utils_2.c			\
+					utils1.c				\
+					utils2.c			\
 					signal.c			\
 					error.c 			
 
 SRCS_ENVI	=		environnement.c		\
 					get_path.c			
 
-SRCS_EXEC	=		builtins_1.c		\
-					builtins_2.c		\
+SRCS_EXEC	=		builtins1.c		\
+					builtins2.c		\
 					builtins_utils.c	\
 					check_builtins.c	\
 					exec_command.c		\
