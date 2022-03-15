@@ -86,11 +86,7 @@ t_envi	*environnement(char **environnement)
 	i = 1;
 	if (!environnement || !environnement[0])
 	{
-		envi = malloc(sizeof(t_envi));
-		envi->path = ft_strdup("");
-		envi->name = ft_strdup("");
-		envi->next = NULL;
-		return (envi);
+		return (NULL);
 	}
 	envi = malloc(sizeof(t_envi));
 	envi->path = ft_strdup(tochar(environnement[0], '='));

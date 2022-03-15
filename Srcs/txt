@@ -11,6 +11,8 @@ BUG REPORT
 - si il ny a que des redirection
 - ctrl D
 - env -i ./minishell
+- code erreur parse error
+- code error si pas les droits
 
 minishell : > echo lol = leak
 

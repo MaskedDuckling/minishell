@@ -12,6 +12,8 @@
 
 #include "../minishell.h"
 
+int	g_is_running;
+
 void	free_command(char **command)
 {
 	int	i;
@@ -95,7 +97,10 @@ int	erroring(int check)
 	if (check == -12)
 		printf("a malloc failed\n");
 	else if (check == -2)
+	{
 		printf("parse error\n");
+		g_is_running = 258;
+	}
 	else if (check == -8)
 		printf("error line=NULL\n");
 	else if (check == -9)

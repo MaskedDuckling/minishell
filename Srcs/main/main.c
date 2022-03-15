@@ -67,6 +67,11 @@ int	main(int ac, char **av, char **environ)
 	g_is_running = 0;
 	commands = NULL;
 	envi = environnement(environ);
+	if (!envi)
+	{
+		printf("minishell error : no env\n");
+		exit(1);
+	}
 	if (sig_init())
 		return (1);
 	line = readline("minishell : ");
