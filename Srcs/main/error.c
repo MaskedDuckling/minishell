@@ -12,6 +12,8 @@
 
 #include "../minishell.h"
 
+int	g_is_running;
+
 void	free_command(char **command)
 {
 	int	i;
@@ -26,15 +28,11 @@ void	free_command(char **command)
 	free(command);
 }
 
-void	destroy_com(t_command *com)
+int	destroy_com1(t_command *com, int j)
 {
 	int		i;
-	int		j;
 	t_redi	*tmp_r;
 
-	j = 0;
-	if (!com)
-		return ;
 	while (com[j].argv)
 	{
 		i = 0;
@@ -50,6 +48,17 @@ void	destroy_com(t_command *com)
 		}
 		j++;
 	}
+	return (j);
+}
+
+void	destroy_com(t_command *com)
+{
+	int		j;
+
+	j = 0;
+	if (!com)
+		return ;
+	j = destroy_com1(com, 0);
 	free(com[j].argv);
 	free(com);
 }
@@ -83,7 +92,10 @@ int	erroring(int check)
 	if (check == -12)
 		printf("a malloc failed\n");
 	else if (check == -2)
+	{
 		printf("parse error\n");
+		g_is_running = 258;
+	}
 	else if (check == -8)
 		printf("error line=NULL\n");
 	else if (check == -9)
