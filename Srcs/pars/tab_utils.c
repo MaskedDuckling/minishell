@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:27 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:40:29 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:03:03 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ char	*ft_itoa(int n)
 	int				plus;
 
 	plus = 1;
+	m = n;
 	if (n < 0)
-	{
 		m = -n;
+	if (n < 0)
 		plus++;
-	}
-	else
-		m = n;
 	len = ft_sizenum(m) + plus - 1;
 	tab = malloc((len + 1) * sizeof(char));
 	if (!tab)
