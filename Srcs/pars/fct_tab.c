@@ -1,73 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fct_tab.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:40:16 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 17:49:18 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
-
-int	alpha_num(char *str, int i, t_command *com, t_word *first)
-{
-	int	end;
-	int	start;
-
-	start = i;
-	end = i;
-	while (str[end] && str[end] != ' ' && str[end] != '\''
-		&& str[end] != '"' && str[end] != '$')
-		end++;
-	place_word(first, cut_word(str, start, end));
-	(void)com;
-	return (end);
-}
-
-int	alpha_num_quotes(char *str, int i, t_command *com, t_word *first)
-{
-	int	end;
-	int	start;
-
-	start = i;
-	end = i;
-	while (str[end] && str[end] != '\"' && str[end] != '$')
-		end++;
-	place_word(first, cut_word(str, start, end));
-	(void)com;
-	return (end);
-}
-
-int	input(char *str, int i, t_command *com, t_word *first)
-{
-	int	end;
-	int	start;
-	int	type;
-
-	type = 3;
-	if (str[i + 1] && str[i + 1] == '<' && ++i)
-		type++;
-	start = ++i;
-	while (str[start] && str[start] == ' ')
-		start++;
-	end = start;
-	while (str[end] && str[end] != ' ')
-		end++;
-	redi(com, cut_word(str, start, end), type);
-	(void)first;
-	return (end);
-}
-
-int	output(char *str, int i, t_command *com, t_word *first)
-{
-	int	end;
-	int	start;
-	int	type;
-
-	type = 1;
-	if (str[i + 1] && str[i + 1] == '>' && ++i)
-		type++;
-	start = ++i;
-	while (str[start] && str[start] == ' ')
-		start++;
-	end = start;
-	while (str[end] && str[end] != ' ')
-		end++;
-	redi(com, cut_word(str, start, end), type);
-	(void)first;
-	return (end);
-}
 
 int	venv(char *str, int i, t_command *com, t_word *first)
 {
@@ -166,4 +109,18 @@ int	word(char *str, int i, t_command *com, t_word *first)
 		i = fct_tab[(int)str[i]](str, i, com, new);
 	place_word(first, lch_to_str(new));
 	return (i);
+}
+
+int	alpha_num_quotes(char *str, int i, t_command *com, t_word *first)
+{
+	int	end;
+	int	start;
+
+	start = i;
+	end = i;
+	while (str[end] && str[end] != '\"' && str[end] != '$')
+		end++;
+	place_word(first, cut_word(str, start, end));
+	(void)com;
+	return (end);
 }

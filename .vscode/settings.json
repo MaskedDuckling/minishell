@@ -3,6 +3,7 @@
 		"cstdio": "c",
 		"pars.h": "c",
 		"cstdlib": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"types.h": "c"
 	}
 }

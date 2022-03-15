@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_line.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:40:12 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 17:43:31 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	skip_c(char *str, int i)
@@ -30,42 +42,6 @@ int	open_close(char *str, int i)
 	return (-2);
 }
 
-int	simple(char *str, int i)
-{
-	int	y;
-
-	if (str[i + 1])
-	{
-		if (str[i] == str[i + 1])
-			return (-2);
-	}
-	y = i;
-	while (str[i] && str[i] == ' ')
-		i++;
-	if (!str[i])
-		return (-2);
-	return (y + 1);
-}
-
-int	simp_doub(char *str, int i)
-{
-	if ((str[i + 1] && str[i + 2])
-		&& (str[i] == str[i + 1] && str[i] == str[i + 2]))
-			return (-2);
-	/*if (str[i + 1] && str[i] == str[i + 1])
-	{
-		if (str[i + 2] && str[i] == str[i + 2])
-			return (i + 3);
-		return (i + 2);
-	}
-	*/
-	if (str[i + 1] && str[i] == str[i + 1])
-		i++;
-	if (no_arg_redi(str, ++i))
-		return (-2);
-	return (i);
-}
-
 void	init_tab(int (*tab[128])(char *str, int i))
 {
 	int	i;
@@ -79,8 +55,6 @@ void	init_tab(int (*tab[128])(char *str, int i))
 	tab['<'] = simp_doub;
 	tab['>'] = simp_doub;
 }
-
-
 
 int	check_line(char *line)
 {

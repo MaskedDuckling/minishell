@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:40:03 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 17:56:09 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int is_running;
+int	g_is_running;
 
 int	is_empty(char *line)
 {
@@ -19,12 +31,12 @@ int	main(int ac, char **av, char **environ)
 {
 	char		*line;
 	t_command	*commands;
-	int	check;
+	int			check;
 	t_envi		*envi;
 
 	(void)ac;
 	(void)av;
-	is_running = 0;
+	g_is_running = 0;
 	commands = NULL;
 	envi = environnement(environ);
 	if (sig_init())
@@ -38,13 +50,13 @@ int	main(int ac, char **av, char **environ)
 			free(line);
 			line = ft_strdup("");
 		}
-		is_running = 1;
+		g_is_running = 1;
 		add_history(line);
 		check = parsing(line, &commands, envi, check);
 		printf("check = %i\n", check);
 		if (((check > 0 && !commands))
 			|| (check > 0 && (commands[0].argv[0]
-			&& ft_exit(commands, &check))))
+					&& ft_exit(commands, &check))))
 			break ;
 		check = erroring(check);
 		if (check > 0)
@@ -52,8 +64,7 @@ int	main(int ac, char **av, char **environ)
 		else
 			destroy_com(commands);
 		free(line);
-		//printf("status = %i\n", check);
-		is_running = 0;
+		g_is_running = 0;
 		line = readline("minishell : ");
 	}
 	if (!line && check >= 0)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_command.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:40:23 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 18:04:39 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	len_tab(char **tab)
@@ -49,8 +61,9 @@ void	destroy_word(t_word	*first)
 	}
 }
 
-int	parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int i,
-					t_command *com, t_word *first))
+int	parse_command(char *str, t_command *com,
+				int (*fct_tab[128])(char *str, int i,
+				t_command *com, t_word *first))
 {
 	int		i;
 	t_word	*first;
@@ -68,20 +81,7 @@ int	parse_command(char *str, t_command *com, int (*fct_tab[128])(char *str, int 
 		com->argv = make_argv(first->next);
 	destroy_word(first);
 	tmp = com->redi;
-	return(i);
-	
-	/*while (tmp)
-	{
-		printf("redi type %i cont: |%s|\n", tmp->type, tmp->cont);
-		tmp = tmp->next;
-	}
-	i = 0;
-	while (com->argv[i])
-		printf("|%s|\n", com->argv[i++]);
-
-
-	return(i);*/
-	
+	return (i);
 }
 
 int	split_command(char **tab, t_command **com, t_envi *envi, int exit_status)
@@ -89,7 +89,8 @@ int	split_command(char **tab, t_command **com, t_envi *envi, int exit_status)
 	int			i;
 	int			size_tab;
 	t_command	*command;
-	int			(*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int			(*fct_tab[128])(char *str, int i, t_command *com,
+			t_word *first);
 	int			check;
 
 	size_tab = len_tab(tab);
@@ -105,8 +106,7 @@ int	split_command(char **tab, t_command **com, t_envi *envi, int exit_status)
 		command[i].redi = NULL;
 		command[i].argv = NULL;
 		command[i].exit_status = exit_status;
-		check = parse_command(tab[i], &command[i], fct_tab);
-		i++;
+		check = parse_command(tab[i], &command[i++], fct_tab);
 	}
 	command[i].argv = NULL;
 	*com = command;

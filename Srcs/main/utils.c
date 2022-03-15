@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:40:09 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 17:40:10 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_strncmp(const char *s1, const char *s2, int n)
@@ -48,33 +60,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (ret);
 }
 
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	size_t			s1len;
-	size_t			s2len;
-	unsigned int	i;
-	unsigned int	j;
-	char			*ret;
-
-	s1len = ft_strlen(s1);
-	s2len = ft_strlen(s2);
-	i = -1;
-	j = 0;
-	ret = malloc(sizeof(char) * (s2len + s1len + 1));
-	if (!ret)
-		return (NULL);
-	while (++i < s1len)
-		ret[i] = s1[i];
-	while (j < s2len)
-	{
-		ret[i + j] = s2[j];
-		j++;
-	}
-	ret[i + j] = '\0';
-	free(s1);
-	return (ret);
-}
-
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -99,85 +84,4 @@ int	ft_strend_is(char *str, char *end)
 		j++;
 	}
 	return (1);
-}
-
-char	*ft_substr(char *s, int start, int len)
-{
-	char	*new;
-	int		i;
-
-	if (!s)
-		return (NULL);
-	if (start > ft_strlen(s))
-		return (ft_strdup(""));
-	new = malloc((len + 1) * sizeof(char));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (i < len && s[start])
-		new[i++] = s[start++];
-	if (start > ft_strlen(s))
-		new[0] = 0;
-	new[i] = 0;
-	return (new);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*new;
-	int		i;
-	int		len;
-
-	len = 0;
-	new = NULL;
-	if (!s1)
-		return (NULL);
-	while (s1[len])
-		len++;
-	new = malloc((len + 1) * sizeof(char));
-	if (!new)
-		return (NULL);
-	i = -1;
-	while (s1[++i])
-		new[i] = s1[i];
-	new[i] = '\0';
-	return (new);
-}
-
-char	*ft_strndup(const char *s1, int n)
-{
-	char	*new;
-	int		i;
-	int		len;
-
-	len = 0;
-	new = NULL;
-	if (!s1)
-		return (NULL);
-	while (s1[len] && len < n)
-		len++;
-	new = malloc((len + 1) * sizeof(char));
-	if (!new)
-		return (NULL);
-	i = -1;
-	while (s1[++i] && i < n)
-		new[i] = s1[i];
-	new[i] = '\0';
-	return (new);
-}
-
-int	ft_is_in(char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
 }
