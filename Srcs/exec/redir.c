@@ -97,7 +97,7 @@ int	delimiter(t_command *command)
 	t_word	*first;
 
 	i = 0;
-	while (command->redi->cont[i] && command->redi->cont[i] == '"' && command->redi->cont[i] == '\'')
+	while (command->redi->cont[i] && command->redi->cont[i] != '"' && command->redi->cont[i] != '\'')
 		i++;
 	if (!command->redi->cont[i])
 		return (1);
@@ -107,11 +107,9 @@ int	delimiter(t_command *command)
 	first->cont = NULL;
 	first->next = NULL;
 	i = word_delimiter(command->redi->cont, 0, command, first);
-	printf("cont = |%s|\n", command->redi->cont);
 	free(command->redi->cont);
 	command->redi->cont = first->next->cont;
 	destroy_word(first);
-	printf("cont exp = |%s|\n", command->redi->cont);
 	if (i < 0)
 		return (-1);
 	else
@@ -147,7 +145,7 @@ int	type_four(t_command command, int exp)
 		i = 0;
 		while (line[i])
 		{
-			if (line[i] == '$' && !exp)
+			if (line[i] == '$' && exp)
 				exp_heredoc(command, line, i, tube);
 			else
 				write(tube[1], &line[i], 1);
