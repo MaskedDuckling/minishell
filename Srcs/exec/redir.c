@@ -78,6 +78,7 @@ void	init_fct_tab_delimiter(int		(*fct_tab[128])(char *str, int i, t_command *co
 		fct_tab[i++] = word;
 }
 
+
 int	delimiter(t_command *command)
 {
 	int	i;
@@ -97,41 +98,50 @@ int	delimiter(t_command *command)
 	printf("cont = |%s|\n", command->redi->cont);
 	free(command->redi->cont);
 	command->redi->cont = first->next->cont;
+	destroy_word(first);
 	printf("cont exp = |%s|\n", command->redi->cont);
 	if (i < 0)
 		return (-1);
 	else
 		return (0);
-
 }
-int	type_four(t_command command)
+
+int	exp_heredoc(t_command command, char *line, int i, int tube[2])
+{
+	t_word	*first;
+	int		ret;
+
+	first = malloc(sizeof(t_word));
+	first->cont = NULL;
+	first->next = NULL;
+	ret = venv(line, i, &command, first);
+	write(tube[1], first->next->cont, ft_strlen(first->next->cont));
+	destroy_word(first);
+	if (ret < 0)
+		return (-1);
+	return (i);
+}
+
+int	type_four(t_command command, int exp)
 {
 	char	*line;
 	int		tube[2];
 	int		i;
 	char	*name;
 	char	*path;
-	int		exp;
 
 	i = 0;
 	path = NULL;
 	name = NULL;
 	pipe(tube);
 	line = readline("> ");
-	exp = delimiter(&command);
 	while (ft_strcmp(line, command.redi->cont))
 	{
 		i = 0;
 		while (line[i])
 		{
 			if (line[i] == '$' && !exp)
-			{
-				name = ft_strndup(line + i + 1, get_len(line, i + 1));
-				path = src_envi(name, command.envi);
-				write(tube[1], path, ft_strlen(path));
-				i += ft_strlen(name);
-				free(name);
-			}
+				exp_heredoc(command, line, i, tube);
 			else
 				write(tube[1], &line[i], 1);
 			i++;
@@ -150,11 +160,13 @@ void	ft_redi(t_command command)
 	int		stin;
 	int		stout;
 	char	**envi;
+	int		exp;
 
 	type = 0;
 	path = NULL;
 	stin = STDIN_FILENO;
 	stout = STDOUT_FILENO;
+	exp = delimiter(&command);
 	while (command.redi)
 	{
 		if (command.redi->type == 1)
@@ -164,7 +176,7 @@ void	ft_redi(t_command command)
 		else if (command.redi->type == 3)
 			stin = open(command.redi->cont, O_RDONLY | O_CREAT, 0644);
 		else if (command.redi->type == 4)
-			stin = type_four(command);
+			stin = type_four(command, exp);
 		if (!command.redi->next)
 			break ;
 		command.redi = command.redi->next;
