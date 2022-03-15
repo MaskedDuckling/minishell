@@ -26,15 +26,11 @@ void	free_command(char **command)
 	free(command);
 }
 
-void	destroy_com(t_command *com)
+int	destroy_com1(t_command *com, int j)
 {
 	int		i;
-	int		j;
 	t_redi	*tmp_r;
 
-	j = 0;
-	if (!com)
-		return ;
 	while (com[j].argv)
 	{
 		i = 0;
@@ -55,6 +51,17 @@ void	destroy_com(t_command *com)
 		}
 		j++;
 	}
+	return (j);
+}
+
+void	destroy_com(t_command *com)
+{
+	int		j;
+
+	j = 0;
+	if (!com)
+		return ;
+	j = destroy_com1(com, 0);
 	free(com[j].argv);
 	free(com);
 }

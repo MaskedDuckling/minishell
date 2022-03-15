@@ -27,6 +27,34 @@ int	is_empty(char *line)
 	return (1);
 }
 
+int	routine(int check, t_command *commands, t_envi *envi, char *line)
+{
+	while (check >= 0 && line)
+	{
+		if (is_empty(line))
+		{
+			free(line);
+			line = ft_strdup("");
+		}
+		g_is_running = 1;
+		add_history(line);
+		check = parsing(line, &commands, envi, check);
+		if (((check > 0 && !commands))
+			|| (check > 0 && (commands[0].argv[0]
+					&& ft_exit(commands, &check))))
+			break ;
+		check = erroring(check);
+		if (check > 0)
+			check = exec_command(commands);
+		else
+			destroy_com(commands);
+		free(line);
+		g_is_running = 0;
+		line = readline("minishell : ");
+	}
+	return (check);
+}
+
 int	main(int ac, char **av, char **environ)
 {
 	char		*line;
@@ -42,34 +70,9 @@ int	main(int ac, char **av, char **environ)
 	if (sig_init())
 		return (1);
 	line = readline("minishell : ");
-	check = 0;
-	while (check >= 0 && line)
-	{
-		if (is_empty(line))
-		{
-			free(line);
-			line = ft_strdup("");
-		}
-		g_is_running = 1;
-		add_history(line);
-		check = parsing(line, &commands, envi, check);
-		printf("check = %i\n", check);
-		if (((check > 0 && !commands))
-			|| (check > 0 && (commands[0].argv[0]
-					&& ft_exit(commands, &check))))
-			break ;
-		check = erroring(check);
-		if (check > 0)
-			check = exec_command(commands);
-		else
-			destroy_com(commands);
-		free(line);
-		g_is_running = 0;
-		line = readline("minishell : ");
-	}
+	check = routine(0, commands, envi, line);
 	if (!line && check >= 0)
 		printf("exit\n");
-	free(line);
 	destroy_env(envi);
 	return (check);
 }

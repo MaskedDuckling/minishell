@@ -78,25 +78,10 @@ int	wait_process(t_command *command)
 	return (command[i - 1].exit_status);
 }
 
-int	exec_command(t_command *commands)
+void	exec_command1(t_command *commands, int fd, int i)
 {
 	int		tube[2];
-	int		exit_status;
-	int		fd;
-	int		i;
 
-	i = 0;
-	fd = STDIN_FILENO;
-	printf("argv = |%s|\n", commands[0].argv[0]);
-	if (commands[0].argv[0] && !commands[1].argv)
-	{
-		if (is_builtin(commands[0]))
-		{
-			i = ft_builtins(commands[0]);
-			free(commands);
-			return (i);
-		}
-	}
 	while (commands[i].argv)
 	{
 		if (commands[i + 1].argv)
@@ -115,6 +100,26 @@ int	exec_command(t_command *commands)
 			close(tube[1]);
 		i++;
 	}
+}
+
+int	exec_command(t_command *commands)
+{
+	int		exit_status;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = STDIN_FILENO;
+	if (commands[0].argv[0] && !commands[1].argv)
+	{
+		if (is_builtin(commands[0]))
+		{
+			i = ft_builtins(commands[0]);
+			free(commands);
+			return (i);
+		}
+	}
+	exec_command1(commands, fd, i);
 	exit_status = wait_process(commands);
 	destroy_com(commands);
 	return (exit_status);

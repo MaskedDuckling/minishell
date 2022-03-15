@@ -12,6 +12,15 @@
 
 #include "../minishell.h"
 
+int	ft_exit_argnum(t_command *commands, int *check)
+{
+	*check = 2;
+	printf("minishell: exit: %s : argument numérique nécessaire\n",
+		commands[0].argv[1]);
+	destroy_com(commands);
+	return (1);
+}
+
 int	ft_exit(t_command *commands, int *check)
 {
 	(void)check;
@@ -25,13 +34,7 @@ int	ft_exit(t_command *commands, int *check)
 				printf("minishell: exit: trop d'arguments\n");
 			}
 			else
-			{
-				*check = 2;
-				printf("minishell: exit: %s : argument numérique nécessaire\n",
-					commands[0].argv[1]);
-				destroy_com(commands);
-				return (1);
-			}
+				ft_exit_argnum(commands, check);
 			return (0);
 		}
 		if (commands[0].argv[1]

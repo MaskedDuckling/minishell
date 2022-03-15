@@ -9,14 +9,10 @@ BUG REPORT
 - erreur de parsing "cat Makefile < > lol"
 - si il n y a que une redirection et pas de fonction
 - si il ny a que des redirection
-
+- ctrl D
+- env -i ./minishell
 
 minishell : > echo lol = leak
-
-ne jamais expandre delimiteurs
-heredoc si delimiteur 	= sans guillemets -> tout est a expandre
-						= avec
-
 
 BUG a test:
 - trouver des bugs
