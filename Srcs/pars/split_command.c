@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:23 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 18:04:39 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:12:47 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,15 @@ int	split_command(char **tab, t_command **com, t_envi *envi, int exit_status)
 	if (!command)
 		return (-12);
 	init_fct_tab(fct_tab);
-	i = 0;
+	i = -1;
 	check = 0;
-	while (check >= 0 && i < size_tab)
+	while (check >= 0 && ++i < size_tab)
 	{
 		command[i].envi = envi;
 		command[i].redi = NULL;
 		command[i].argv = NULL;
 		command[i].exit_status = exit_status;
 		check = parse_command(tab[i], &command[i], fct_tab);
-		i++;
 	}
 	command[i].argv = NULL;
 	*com = command;

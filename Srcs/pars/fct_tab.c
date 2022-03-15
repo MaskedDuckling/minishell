@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:16 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:49:18 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:07:25 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	char	*name;
 	char	*ret;
 
-	(void)str;
-	(void)com;
 	start = ++i;
 	while (str[i] && ((str[i] >= '0' && str[i] <= '9')
 			|| (str[i] >= 'a' && str[i] <= 'z')
 			|| (str[i] >= 'A' && str[i] <= 'Z')
 			|| (str[i] == '_')))
-		i++;
+			i++;
 	name = ft_substr(str, start, (i - start));
 	if (!name)
 		return (-1);
