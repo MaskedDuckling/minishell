@@ -139,8 +139,6 @@ int	type_four(t_command command, int exp)
 	char	*line;
 	int		tube[2];
 	int		i;
-	char	*name;
-	char	*path;
 
 	pipe(tube);
 	line = readline("> ");

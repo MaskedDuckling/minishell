@@ -106,7 +106,8 @@ int	split_command(char **tab, t_command **com, t_envi *envi, int exit_status)
 		command[i].redi = NULL;
 		command[i].argv = NULL;
 		command[i].exit_status = exit_status;
-		check = parse_command(tab[i], &command[i++], fct_tab);
+		check = parse_command(tab[i], &command[i], fct_tab);
+		i++;
 	}
 	command[i].argv = NULL;
 	*com = command;
