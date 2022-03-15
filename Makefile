@@ -17,7 +17,8 @@ SRCS_EXEC	=		builtins_1.c		\
 					builtins_utils.c	\
 					check_builtins.c	\
 					exec_command.c		\
-					redir.c				
+					redir1.c			\
+					redir2.c				
 
 SRCS_PARS	=		fct_tab.c			\
 					tab_utils.c			\
