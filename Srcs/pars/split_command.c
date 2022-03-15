@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:23 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 18:04:01 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:04:39 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ int	split_command(char **tab, t_command **com, t_envi *envi, int exit_status)
 		command[i].redi = NULL;
 		command[i].argv = NULL;
 		command[i].exit_status = exit_status;
-		check = parse_command(tab[i], &command[i], fct_tab);
-		i++;
+		check = parse_command(tab[i], &command[i++], fct_tab);
 	}
 	command[i].argv = NULL;
 	*com = command;
