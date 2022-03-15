@@ -15,7 +15,6 @@
 # include <string.h>
 # include <signal.h>
 
-
 typedef struct s_envi
 {
 	char			*name;
@@ -53,7 +52,6 @@ typedef struct s_venv_quotes
 	int		e;
 }				t_venv_quotes;
 
-
 /*Libft*/
 char		**ft_split(char const *s, char c);
 int			ft_strend_is(char *str, char *end);
@@ -66,6 +64,7 @@ char		*ft_strdup(const char *s1);
 char		*ft_substr(char *s, int start, int len);
 int			ft_is_in(char *str, char c);
 char		*ft_strndup(const char *s1, int n);
+char		*tochar(char *s1, char c);
 
 /*Parsing*/
 void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
@@ -109,7 +108,7 @@ void		free_command(char **command);
 int			exec_command(t_command *commands);
 int			ft_builtins(t_command command);
 int			ft_builtins_fork(t_command command, int *tube);
-char		*src_envi(char *var_name,t_envi *envi);
+char		*src_envi(char *var_name, t_envi *envi);
 void		child_process(t_command command, int *tube, int fd);
 
 /*builtins*/
@@ -123,12 +122,15 @@ int			is_builtin(t_command command);
 int			is_builtin_fork(t_command command);
 int			ft_exit(t_command *commands, int *check);
 
+/*builtins utils*/
+char		*var_name(char *def);
+
 /*error and free*/
 void		destroy_env(t_envi *envi);
 int			erroring(int check);
 void		free_process(t_command command);
 void		destroy_com(t_command *com);
 
-int			sig_init();
+int			sig_init(void);
 
 #endif

@@ -1,22 +1,5 @@
 #include "../minishell.h"
 
-char	*tochar(char *s1, char c)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i])
-	{
-		if (s1[i] == c)
-		{
-			s1[i] = '\0';
-			return (s1 + i + 1);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
 int	envi_len(t_envi *envi)
 {
 	int	i;
@@ -35,7 +18,7 @@ char	**join_envi(t_envi *envi)
 	char	**ret;
 	int		i;
 	int		j;
-	t_envi *tmp;
+	t_envi	*tmp;
 
 	j = 0;
 	tmp = envi;
@@ -56,7 +39,7 @@ char	**join_envi(t_envi *envi)
 
 char	*src_envi(char *var_name, t_envi *envi)
 {
-	t_envi *tmp;
+	t_envi	*tmp;
 
 	tmp = envi;
 	while (tmp)
@@ -74,7 +57,6 @@ void	add_new(char *data, t_envi *envi)
 	t_envi	*new;
 
 	tmp = envi;
-
 	while (tmp->next)
 		tmp = tmp->next;
 	new = malloc(sizeof(t_envi));

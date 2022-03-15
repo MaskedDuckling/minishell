@@ -6,9 +6,9 @@ int	get_len(char *line, int j)
 
 	i = j;
 	while (line[i] && ((line[i] >= '0' && line[i] <= '9')
-				|| (line[i] >= 'a' && line[i] <= 'z')
-				|| (line[i] >= 'A' && line[i] <= 'Z')
-				|| (line[i] == '_')))
+			|| (line[i] >= 'a' && line[i] <= 'z')
+			|| (line[i] >= 'A' && line[i] <= 'Z')
+			|| (line[i] == '_')))
 		i++;
 	return (i - j);
 }
@@ -40,7 +40,7 @@ int	type_four(t_command command)
 				write(tube[1], &line[i], 1);
 			i++;
 		}
-		write(tube[1],"\n",1);
+		write(tube[1], "\n", 1);
 		line = readline("> ");
 	}
 	close(tube[1]);
@@ -64,7 +64,8 @@ void	ft_redi(t_command command)
 		if (command.redi->type == 1)
 			stout = open(command.redi->cont, O_WRONLY | O_CREAT, 0644);
 		else if (command.redi->type == 2)
-			stout = open(command.redi->cont, O_APPEND | O_WRONLY | O_CREAT, 0644);
+			stout = open(command.redi->cont, O_APPEND | O_WRONLY
+					| O_CREAT, 0644);
 		else if (command.redi->type == 3)
 			stin = open(command.redi->cont, O_RDONLY | O_CREAT, 0644);
 		else if (command.redi->type == 4)

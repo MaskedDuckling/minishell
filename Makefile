@@ -11,7 +11,10 @@ SRCS_MAIN	=		main.c 				\
 SRCS_ENVI	=		environnement.c		\
 					get_path.c			
 
-SRCS_EXEC	=		builtins.c			\
+SRCS_EXEC	=		builtins_1.c		\
+					builtins_utils.c		\
+					builtins_2.c		\
+					check_builtins.c	\
 					exec_command.c		\
 					redir.c				
 

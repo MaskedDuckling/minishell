@@ -19,8 +19,8 @@ void	signal_handler(int signo)
 	if (signo == SIGINT)
 	{
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
+		//rl_on_new_line();
+		//rl_replace_line("", 0);
 		if (!is_running)
 			rl_redisplay();
 	}
@@ -28,7 +28,7 @@ void	signal_handler(int signo)
 		write(1,"\b\b  \b\b",6);
 }
 
-int	sig_init()
+int	sig_init(void)
 {
 	if (signal(SIGINT, signal_handler))
 		return (1);

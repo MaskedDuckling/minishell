@@ -181,3 +181,20 @@ int	ft_is_in(char *str, char c)
 	}
 	return (0);
 }
+
+char	*tochar(char *s1, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i])
+	{
+		if (s1[i] == c)
+		{
+			s1[i] = '\0';
+			return (s1 + i + 1);
+		}
+		i++;
+	}
+	return (NULL);
+}

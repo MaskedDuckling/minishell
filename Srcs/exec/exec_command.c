@@ -45,13 +45,13 @@ int	wait_process(t_command *command)
 
 	status = 0;
 	i = 0;
-	while(command[i].argv)
+	while (command[i].argv)
 	{
 		if (command[i].argv[0] && !is_builtin(command[i]))
 		{
 			if (waitpid(command[i].pid, &status, 0) == -1)
 				write(STDERR_FILENO, "ERROR\n", 6);
-			if(WIFEXITED(status))
+			if (WIFEXITED(status))
 			{
 				command[i].exit_status = WEXITSTATUS(status);
 				printf("");
@@ -66,7 +66,7 @@ int	wait_process(t_command *command)
 	return (command[i - 1].exit_status);
 }
 
-int		exec_command(t_command *commands)
+int	exec_command(t_command *commands)
 {
 	int		tube[2];
 	int		exit_status;
