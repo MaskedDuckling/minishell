@@ -105,6 +105,7 @@ int			alpha_num_quotes(char *str, int i, t_command *com, t_word *first);
 int			input(char *str, int i, t_command *com, t_word *first);
 int			output(char *str, int i, t_command *com, t_word *first);
 int			venv(char *str, int i, t_command *com, t_word *first);
+void		destroy_word(t_word	*first);
 int			no_arg_redi(char *str, int i);
 
 /*tab parsing utils*/

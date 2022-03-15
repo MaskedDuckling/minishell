@@ -19,9 +19,15 @@ void	signal_handler(int signo)
 	if (signo == SIGINT)
 	{
 		printf("\n");
+<<<<<<< HEAD
+		rl_on_new_line();
+		//rl_replace_line("", 0);
+		if (!is_running)
+=======
 		//rl_on_new_line();
 		//rl_replace_line("", 0);
 		if (!g_is_running)
+>>>>>>> 599c50e5d55f58ef4a9cc39ead1aaebdc0b174cf
 			rl_redisplay();
 	}
 	else if (signo == SIGQUIT)
