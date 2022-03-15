@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:36 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:34:16 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:48:19 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ typedef struct s_venv_quotes
 	int		e;
 }				t_venv_quotes;
 
+typedef struct s_st
+{
+	int	in;
+	int	out;
+}				t_st;
+
 /*Libft*/
 char		**ft_split(char const *s, char c);
 int			ft_strend_is(char *str, char *end);
@@ -120,6 +126,7 @@ int			redi(t_command *com, char *cont, int type);
 
 /*Redirections*/
 void		ft_redi(t_command command);
+int			delimiter(t_command *command);
 
 /*Environ*/
 char		*for_access(char *cmd, char **environ);
