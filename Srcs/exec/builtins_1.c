@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:51 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 18:47:13 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:44:58 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,27 @@ int	ft_export(char *new_env, t_envi *envi)
 	return (0);
 }
 
-int	ft_unset(char *var_name, t_envi *envi)
+int	for_ft_unset(char *var_name)
 {
-	t_envi	*prev;
-	t_envi	*next;
-	t_envi	*par;
-
-	par = envi;
 	if (!var_name)
 	{
 		printf("unset: not enough arguments\n");
 		return (1);
 	}
-	if (ft_strcmp(par->name, var_name) == 0)
-	{
-		envi = par->next;
-		free(par->name);
-		free(par->path);
-		free(par);
-		return (0);
-	}
+	return (-1);
+}
+
+int	ft_unset(char *var_name, t_envi *envi)
+{
+	t_envi	*prev;
+	t_envi	*next;
+	t_envi	*par;
+	int		ret;
+
+	ret = for_ft_unset(var_name);
+	if (ret >= 0)
+		return (ret);
+	par = envi;
 	while (par->next)
 	{
 		prev = par;

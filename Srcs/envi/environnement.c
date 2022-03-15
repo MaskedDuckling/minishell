@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:35 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:39:43 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:36:21 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	envi_len(t_envi *envi)
 	int	i;
 
 	i = 0;
+	envi = envi->next;
 	while (envi)
 	{
 		envi = envi->next;
@@ -33,7 +34,7 @@ char	**join_envi(t_envi *envi)
 	t_envi	*tmp;
 
 	j = 0;
-	tmp = envi;
+	tmp = envi->next;
 	i = envi_len(tmp);
 	ret = malloc(sizeof(char *) * (i + 1));
 	if (!ret)
@@ -53,7 +54,7 @@ char	*src_envi(char *var_name, t_envi *envi)
 {
 	t_envi	*tmp;
 
-	tmp = envi;
+	tmp = envi->next;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, var_name) == 0)
@@ -83,14 +84,14 @@ t_envi	*environnement(char **environnement)
 	int		i;
 	t_envi	*envi;
 
-	i = 1;
+	i = 0;
 	if (!environnement || !environnement[0])
 	{
 		return (NULL);
 	}
 	envi = malloc(sizeof(t_envi));
-	envi->path = ft_strdup(tochar(environnement[0], '='));
-	envi->name = ft_strdup(environnement[0]);
+	envi->path = NULL;
+	envi->name = NULL;
 	envi->next = NULL;
 	while (environnement[i])
 	{

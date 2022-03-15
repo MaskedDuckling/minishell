@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:55 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:41:05 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:46:29 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	export_no_arg(t_envi *envi)
 {
 	t_envi	*tmp;
 
-	tmp = envi;
+	tmp = envi->next;
 	while (tmp->next)
 	{
 		printf("declare -x %s=%s\n", tmp->name, tmp->path);

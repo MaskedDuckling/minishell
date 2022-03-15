@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:59 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 19:21:22 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:01:06 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	word_delimiter(char *str, int i, t_command *com, t_word *first)
 	return (i);
 }
 
-void	init_fct_tab_delimiter(int		(*fct_tab[128])(char *str, int i,
+void	init_fct_tab_delimiter(int (*fct_tab[128])(char *str, int i,
 							t_command *com, t_word *first))
 {
 	int	i;
