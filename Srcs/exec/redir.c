@@ -21,9 +21,6 @@ int	type_four(t_command command)
 	char	*name;
 	char	*path;
 
-	i = 0;
-	path = NULL;
-	name = NULL;
 	pipe(tube);
 	line = readline("> ");
 	while (ft_strcmp(line, command.redi->cont))
