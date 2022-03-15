@@ -5,6 +5,7 @@ NAME = minishell
 
 SRCS_MAIN	=		main.c 				\
 					utils.c				\
+					utils_2.c			\
 					signal.c			\
 					error.c 			
 
@@ -12,14 +13,16 @@ SRCS_ENVI	=		environnement.c		\
 					get_path.c			
 
 SRCS_EXEC	=		builtins_1.c		\
-					builtins_utils.c		\
 					builtins_2.c		\
+					builtins_utils.c	\
 					check_builtins.c	\
 					exec_command.c		\
 					redir.c				
 
 SRCS_PARS	=		fct_tab.c			\
 					tab_utils.c			\
+					tab_utils2.c		\
+					tab_utils3.c		\
 					split_line.c		\
 					parsing.c 			\
 					ft_split.c 			\

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:39:55 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 17:41:05 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*var_name(char *def)
@@ -65,4 +77,16 @@ long int	ft_atoi_long(char *str)
 		i++;
 	}
 	return ((long int)nbr);
+}
+
+void	export_no_arg(t_envi *envi)
+{
+	t_envi	*tmp;
+
+	tmp = envi;
+	while (tmp->next)
+	{
+		printf("declare -x %s=%s\n", tmp->name, tmp->path);
+		tmp = tmp->next;
+	}
 }

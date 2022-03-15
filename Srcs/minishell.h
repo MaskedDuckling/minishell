@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:40:36 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 17:51:23 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -67,13 +79,22 @@ char		*ft_strndup(const char *s1, int n);
 char		*tochar(char *s1, char c);
 
 /*Parsing*/
-void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
+void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com,
+					t_word *first));
 char		*join_words(t_word *first);
 char		**split_line(char *command);
 char		*replace_newline(char *command, char c);
-int			parsing(char *line, t_command **commands, t_envi *envi, int exit_status);
-int			split_command(char **tab, t_command **commands, t_envi *envi, int exit_status);
+int			parsing(char *line, t_command **commands, t_envi *envi,
+				int exit_status);
+int			split_command(char **tab, t_command **commands, t_envi *envi,
+				int exit_status);
 int			check_line(char *line);
+int			simp_doub(char *str, int i);
+int			simple(char *str, int i);
+int			alpha_num(char *str, int i, t_command *com, t_word *first);
+int			alpha_num_quotes(char *str, int i, t_command *com, t_word *first);
+int			input(char *str, int i, t_command *com, t_word *first);
+int			output(char *str, int i, t_command *com, t_word *first);
 
 /*tab parsing*/
 int			word(char *str, int i, t_command *com, t_word *first);
@@ -84,10 +105,12 @@ int			alpha_num_quotes(char *str, int i, t_command *com, t_word *first);
 int			input(char *str, int i, t_command *com, t_word *first);
 int			output(char *str, int i, t_command *com, t_word *first);
 int			venv(char *str, int i, t_command *com, t_word *first);
+int			no_arg_redi(char *str, int i);
 
 /*tab parsing utils*/
 char		*ft_itoa(int n);
-void		init_fct_tab(int (*fct_tab[128])(char *str, int i, t_command *com, t_word *first));
+void		init_fct_tab(int (*fct_tab[128])(char *str, int i,
+					t_command *com, t_word *first));
 char		*lch_to_str(t_word	*first);
 int			skip(char *str, int i, t_command *com, t_word *first);
 int			place_word(t_word *first, char *ret);
@@ -124,6 +147,9 @@ int			ft_exit(t_command *commands, int *check);
 
 /*builtins utils*/
 char		*var_name(char *def);
+void		export_no_arg(t_envi *envi);
+long int	ft_atoi_long(char *str);
+int			is_num(char *str);
 
 /*error and free*/
 void		destroy_env(t_envi *envi);

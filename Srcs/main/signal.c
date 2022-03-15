@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eestela <eestela@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:58:59 by user42            #+#    #+#             */
-/*   Updated: 2022/03/14 17:20:04 by eestela          ###   ########.fr       */
+/*   Updated: 2022/03/15 17:55:55 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int is_running;
+extern int	g_is_running;
 
 void	signal_handler(int signo)
 {
@@ -21,11 +21,11 @@ void	signal_handler(int signo)
 		printf("\n");
 		//rl_on_new_line();
 		//rl_replace_line("", 0);
-		if (!is_running)
+		if (!g_is_running)
 			rl_redisplay();
 	}
 	else if (signo == SIGQUIT)
-		write(1,"\b\b  \b\b",6);
+		write(1, "\b\b  \b\b", 6);
 }
 
 int	sig_init(void)

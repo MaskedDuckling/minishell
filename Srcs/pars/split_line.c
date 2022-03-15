@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_line.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 17:40:26 by eydupray          #+#    #+#             */
+/*   Updated: 2022/03/15 17:40:27 by eydupray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*replace_newline(char *command, char c)
@@ -33,7 +45,7 @@ char	**split_line(char *command)
 		ret = malloc(sizeof(char *) * 2);
 		ret[0] = ft_strdup("");
 		ret[1] = NULL;
-		return(ret);
+		return (ret);
 	}
 	command = replace_newline(command, '|');
 	ret = ft_split(command, '\n');
