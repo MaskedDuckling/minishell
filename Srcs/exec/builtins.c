@@ -1,4 +1,4 @@
-#include "exec.h"
+#include "../minishell.h"
 
 int	ft_pwd(int *tube)
 {
@@ -8,7 +8,7 @@ int	ft_pwd(int *tube)
 	dup2(tube[1], STDOUT_FILENO);
 	getcwd(buffer, 4096);
 	printf("%s\n", buffer);
-	return (1);
+	return (0);
 }
 char	*var_name(char *def)
 {
@@ -32,37 +32,47 @@ char	*var_name(char *def)
 	return (name);
 }
 
-void	export_no_arg(void)
+void	export_no_arg(t_envi *envi)
 {
-	return ;
+	t_envi *tmp;
+
+	tmp = envi;
+	while (tmp->next)
+	{
+		printf("declare -x %s=%s\n",tmp->name,tmp->path);
+		tmp = tmp->next;
+	}
 }
 
-void	ft_export(char *new_env, t_envi *envi)
+int	ft_export(char *new_env, t_envi *envi)
 {
 	char	*name;
 
 	if (!new_env)
 	{
-		export_no_arg();
-		return ;
+		export_no_arg(envi);
+		return (0);
 	}
+	if (!ft_is_in(new_env, '='))
+		return (0);
 	name = var_name(new_env);
 	ft_unset(name, envi);
 	add_new(new_env, envi);
 	free(name);
+	return (0);
 }
 
-void	ft_unset(char *var_name, t_envi *envi)
+int	ft_unset(char *var_name, t_envi *envi)
 {
 	t_envi	*prev;
 	t_envi	*next;
 	t_envi	*par;
 
 	par = envi;
-	if (var_name)
+	if (!var_name)
 	{
 		printf("unset: not enough arguments\n");
-		
+		return (1);
 	}
 	if (ft_strcmp(par->name, var_name) == 0)
 	{
@@ -70,7 +80,7 @@ void	ft_unset(char *var_name, t_envi *envi)
 		free(par->name);
 		free(par->path);
 		free(par);
-		return ;
+		return (0);
 	}
 	while (par->next)
 	{
@@ -83,12 +93,13 @@ void	ft_unset(char *var_name, t_envi *envi)
 			free(par->path);
 			free(par);
 			prev->next = next;
-			return ;
+			return (0);
 		}
 	}
+	return (0);
 }
 
-void	ft_env(int *tube, t_envi *envi, char *argv1)
+int		ft_env(int *tube, t_envi *envi, char *argv1)
 {
 	char	**env;
 	int		i;
@@ -97,7 +108,7 @@ void	ft_env(int *tube, t_envi *envi, char *argv1)
 	if (argv1)
 	{
 		printf("%s\n",strerror(2));
-		return ;
+		return (127);
 	}
 	env = join_envi(envi);
 	close(tube[0]);
@@ -109,6 +120,85 @@ void	ft_env(int *tube, t_envi *envi, char *argv1)
 		i++;
 	}
 	free(env);
+	return (0);
+}
+
+int	is_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	while (str[i] == ' ')
+		i++;
+	if (str[i])
+		return (0);
+	return (1);
+}
+
+long int	ft_atoi_long(char *str)
+{
+	long long int nbr;
+	int i;
+	int sign;
+
+	i = 0;
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' ||
+		str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+		i++;
+	sign = 1;
+	if (str[i] == '-')
+		sign = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	nbr = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (sign == -1)
+			nbr = nbr * 10 - (str[i] - 48);
+		if (sign == 1)
+			nbr = nbr * 10 + (str[i] - 48);
+		i++;
+	}
+	
+	return ((long int)nbr);
+}
+
+int	ft_exit(t_command *commands, int *check)
+{
+	(void)check;
+	if (!ft_strcmp(commands[0].argv[0], "exit"))
+	{
+		if (commands[0].argv[1] && commands[0].argv[2])
+		{
+			if (is_num(commands[0].argv[1]))
+			{
+				*check = -7;
+				printf("minishell: exit: trop d'arguments\n");
+			}
+			else
+			{
+				*check = 2;
+				printf("minishell: exit: %s : argument numérique nécessaire\n", commands[0].argv[1]);
+				destroy_com(commands);
+				return (1);
+			}
+			return (0);
+		}
+		if (commands[0].argv[1]
+			&& is_num(commands[0].argv[1]))
+					*check = (ft_atoi_long(commands[0].argv[1]) % 255);
+		else if (commands[0].argv[1])
+			*check = 2;
+		destroy_com(commands);
+		return (1);
+	}
+	return (0);
 }
 
 int	echo_flag(char *flag)
@@ -131,7 +221,7 @@ int	echo_flag(char *flag)
 	return (0);
 }
 
-void	ft_echo(char **argv, int *tube)
+int		ft_echo(char **argv, int *tube)
 {
 	int	i;
 
@@ -149,52 +239,65 @@ void	ft_echo(char **argv, int *tube)
 	}
 	if (echo_flag(argv[1]) == 0)
 		printf("\n");
+	return (0);
 }
 
-void	ft_cd(char *path)
+int	ft_cd(char *path, t_command command)
 {
+	if (!path)
+		path = src_envi("HOME", command.envi);
 	if (chdir(path) == -1)
 		printf("%s\n", strerror(errno));
+	return (0);
 }
 
 int	ft_builtins(t_command command)
 {
+	int	ret;
 	if (ft_strcmp(command.argv[0], "export") == 0)
-		ft_export(command.argv[1], command.envi);
+		ret = ft_export(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "unset") == 0)
-		ft_unset(command.argv[1], command.envi);
+		ret = ft_unset(command.argv[1], command.envi);
 	else if (ft_strcmp(command.argv[0], "cd") == 0)
-		ft_cd(command.argv[1]);
+		ret = ft_cd(command.argv[1], command);
 	else
 		return (0);
 	free(command.argv[0]);
 	free_process(command);
-	return (1);
+	return (ret);
 }
 
-int	test_builtin(t_command command)
+int	is_builtin(t_command command)
 {
-	if (ft_strcmp(command.argv[0], "export") == 0)
-		return(1);
-	if (ft_strcmp(command.argv[0], "unset") == 0)
-		return(1);
-	if (ft_strcmp(command.argv[0], "cd") == 0)
+	if ((ft_strcmp(command.argv[0], "export") == 0)
+	|| (ft_strcmp(command.argv[0], "cd") == 0)
+	|| (ft_strcmp(command.argv[0], "unset") == 0))
 		return(1);
 	return (0);
 
 }
+int	is_builtin_fork(t_command command)
+{
+	if ((ft_strcmp(command.argv[0], "echo") == 0)
+	|| (ft_strcmp(command.argv[0], "pwd") == 0)
+	|| (ft_strcmp(command.argv[0], "env") == 0))
+		return (1);
+	return(0);
+}
 
 int	ft_builtins_fork(t_command command, int *tube)
 {
+	int	ret;
+
 	if (ft_strcmp(command.argv[0], "echo") == 0)
-		ft_echo(command.argv, tube);
+		ret = ft_echo(command.argv, tube);
 	else if (ft_strcmp(command.argv[0], "pwd") == 0)
-		ft_pwd(tube);
+		ret = ft_pwd(tube);
 	else if (ft_strcmp(command.argv[0], "env") == 0)
-		ft_env(tube, command.envi, command.argv[1]);
+		ret = ft_env(tube, command.envi, command.argv[1]);
 	else
 		return (0);
 	free(command.argv[0]);
 	free_process(command);
-	return (1);
+	return (ret);
 }

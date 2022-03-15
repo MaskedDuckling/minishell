@@ -2,6 +2,7 @@
 	"files.associations": {
 		"cstdio": "c",
 		"pars.h": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"type_traits": "c"
 	}
 }

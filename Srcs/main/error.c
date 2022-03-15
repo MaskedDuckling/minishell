@@ -56,9 +56,14 @@ void	destroy_env(t_envi *envi)
 	{
 		tmp = envi;
 		envi = envi->next;
-		free(tmp->path);
-		free(tmp->name);
-		free(tmp);
+		if (tmp)
+		{
+			if (tmp->path)
+				free(tmp->path);
+			if (tmp->name)
+				free(tmp->name);
+			free(tmp);
+		}
 	}
 }
 
@@ -66,14 +71,17 @@ int	erroring(int check)
 {
 	if (check >= 0)
 		return (check);
-	printf("minishell ERROR : ");
+	else if (check != -7)
+		printf("minishell ERROR : ");
 	if (check == -12)
 		printf("a malloc failed\n");
 	else if (check == -2)
 		printf("parse error\n");
 	else if (check == -8)
 		printf("error line=NULL\n");
-	else
+	else if (check == -9)
+		printf("no envi\n");
+	else if (check != -7)
 		printf("unspecified error\n");
 	if (check >= -10)
 		return (0);

@@ -1,4 +1,4 @@
-#include "envi.h"
+#include "../minishell.h"
 
 char	*tochar(char *s1, char c)
 {
@@ -90,6 +90,8 @@ t_envi	*environnement(char **environnement)
 	t_envi	*envi;
 
 	i = 1;
+	if (!environnement)
+		return (NULL);
 	envi = malloc(sizeof(t_envi));
 	envi->path = ft_strdup(tochar(environnement[0], '='));
 	envi->name = ft_strdup(environnement[0]);

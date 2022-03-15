@@ -1,4 +1,4 @@
-#include "pars.h"
+#include "../minishell.h"
 
 void	ft_free_tab(char **tab)
 {
@@ -18,6 +18,8 @@ int	parsing(char *line, t_command **command, t_envi *envi, int exit_status)
 	int		check;
 
 	com = NULL;
+	if (!envi)
+		return (-9);
 	check = check_line(line);
 	if (check < 0)
 		return (check);

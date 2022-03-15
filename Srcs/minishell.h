@@ -12,10 +12,9 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include "pars/pars.h"
-# include "exec/exec.h"
-# include "envi/envi.h"
 # include <string.h>
+# include <signal.h>
+
 
 typedef struct s_envi
 {
@@ -114,18 +113,22 @@ char		*src_envi(char *var_name,t_envi *envi);
 void		child_process(t_command command, int *tube, int fd);
 
 /*builtins*/
-void		ft_env(int *tube, t_envi *envi, char *argv1);
-void		ft_cd(char *path);
-void		ft_unset(char *var_name, t_envi *envi);
-void		ft_export(char *new_env, t_envi *envi);
+int			ft_env(int *tube, t_envi *envi, char *argv1);
+int			ft_cd(char *path, t_command command);
+int			ft_unset(char *var_name, t_envi *envi);
+int			ft_export(char *new_env, t_envi *envi);
 int			ft_pwd(int *tube);
-void		ft_echo(char **argv, int *tube);
-int			test_builtin(t_command command);
+int			ft_echo(char **argv, int *tube);
+int			is_builtin(t_command command);
+int			is_builtin_fork(t_command command);
+int			ft_exit(t_command *commands, int *check);
 
 /*error and free*/
 void		destroy_env(t_envi *envi);
 int			erroring(int check);
 void		free_process(t_command command);
 void		destroy_com(t_command *com);
+
+int			sig_init();
 
 #endif

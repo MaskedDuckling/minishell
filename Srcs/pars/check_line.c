@@ -1,9 +1,20 @@
-#include "pars.h"
+#include "../minishell.h"
 
 int	skip_c(char *str, int i)
 {
 	(void)str;
 	return (i + 1);
+}
+
+int	no_arg_redi(char *str, int i)
+{
+	while (str[i] == ' ')
+	{
+		i++;
+	}
+	if (!str[i] || str[i] == '<' || str[i] == '>' || str[i] == '|')
+		return (1);
+	return (0);
 }
 
 int	open_close(char *str, int i)
@@ -21,12 +32,19 @@ int	open_close(char *str, int i)
 
 int	simple(char *str, int i)
 {
+	int	y;
+
 	if (str[i + 1])
 	{
 		if (str[i] == str[i + 1])
 			return (-2);
 	}
-	return (i + 1);
+	y = i;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (!str[i])
+		return (-2);
+	return (y + 1);
 }
 
 int	simp_doub(char *str, int i)
@@ -34,13 +52,18 @@ int	simp_doub(char *str, int i)
 	if ((str[i + 1] && str[i + 2])
 		&& (str[i] == str[i + 1] && str[i] == str[i + 2]))
 			return (-2);
-	if (str[i + 1] && str[i] == str[i + 1])
+	/*if (str[i + 1] && str[i] == str[i + 1])
 	{
 		if (str[i + 2] && str[i] == str[i + 2])
 			return (i + 3);
 		return (i + 2);
 	}
-	return (i + 1);
+	*/
+	if (str[i + 1] && str[i] == str[i + 1])
+		i++;
+	if (no_arg_redi(str, ++i))
+		return (-2);
+	return (i);
 }
 
 void	init_tab(int (*tab[128])(char *str, int i))
@@ -56,6 +79,8 @@ void	init_tab(int (*tab[128])(char *str, int i))
 	tab['<'] = simp_doub;
 	tab['>'] = simp_doub;
 }
+
+
 
 int	check_line(char *line)
 {
