@@ -13,7 +13,9 @@ BUG REPORT
 
 minishell : > echo lol = leak
 
-
+ne jamais expandre delimiteurs
+heredoc si delimiteur 	= sans guillemets -> tout est a expandre
+						= avec
 
 
 BUG a test:
