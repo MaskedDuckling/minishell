@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:59 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:40:00 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:10:11 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,6 @@ int	type_four(t_command command, int exp)
 	char	*line;
 	int		tube[2];
 	int		i;
-	char	*name;
-	char	*path;
 
 	pipe(tube);
 	line = readline("> ");
