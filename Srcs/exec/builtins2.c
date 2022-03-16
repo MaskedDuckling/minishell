@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:53 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:52:45 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:20:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	echo_flag(char *flag)
 				return (0);
 			i++;
 		}
-		return (1);
+		if (i > 1)
+			return (1);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:01 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 18:57:15 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:37:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	destroy_env(t_envi *envi)
 {
 	t_envi	*tmp;
 
+	tmp = envi->next;
+	free(envi);
+	envi = tmp;
 	while (envi)
 	{
 		tmp = envi;

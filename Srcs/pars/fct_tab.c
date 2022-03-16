@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct_tab.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:16 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 18:07:25 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:19:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 		return (-1);
 	if (start == i && str[start] == '?' && ++i)
 		ret = ft_itoa(com->exit_status);
-	else if (start == i && (!str[i] || str[i] == ' '))
+	else if (start == i && (!str[i] || str[i] == ' ' || str[i] == '.'
+		|| str[i] == '^'))
 		ret = ft_strdup("$");
 	else
 		ret = ft_strdup(src_envi(name, com->envi));
