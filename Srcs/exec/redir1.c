@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:59 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:49:46 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:47:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	word_delimiter(char *str, int i, t_command *com, t_word *first)
 
 	n = 0;
 	while (n < 128)
-		fct_tab[n++] = alpha_num;
+		fct_tab[n++] = alpha_num_delimiter;
 	fct_tab['\"'] = quotes_delimiter;
 	fct_tab['\''] = quotes_delimiter;
 	new = malloc(sizeof(t_word));
@@ -87,8 +87,8 @@ int	delimiter(t_command *command)
 	t_word	*first;
 
 	i = 0;
-	while (command->redi->cont[i] && command->redi->cont[i] != '"'
-		&& command->redi->cont[i] != '\'')
+	while (command->redi && command->redi->cont && command->redi->cont[i]
+		&& command->redi->cont[i] != '"' && command->redi->cont[i] != '\'')
 		i++;
 	if (!command->redi->cont[i])
 		return (1);

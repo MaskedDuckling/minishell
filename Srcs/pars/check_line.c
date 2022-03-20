@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:12 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:43:31 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:21:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	open_close(char *str, int i)
 	return (-2);
 }
 
-void	init_tab(int (*tab[128])(char *str, int i))
+void	init_tab(int (*tab[256])(char *str, int i))
 {
 	int	i;
 
 	i = 0;
-	while (i < 128)
+	while (i < 256)
 		tab[i++] = skip_c;
 	tab['"'] = open_close;
 	tab['\''] = open_close;
@@ -59,12 +59,16 @@ void	init_tab(int (*tab[128])(char *str, int i))
 int	check_line(char *line)
 {
 	int	i;
-	int	(*tab[128])(char *line, int i);
+	int	(*tab[256])(char *line, int i);
 
 	init_tab(tab);
 	if (!line)
 		return (-8);
 	i = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	if (line[i] && line[i] == '|')
+		return (-2);
 	while (i >= 0 && line[i])
 		i = tab[(int)line[i]](line, i);
 	return (i);

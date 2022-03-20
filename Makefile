@@ -1,4 +1,4 @@
-CC = clang
+CC = gcc
 INC = minishell.h
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 NAME = minishell
@@ -17,17 +17,18 @@ SRCS_EXEC	=		builtins1.c		\
 					builtins_utils.c	\
 					check_builtins.c	\
 					exec_command.c		\
+					exec_command_utils.c		\
 					redir1.c			\
 					redir2.c				
 
-SRCS_PARS	=		fct_tab.c			\
-					tab_utils.c			\
+SRCS_PARS	=		fct_tab1.c			\
+					fct_tab2.c		\
+					tab_utils1.c			\
 					tab_utils2.c		\
-					tab_utils3.c		\
 					split_line.c		\
 					parsing.c 			\
 					ft_split.c 			\
-					split_command.c 	\
+					parse_commands.c 	\
 					check_line.c
 
 SRCS =	${addprefix Srcs/main/,${SRCS_MAIN}}	\

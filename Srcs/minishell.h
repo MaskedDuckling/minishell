@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:36 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:48:19 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:41:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <signal.h>
+
+extern int	g_is_running;
 
 typedef struct s_envi
 {
@@ -49,6 +51,7 @@ typedef struct s_command
 	int		check;
 	int		exit_status;
 	pid_t	pid;
+	struct s_command	*next;
 }				t_command;
 
 typedef struct s_word
@@ -101,6 +104,7 @@ int			alpha_num(char *str, int i, t_command *com, t_word *first);
 int			alpha_num_quotes(char *str, int i, t_command *com, t_word *first);
 int			input(char *str, int i, t_command *com, t_word *first);
 int			output(char *str, int i, t_command *com, t_word *first);
+int			back_slash(char *str, int i, t_command *com, t_word *first);
 
 /*tab parsing*/
 int			word(char *str, int i, t_command *com, t_word *first);
@@ -113,6 +117,7 @@ int			output(char *str, int i, t_command *com, t_word *first);
 int			venv(char *str, int i, t_command *com, t_word *first);
 void		destroy_word(t_word	*first);
 int			no_arg_redi(char *str, int i);
+int			back_slash(char *str, int i, t_command *com, t_word *first);
 
 /*tab parsing utils*/
 char		*ft_itoa(int n);
@@ -125,7 +130,7 @@ char		*cut_word(char *str, int start, int end);
 int			redi(t_command *com, char *cont, int type);
 
 /*Redirections*/
-void		ft_redi(t_command command);
+void		ft_redi(t_command *command, int fd, int *tube);
 int			delimiter(t_command *command);
 
 /*Environ*/
@@ -137,20 +142,24 @@ t_envi		*environnement(char **environnement);
 /*Execution*/
 void		free_command(char **command);
 int			exec_command(t_command *commands);
-int			ft_builtins(t_command command);
-int			ft_builtins_fork(t_command command, int *tube);
+int			ft_builtins(t_command *command);
+int			ft_builtins_fork(t_command *command, int *tube, char **envi);
 char		*src_envi(char *var_name, t_envi *envi);
-void		child_process(t_command command, int *tube, int fd);
+void		child_process(t_command *command, int *tube, int fd);
+void		duping(int fd, int *tube);
+int			wait_process(t_command *command);
+void		is_access(char *path, t_command *command, char **environ);
+char		*invalid_file(t_command *command, char **environ);
 
 /*builtins*/
 int			ft_env(int *tube, t_envi *envi, char *argv1);
-int			ft_cd(char *path, t_command command);
+int			ft_cd(char *path, t_command *command);
 int			ft_unset(char *var_name, t_envi *envi);
 int			ft_export(char *new_env, t_envi *envi);
 int			ft_pwd(int *tube);
 int			ft_echo(char **argv, int *tube);
-int			is_builtin(t_command command);
-int			is_builtin_fork(t_command command);
+int			is_builtin(t_command *command);
+int			is_builtin_fork(t_command *command);
 int			ft_exit(t_command *commands, int *check);
 
 /*builtins utils*/
@@ -162,7 +171,7 @@ int			is_num(char *str);
 /*error and free*/
 void		destroy_env(t_envi *envi);
 int			erroring(int check);
-void		free_process(t_command command);
+void		free_process(t_command *command);
 void		destroy_com(t_command *com);
 
 int			sig_init(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eestela <eestela@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:47 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:39:48 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/18 16:15:24 by eestela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*for_for_access(char **path, char *join, int i, char *cmd)
 		if (ft_strend_is(path[i], "/") == 0)
 			path[i] = ft_strjoin_free(path[i], "/");
 		join = ft_strjoin(path[i], cmd);
-		if (access(join, F_OK | X_OK) == 0)
+		if (access(join, F_OK) == 0)
 		{
 			free_command(path);
 			return (join);
@@ -57,6 +57,9 @@ char	*for_for_access(char **path, char *join, int i, char *cmd)
 		free(join);
 		i++;
 	}
+	free_command(path);
+	if (access(cmd, F_OK) == 0)
+		return (ft_strdup(cmd));
 	return (NULL);
 }
 
@@ -69,8 +72,6 @@ char	*for_access(char *cmd, char **environ)
 	i = -1;
 	path = NULL;
 	join = NULL;
-	if (access(cmd, F_OK) == 0)
-		return (cmd);
 	while (environ[++i])
 	{
 		if (!ft_strncmp(environ[i], "PATH=", 5))
@@ -82,8 +83,5 @@ char	*for_access(char *cmd, char **environ)
 	join = for_for_access(path, join, i, cmd);
 	if (join)
 		return (join);
-	free(cmd);
-	if (path)
-		free_command(path);
 	return (NULL);
 }

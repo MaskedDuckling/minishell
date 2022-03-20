@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:43:45 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:49:57 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/17 18:30:06 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,15 @@ int	simple(char *str, int i)
 {
 	int	y;
 
-	if (str[i + 1])
-	{
-		if (str[i] == str[i + 1])
-			return (-2);
-	}
+	i = i + 1;
+	if (str[i] && str[i - 1] == str[i])
+		return (-2);
 	y = i;
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (!str[i])
 		return (-2);
-	return (y + 1);
+	return (y);
 }
 
 int	simp_doub(char *str, int i)

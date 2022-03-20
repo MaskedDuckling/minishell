@@ -6,7 +6,7 @@
 /*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:35 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:36:21 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:31:04 by eydupray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	envi_len(t_envi *envi)
 	int	i;
 
 	i = 0;
-	envi = envi->next;
 	while (envi)
 	{
 		envi = envi->next;

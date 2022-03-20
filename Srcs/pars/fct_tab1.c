@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct_tab.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:16 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/16 15:19:27 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/17 18:30:39 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	venv(char *str, int i, t_command *com, t_word *first)
 	if (start == i && str[start] == '?' && ++i)
 		ret = ft_itoa(com->exit_status);
 	else if (start == i && (!str[i] || str[i] == ' ' || str[i] == '.'
-		|| str[i] == '^'))
+			|| str[i] == '^'))
 		ret = ft_strdup("$");
 	else
 		ret = ft_strdup(src_envi(name, com->envi));
@@ -90,14 +90,15 @@ int	dquotes(char *str, int i, t_command *com, t_word *first)
 int	word(char *str, int i, t_command *com, t_word *first)
 {
 	t_word	*new;
-	int		(*fct_tab[128])(char *str, int i, t_command *com, t_word *first);
+	int		(*fct_tab[256])(char *str, int i, t_command *com, t_word *first);
 	int		n;
 
 	n = 0;
-	while (n < 128)
+	while (n < 256)
 		fct_tab[n++] = alpha_num;
 	fct_tab['\"'] = dquotes;
 	fct_tab['\''] = squotes;
+	fct_tab['\\'] = back_slash;
 	fct_tab['$'] = venv;
 	new = malloc(sizeof(t_word));
 	if (!new)

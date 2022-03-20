@@ -6,13 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:01 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/16 15:37:01 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/20 01:50:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	g_is_running;
 
 void	free_command(char **command)
 {
@@ -28,43 +26,35 @@ void	free_command(char **command)
 	free(command);
 }
 
-int	destroy_com1(t_command *com, int j)
-{
-	int		i;
-	t_redi	*tmp_r;
-
-	while (com[j].argv)
-	{
-		i = 0;
-		while (com[j].argv[i])
-			free(com[j].argv[i++]);
-		free(com[j].argv);
-		while (com[j].redi)
-		{
-			tmp_r = com[j].redi;
-			com[j].redi = com[j].redi->next;
-			free(tmp_r->cont);
-			free(tmp_r);
-		}
-		j++;
-	}
-	return (j);
-}
-
 void	destroy_com(t_command *com)
 {
-	int		j;
+	t_redi	*mem_redi;
+	t_command	*mem_com;
+	int	i;
 
-	j = 0;
 	if (!com)
 		return ;
-	j = destroy_com1(com, 0);
-	free(com[j].argv);
-	free(com);
+	while (com)
+	{
+		i = 0;
+		while (com->argv && com->argv[i])
+			free(com->argv[i++]);
+		if (com->argv)
+			free(com->argv);
+		while (com->redi)
+		{
+			mem_redi = com->redi;
+			com->redi = com->redi->next;
+			free(mem_redi->cont);
+			free(mem_redi);
+		}
+		mem_com = com->next;
+		free(com);
+		com = mem_com;
+	}
 }
 
 void	destroy_env(t_envi *envi)
-
 {
 	t_envi	*tmp;
 

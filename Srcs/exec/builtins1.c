@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:51 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:52:46 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/20 01:57:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,43 @@ int	ft_pwd(int *tube)
 	return (0);
 }
 
-int	ft_export(char *new_env, t_envi *envi)
+int	ft_export_check(char *s)
+{
+	int	i;
+
+	i = 0;
+	while((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z')
+			|| (s[i] >= '0' && s[i] <= '9') || s[i] == '_')
+		i++;
+	if (s[i] != '=')
+		return (0);
+	i++;
+	while((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z')
+			|| (s[i] >= '0' && s[i] <= '9') || s[i] == '_')
+		i++;
+	printf("i = %i\n", i);
+	if (!s[i])
+		return (1);
+	return (0);
+}
+
+int	ft_export(char *new_venv, t_envi *envi)
 {
 	char	*name;
 
-	if (!new_env)
+	if (!new_venv)
 	{
 		export_no_arg(envi);
 		return (0);
 	}
-	if (!ft_is_in(new_env, '='))
-		return (0);
-	name = var_name(new_env);
+	if (!ft_export_check(new_venv))
+	{
+		printf("minishell error : export identifiant non valables\n");
+		return (1);
+	}
+	name = var_name(new_venv);
 	ft_unset(name, envi);
-	add_new(new_env, envi);
+	add_new(new_venv, envi);
 	free(name);
 	return (0);
 }

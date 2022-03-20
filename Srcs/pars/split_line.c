@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:26 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:40:27 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/19 19:44:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*replace_newline(char *command, char c)
 	{
 		if (command[i] == c && j == 1)
 			command[i] = '\n';
-		if (command[i] == '"')
+		if (command[i] == '"' || command[i] == '\'')
 		{
 			if (j == 0)
 				j = 1;

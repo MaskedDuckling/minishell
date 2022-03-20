@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:03 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 17:56:09 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/20 01:52:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,21 @@ int	is_empty(char *line)
 	return (1);
 }
 
-int	routine(int check, t_command *commands, t_envi *envi, char *line)
+int	routine(int check, t_command *commands, t_envi *envi, char **line)
 {
-	while (check >= 0 && line)
+	while (check >= 0 && *line)
 	{
-		if (is_empty(line))
+		commands = NULL;
+		if (is_empty(*line))
 		{
-			free(line);
-			line = ft_strdup("");
+			free(*line);
+			*line = ft_strdup("");
 		}
 		g_is_running = 1;
-		add_history(line);
-		check = parsing(line, &commands, envi, check);
+		add_history(*line);
+		check = parsing(*line, &commands, envi, check);
 		if (((check > 0 && !commands))
-			|| (check > 0 && (commands[0].argv[0]
+			|| (check > 0 && (commands->argv[0]
 					&& ft_exit(commands, &check))))
 			break ;
 		check = erroring(check);
@@ -48,9 +49,9 @@ int	routine(int check, t_command *commands, t_envi *envi, char *line)
 			check = exec_command(commands);
 		else
 			destroy_com(commands);
-		free(line);
+		free(*line);
 		g_is_running = 0;
-		line = readline("minishell : ");
+		*line = readline("minishell : ");
 	}
 	return (check);
 }
@@ -59,15 +60,14 @@ int	main(int ac, char **av, char **environ)
 {
 	char		*line;
 	t_command	*commands;
-	int			check;
+	int			ret_value;
 	t_envi		*envi;
 
-	(void)ac;
 	(void)av;
 	g_is_running = 0;
 	commands = NULL;
 	envi = environnement(environ);
-	if (!envi)
+	if (!envi && ac > 0)
 	{
 		printf("minishell error : no env\n");
 		exit(1);
@@ -75,9 +75,12 @@ int	main(int ac, char **av, char **environ)
 	if (sig_init())
 		return (1);
 	line = readline("minishell : ");
-	check = routine(0, commands, envi, line);
-	if (!line && check >= 0)
+	ret_value = routine(0, commands, envi, &line);
+	if (!line)
 		printf("exit\n");
 	destroy_env(envi);
-	return (check);
+	if (line)
+		free(line);
+	rl_clear_history();
+	return (ret_value);
 }
