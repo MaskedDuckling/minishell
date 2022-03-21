@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:47 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 14:25:19 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/03/21 15:18:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ char	*for_for_access(char **path, char *join, int i, char *cmd)
 		join = ft_strjoin(path[i], cmd);
 		if (access(join, F_OK) == 0)
 		{
-			free_command(path);
+			free_env(path);
 			return (join);
 		}
 		free(join);
 		i++;
 	}
-	free_command(path);
+	free_env(path);
 	if (access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
 	return (NULL);

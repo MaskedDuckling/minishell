@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:38:13 by eestela           #+#    #+#             */
-/*   Updated: 2022/03/21 14:18:43 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/03/21 15:17:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	is_access(char *path, t_command *command, char **environ)
 			free(path);
 		free(command->argv[0]);
 		free_process(command);
-		free_command(environ);
+		free_env(environ);
 		exit(126);
 	}
 }
