@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:36 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 14:19:41 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/03/21 15:15:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,10 @@ char		**join_envi(t_envi *envi);
 t_envi		*environnement(char **environnement);
 
 /*Execution*/
-void		free_command(char **command);
 int			exec_command(t_command *commands);
 int			ft_builtins(t_command *command);
 int			ft_builtins_fork(t_command *command, int *tube, char **envi);
 char		*src_envi(char *var_name, t_envi *envi);
-void		child_process(t_command *command, int *tube, int fd);
 void		duping(int fd, int *tube);
 int			wait_process(t_command *command);
 void		is_access(char *path, t_command *command, char **environ);
@@ -173,6 +171,7 @@ int			is_num(char *str);
 void		destroy_env(t_envi *envi);
 int			erroring(int check);
 void		free_process(t_command *command);
+void		free_env(char **env);
 void		destroy_com(t_command *com);
 
 int			sig_init(void);

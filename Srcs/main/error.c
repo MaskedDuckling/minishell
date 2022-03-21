@@ -6,24 +6,24 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:01 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/20 01:50:19 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:11:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_command(char **command)
+void	free_env(char **env)
 {
 	int	i;
 
 	i = 1;
-	free(command[0]);
-	while (command[i])
+	free(env[0]);
+	while (env[i])
 	{
-		free(command[i]);
+		free(env[i]);
 		i++;
 	}
-	free(command);
+	free(env);
 }
 
 void	destroy_com(t_command *com)
@@ -58,13 +58,12 @@ void	destroy_env(t_envi *envi)
 {
 	t_envi	*tmp;
 
-	tmp = envi->next;
-	free(envi);
-	envi = tmp;
+	tmp = envi;
 	while (envi)
 	{
 		tmp = envi;
-		envi = envi->next;
+		if (envi)
+			envi = envi->next;
 		if (tmp)
 		{
 			if (tmp->path)

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:56 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/19 23:00:58 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:11:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	ft_builtins_fork(t_command *command, int *tube, char **envi)
 		ret = ft_env(tube, command->envi, command->argv[1]);
 	else
 		return (0);
-	free_command(envi);
+	free_env(envi);
 	destroy_env(command->envi);
-	free_process(command);
+	destroy_com(command);
 	return (ret);
 }
 
