@@ -6,7 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:58 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 14:19:13 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/03/21 14:50:20 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	child_process(t_command *command, int *tube, int fd)
 	char	**envi;
 
 	envi = join_envi(command->envi);
+	if (is_builtin_fork(command))
+		exit(ft_builtins_fork(command, tube, envi));
 	path = invalid_file(command, envi);
 	is_access(path, command, envi);
 	fd = redi_type(command, tube, fd);
 	duping(fd, tube);
-	if (is_builtin_fork(command))
-		exit(ft_builtins_fork(command, tube, envi));
 	execve(path, command->argv, envi);
 	destroy_env(command->envi);
 	if (path)
