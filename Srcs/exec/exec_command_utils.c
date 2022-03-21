@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:38:13 by eestela           #+#    #+#             */
-/*   Updated: 2022/03/21 15:17:01 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 17:53:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	wait_process(t_command *command)
 
 void	is_access(char *path, t_command *command, char **environ)
 {
-	if (access(path, F_OK) == 0 && access(path, X_OK) == -1
+	if (path && access(path, F_OK) == 0 && access(path, X_OK) == -1
 		&& !(ft_strncmp(path, "./", 2)))
 	{
 		printf("minishell error : Permission denied\n");

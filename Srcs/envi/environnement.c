@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environnement.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:35 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/16 18:31:04 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:25:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	add_new(char *data, t_envi *envi)
 	new = malloc(sizeof(t_envi));
 	new->path = ft_strdup(tochar(data, '='));
 	new->name = ft_strdup(data);
+	printf("name=|%s|\n", new->name);
+	printf("path=|%s|\n", new->path);
 	new->next = NULL;
 	tmp->next = new;
 }

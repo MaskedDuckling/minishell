@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:36 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 15:15:48 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 18:02:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_envi		*environnement(char **environnement);
 /*Execution*/
 int			exec_command(t_command *commands);
 int			ft_builtins(t_command *command);
-int			ft_builtins_fork(t_command *command, int *tube, char **envi);
+int			ft_builtins_fork(t_command *first_com, t_command *command, int *tube, char **envi);
 char		*src_envi(char *var_name, t_envi *envi);
 void		duping(int fd, int *tube);
 int			wait_process(t_command *command);
@@ -159,7 +159,7 @@ int			ft_pwd(int *tube);
 int			ft_echo(char **argv, int *tube);
 int			is_builtin(t_command *command);
 int			is_builtin_fork(t_command *command);
-int			ft_exit(t_command *commands, int *check);
+int			ft_exit(t_command *command);
 
 /*builtins utils*/
 char		*var_name(char *def);

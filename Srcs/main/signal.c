@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eestela <eestela@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:58:59 by user42            #+#    #+#             */
-/*   Updated: 2022/03/16 20:26:32 by eestela          ###   ########.fr       */
+/*   Updated: 2022/03/21 20:13:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,18 @@ void	signal_handler(int signo)
 	if (signo == SIGINT)
 	{
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_replace_line("", 0);
 		if (!g_is_running)
+		{
 			rl_redisplay();
+		}
 	}
 	else if (signo == SIGQUIT)
-		write(1, "\b\b  \b\b", 6);
+	{
+		if (!g_is_running)
+			write(1, "\b\b  \b\b", 6);
+	}
 }
 
 int	sig_init(void)

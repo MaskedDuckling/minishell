@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:03 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 14:33:59 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:46:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,38 @@ int	routine(int check, t_command *commands, t_envi *envi, char **line)
 		g_is_running = 1;
 		add_history(*line);
 		check = parsing(*line, &commands, envi, check);
-		if (((check > 0 && !commands))
-			|| (check > 0 && (commands->argv[0]
-					&& ft_exit(commands, &check))))
+		free(*line);
+		if (((check > 0 && !commands)))
 			break ;
 		check = erroring(check);
 		if (check > 0)
 			check = exec_command(commands);
 		else
 			destroy_com(commands);
-		free(*line);
 		g_is_running = 0;
 		*line = readline("minishell : ");
 	}
 	return (check);
 }
 
-int	shlvl_plus(t_envi *tmp)
-{
-	long int	sh_lvl;
-
-	sh_lvl = 0;
-	if (is_num(tmp->path))
-		sh_lvl = ft_atoi_long(tmp->path);
-	free(tmp->path);
-	tmp->path = ft_itoa(sh_lvl + 1);
-	if (tmp->path)
-		return (0);
-	return (-1);
-}
-
 int	shlvl(t_envi *envi)
 {
 	t_envi	*tmp;
+	long int	sh_lvl;
 
 	tmp = envi->next;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, "SHLVL") == 0)
 		{
-			return(shlvl_plus(tmp));
+			sh_lvl = 0;
+			if (is_num(tmp->path))
+				sh_lvl = ft_atoi_long(tmp->path);
+			free(tmp->path);
+			tmp->path = ft_itoa(sh_lvl + 1);
+			if (tmp->path)
+				return (0);
+			return (-1);
 		}
 		tmp = tmp->next;
 	}

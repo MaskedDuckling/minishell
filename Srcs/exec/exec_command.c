@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:58 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 15:22:45 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/03/21 19:56:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*invalid_file(t_command *com, char **environ)
 {
 	char	*path;
 
+	if (is_builtin(com))
+		return (NULL);
 	if (com->argv && com->argv[0] && com->argv[0][0] == '\0')
 	{
 		destroy_com(com);
@@ -67,20 +69,23 @@ void	child_process(t_command *first_com, t_command *command, int *tube, int fd)
 	char	**envi;
 
 	envi = join_envi(command->envi);
+	
+	signal(SIGQUIT, SIG_DFL);
 	if (is_builtin_fork(command))
-		exit(ft_builtins_fork(command, tube, envi));
+		exit(ft_builtins_fork(first_com, command, tube, envi));
 	path = invalid_file(command, envi);
 	is_access(path, command, envi);
 	fd = redi_type(command, tube, fd);
 	duping(fd, tube);
-	execve(path, command->argv, envi);
-	destroy_env(command->envi);
 	if (path)
+	{
+		execve(path, command->argv, envi);
 		free(path);
+	}
+	destroy_env(command->envi);
 	destroy_com(first_com);
 	free_env(envi);
-	write(2, "minishell erreur : commande introuvable\n", 40);
-	exit(127);
+	exit(0);
 }
 
 void	exec_command1(t_command *commands, int fd)

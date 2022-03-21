@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:53 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 15:21:36 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/03/21 15:47:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,31 @@ int	ft_exit_argnum(t_command *commands, int *check)
 	return (1);
 }
 
-int	ft_exit(t_command *commands, int *check)
+int	ft_exit(t_command *command)
 {
-	if (!ft_strcmp(commands->argv[0], "exit"))
+	int	ret;
+
+	ret = command->exit_status;
+	if (command->argv[1] && command->argv[2]
+		&& is_num(command->argv[1]))
 	{
-		if (commands->argv[1] && commands->argv[2]
-			&& is_num(commands->argv[1]))
-		{
-			*check = -7;
-			printf("minishell: exit: trop d'arguments\n");
-			return (0);
-		}
-		else if (commands->argv[1] && !is_num(commands->argv[1]))
-		{
-			ft_exit_argnum(commands, check);
-			*check = 2;
-			return (1);
-		}
-		if (commands->argv[1]
-			&& is_num(commands->argv[1]))
-					*check = (ft_atoi_long(commands->argv[1]) % 256);
-		else if (commands->argv[1])
-			*check = 2;
-		destroy_com(commands);
+		printf("minishell: exit: trop d'arguments\n");
 		return (1);
 	}
-	return (0);
+	else if (command->argv[1] && !is_num(command->argv[1]))
+	{
+		printf("minishell: exit: %s : argument numérique nécessaire\n",
+			command->argv[1]);
+		ret = 2;
+	}
+	if (command->argv[1]
+		&& is_num(command->argv[1]))
+				ret = (ft_atoi_long(command->argv[1]) % 256);
+	else if (command->argv[1])
+		ret = 2;
+	destroy_env(command->envi);
+	destroy_com(command);
+	exit (ret);
 }
 
 int	echo_flag(char *flag)
