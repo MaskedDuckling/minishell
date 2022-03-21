@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:38:13 by eestela           #+#    #+#             */
-/*   Updated: 2022/03/19 20:46:55 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:18:43 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 void	duping(int fd, int *tube)
 {
 	if (fd != STDIN_FILENO)
+	{
 		dup2(fd, STDIN_FILENO);
-	if (fd != STDIN_FILENO)
 		close(fd);
+	}
 	if (tube[1] != STDOUT_FILENO)
+	{
 		dup2(tube[1], STDOUT_FILENO);
-	if (tube[1] != STDOUT_FILENO)
 		close(tube[1]);
+	}
 }
 
 int	wait_process(t_command *command)

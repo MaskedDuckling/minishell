@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:36 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/19 20:41:50 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:19:41 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void		duping(int fd, int *tube);
 int			wait_process(t_command *command);
 void		is_access(char *path, t_command *command, char **environ);
 char		*invalid_file(t_command *command, char **environ);
+int			redi_type(t_command *command, int *tube, int fd);
 
 /*builtins*/
 int			ft_env(int *tube, t_envi *envi, char *argv1);

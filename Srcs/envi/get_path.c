@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eestela <eestela@student.42.fr>            +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:47 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/18 16:15:24 by eestela          ###   ########.fr       */
+/*   Updated: 2022/03/21 14:25:19 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	*for_access(char *cmd, char **environ)
 	i = -1;
 	path = NULL;
 	join = NULL;
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
 	while (environ[++i])
 	{
 		if (!ft_strncmp(environ[i], "PATH=", 5))

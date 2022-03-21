@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eydupray <eydupray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:55 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/15 20:46:29 by eydupray         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:31:29 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*var_name(char *def)
 	y = 0;
 	while (def[i] && def[i] != '=')
 		i++;
+	if (i == 0 && def[i] == '=')
+		return (NULL);
 	name = malloc(sizeof(char) * (i + 1));
 	if (!name)
 		return (NULL);

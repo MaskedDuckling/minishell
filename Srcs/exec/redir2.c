@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:19:22 by eestela           #+#    #+#             */
-/*   Updated: 2022/03/19 20:40:43 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:21:33 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,33 +82,4 @@ int	redi_type(t_command *command, int *tube, int fd)
 		free(tmp_r);
 	}
 	return (fd);
-}
-
-void	ft_redi(t_command *command, int fd, int *tube)
-{
-	char	*path;
-	char	**envi;
-
-	envi = join_envi(command->envi);
-	path = invalid_file(command, envi);
-	is_access(path, command, envi);
-	fd = redi_type(command, tube, fd);
-	if (command->argv[0])
-	{
-		if (fd != STDIN_FILENO)
-			dup2(fd, STDIN_FILENO);
-		if (tube[1] != STDOUT_FILENO)
-			dup2(tube[1], STDOUT_FILENO);
-		if (is_builtin_fork(command))
-			exit(ft_builtins_fork(command, tube, envi));
-		execve(path, command->argv, envi);
-		free(command->argv[0]);
-		free_process(command);
-		write(2, "minishell erreur : commande introuvable\n", 40);
-	}
-	destroy_env(command->envi);
-	free_command(envi);
-	if (path)
-		free(path);
-	exit(127);
 }
