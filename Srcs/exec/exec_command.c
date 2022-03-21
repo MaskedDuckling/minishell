@@ -6,7 +6,7 @@
 /*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:58 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/21 14:50:20 by maskedduck       ###   ########.fr       */
+/*   Updated: 2022/03/21 15:17:57 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,17 @@ void	free_process(t_command *command)
 	int		i;
 	t_redi	*mem_redi;
 
-	i = 0;
-	if (command->argv)
+	while (command)
 	{
+		mem_redi = command->redi->next;
+		i = 0;
 		while (command->argv[i])
 			free(command->argv[i++]);
 		free(command->argv);
-	}
-	i = 0;
-	while (command->redi)
-	{
-		mem_redi = command->redi->next;
 		free(command->redi->cont);
 		free(command->redi);
 		command->redi = mem_redi;
+		command = command->next;
 	}
 }
 

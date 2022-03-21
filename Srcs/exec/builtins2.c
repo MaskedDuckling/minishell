@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:53 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/20 00:06:14 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:21:36 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	ft_echo(char **argv, int *tube)
 	{
 		close(tube[0]);
 		dup2(tube[1], STDOUT_FILENO);
+		close(tube[1]);
 	}
 	i = 1;
 	flag = 0;
