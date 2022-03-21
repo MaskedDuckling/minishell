@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:51 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/20 01:57:23 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:43:53 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int	ft_export(char *new_venv, t_envi *envi)
 		export_no_arg(envi);
 		return (0);
 	}
-	if (!ft_export_check(new_venv))
+	name = var_name(new_venv);
+	if (!ft_export_check(new_venv) || !name)
 	{
 		printf("minishell error : export identifiant non valables\n");
 		return (1);
 	}
-	name = var_name(new_venv);
 	ft_unset(name, envi);
 	add_new(new_venv, envi);
 	free(name);

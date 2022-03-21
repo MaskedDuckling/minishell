@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maskedduck <maskedduck@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:58 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/20 01:55:32 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:19:13 by maskedduck       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,21 @@ char	*invalid_file(t_command *com, char **environ)
 void	child_process(t_command *command, int *tube, int fd)
 {
 	char	*path;
-	char	**environ;
+	char	**envi;
 
-	environ = join_envi(command->envi);
+	envi = join_envi(command->envi);
+	path = invalid_file(command, envi);
+	is_access(path, command, envi);
+	fd = redi_type(command, tube, fd);
 	duping(fd, tube);
 	if (is_builtin_fork(command))
-		exit(ft_builtins_fork(command, tube, environ));
-	path = invalid_file(command, environ);
-	is_access(path, command, environ);
-	execve(path, command->argv, environ);
+		exit(ft_builtins_fork(command, tube, envi));
+	execve(path, command->argv, envi);
 	destroy_env(command->envi);
 	if (path)
 		free(path);
 	free_process(command);
-	free_command(environ);
+	free_command(envi);
 	write(2, "minishell erreur : commande introuvable\n", 40);
 	exit(127);
 }
@@ -97,9 +98,7 @@ void	exec_command1(t_command *commands, int fd)
 		else
 			tube[1] = STDOUT_FILENO;
 		commands->pid = fork();
-		if (commands->redi && commands->pid == 0)
-			ft_redi(commands, fd, tube);
-		else if (commands->pid == 0)
+		if (commands->pid == 0)
 			child_process(commands, tube, fd);
 		if (nbr++ > 0)
 			close(fd);
