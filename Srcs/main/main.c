@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:40:03 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/20 01:52:17 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:33:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,36 @@ int	routine(int check, t_command *commands, t_envi *envi, char **line)
 	return (check);
 }
 
+int	shlvl_plus(t_envi *tmp)
+{
+	long int	sh_lvl;
+
+	sh_lvl = 0;
+	if (is_num(tmp->path))
+		sh_lvl = ft_atoi_long(tmp->path);
+	free(tmp->path);
+	tmp->path = ft_itoa(sh_lvl + 1);
+	if (tmp->path)
+		return (0);
+	return (-1);
+}
+
+int	shlvl(t_envi *envi)
+{
+	t_envi	*tmp;
+
+	tmp = envi->next;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, "SHLVL") == 0)
+		{
+			return(shlvl_plus(tmp));
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 int	main(int ac, char **av, char **environ)
 {
 	char		*line;
@@ -67,6 +97,8 @@ int	main(int ac, char **av, char **environ)
 	g_is_running = 0;
 	commands = NULL;
 	envi = environnement(environ);
+	if (shlvl(envi) < 0)
+		return (-1);
 	if (!envi && ac > 0)
 	{
 		printf("minishell error : no env\n");

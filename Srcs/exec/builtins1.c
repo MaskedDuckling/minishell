@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:39:51 by eydupray          #+#    #+#             */
-/*   Updated: 2022/03/20 01:57:23 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:44:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ int	ft_export_check(char *s)
 	while((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z')
 			|| (s[i] >= '0' && s[i] <= '9') || s[i] == '_')
 		i++;
-	if (s[i] != '=')
+	if (i == 0 || s[i] != '=')
 		return (0);
 	i++;
 	while((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z')
 			|| (s[i] >= '0' && s[i] <= '9') || s[i] == '_')
 		i++;
-	printf("i = %i\n", i);
 	if (!s[i])
 		return (1);
 	return (0);
@@ -84,7 +83,7 @@ int	ft_unset(char *var_name, t_envi *envi)
 	ret = for_ft_unset(var_name);
 	if (ret >= 0)
 		return (ret);
-	par = envi;
+	par = envi->next;
 	while (par->next)
 	{
 		prev = par;
